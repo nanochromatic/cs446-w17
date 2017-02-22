@@ -1,5 +1,11 @@
 <template>
   <div id="app">
+    <ul is="transition-group">
+      <li v-for="msg in messages" :key="msg['.key']">
+        <span>{{ msg.from }}</b>: {{ msg.content }}</span>
+      </li>
+    </ul>
+
     <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
@@ -7,7 +13,8 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  props: ['messages']
 }
 </script>
 
