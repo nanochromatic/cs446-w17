@@ -34,7 +34,8 @@ cd cordova
 # install platforms and plugins
 cordova prepare
 
-# copy build to www
+# build app
+npm run build
 
 # build
 cordova build [ios|android]
