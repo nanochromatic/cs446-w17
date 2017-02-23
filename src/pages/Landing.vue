@@ -2,8 +2,8 @@
   <div class="landing">
     <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
-    <button><router-link to="/sp">Single Player</router-link></button>
-    <button><router-link to="/mp">Multiplayer</router-link></button>
+    <router-link to="/sp">Single Player</router-link>
+    <router-link to="/mp">Multiplayer</router-link>
   </div>
 </template>
 
