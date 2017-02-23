@@ -18,4 +18,27 @@ npm run build
 npm run build --report
 ```
 
+**Built destination is ./cordova/www**
+
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Cordova
+
+``` bash
+# install cordova
+npm install -g cordova
+
+# all cordova commands must be run from /cordova
+cd cordova
+
+# install platforms and plugins
+cordova prepare
+
+# build app
+npm run build
+
+# build
+cordova build [ios|android]
+```
+
+More on [Cordova](https://cordova.apache.org/docs/en/latest/guide/cli/)

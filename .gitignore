@@ -2,3 +2,10 @@
 node_modules/
 dist/
 npm-debug.log
+cordova/platforms/*
+!cordova/platforms/.gitkeep
+cordova/plugins/*
+!cordova/plugins/.gitkeep
+cordova/www/*
+!cordova/www/.gitkeep
+
