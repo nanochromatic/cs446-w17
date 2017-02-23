@@ -8,11 +8,17 @@ import actions from '../actions'
 Vue.use(Vuex)
 
 const state = {
-  userHand: [],
-  cpu1Hand: [],
-  cpu2Hand: [],
-  cpu3Hand: [],
-  deck: []
+  player: {
+    name: ''
+  },
+  game: {
+    id: '',
+    gameState: 'waiting',
+    deck: [],
+    players: [],
+    playOrder: [],
+    statusMessage: ''
+  }
 }
 
 const debug = process.env.NODE_ENV !== 'production'
