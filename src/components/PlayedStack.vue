@@ -1,5 +1,5 @@
 <template>
-  <div class="deck">
+  <div class="playedStack">
   </div>
 </template>
 
