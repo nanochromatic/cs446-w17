@@ -5,8 +5,6 @@
         <span>{{ msg.from }}</b>: {{ msg.content }}</span>
       </li>
     </ul>
-
-    <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
 </template>
