@@ -20,6 +20,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import "../scss/app.scss";
+
 h1, h2 {
   font-weight: normal;
 }
@@ -35,6 +37,19 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: $color-primary;
 }
+
+@media screen and (orientation: portrait) {
+  h1::after {
+    content: ' [Portrait]';
+  }
+}
+
+@media screen and (orientation: landscape) {
+  h1::after {
+    content: ' [Landscape]';
+  }
+}
+
 </style>
