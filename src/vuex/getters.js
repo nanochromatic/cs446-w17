@@ -7,5 +7,6 @@ export default {
   playerFourHand: state => state.game.deck.filter(card => card.location === 'playerFourHand'),
 
   gameStatus: state => state.game.gameState,
-  players: state => state.game.players
+  players: state => state.game.players,
+  lastCardPlayed: state => state.game.lastCardPlayed
 }

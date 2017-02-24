@@ -17,6 +17,9 @@ const state = {
     deck: [],
     players: [],
     playOrder: [],
+    lastCardPlayed: null,
+    direction: '',
+    specialAttackStack: 0,
     statusMessage: ''
   }
 }

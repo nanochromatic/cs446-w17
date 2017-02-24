@@ -13,272 +13,316 @@ export const shuffleArray = function (array) {
   return array
 }
 
+export const SECONDARY = {
+  MOON: 'moon',
+  STAR: 'star',
+  CLOVER: 'clover',
+  HEART: 'heart',
+  CIRCLE: 'circle',
+  SQUARE: 'square',
+  JUMP: 'jump',
+  REVERSE: 'reverse',
+  CHANGE_COLOR: 'changeColor',
+  ADDITIONAL_TURN: 'additionalTurn',
+  SINGLE_ATTACK: 'singleAttack',
+  DOUBLE_ATTACK: 'doubleAttack',
+  SPECIAL1: 'special1',
+  SPECIAL2: 'special2',
+  SPECIAL3: 'special3',
+  SPECIAL4: 'special4'
+}
+
+export const COLOR = {
+  RED: 'red',
+  GREEN: 'green',
+  BLUE: 'blue',
+  YELLOW: 'yellow'
+}
+
+export const LOCATION = {
+  DRAW_STACK: 'drawStack',
+  PLAYED_STACK: 'playedStack',
+  PLAYER1: 'player1',
+  PLAYER2: 'player2',
+  PLAYER3: 'player3',
+  PLAYER4: 'player4'
+}
+
+export const SHAPES = [
+  SECONDARY.MOON,
+  SECONDARY.STAR,
+  SECONDARY.CLOVER,
+  SECONDARY.HEART,
+  SECONDARY.CIRCLE,
+  SECONDARY.SQUARE
+]
+
 export const masterDrawStack = [
   // red
   {
-    color: 'red',
-    secondary: 'moon',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.MOON,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'star',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.STAR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'clover',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.CLOVER,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'heart',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.HEART,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'circle',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.CIRCLE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'square',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.SQUARE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'jump',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'reverse',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.REVERSE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'changeColor',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.CHANGE_COLOR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'additionalTurn',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.ADDITIONAL_TURN,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'singleAttack',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.SINGLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'doubleAttack',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.DOUBLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'red',
-    secondary: 'special1',
-    location: 'drawStack'
+    color: COLOR.RED,
+    secondary: SECONDARY.SPECIAL1,
+    location: LOCATION.DRAW_STACK
   },
 
   // green
   {
-    color: 'green',
-    secondary: 'moon',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.MOON,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'star',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.STAR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'clover',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.CLOVER,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'heart',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.HEART,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'circle',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.CIRCLE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'square',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.SQUARE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'jump',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'reverse',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.REVERSE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'changeColor',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.CHANGE_COLOR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'additionalTurn',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.ADDITIONAL_TURN,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'singleAttack',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.SINGLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'doubleAttack',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.DOUBLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'green',
-    secondary: 'special2',
-    location: 'drawStack'
+    color: COLOR.GREEN,
+    secondary: SECONDARY.SPECIAL2,
+    location: LOCATION.DRAW_STACK
   },
 
   // blue
   {
-    color: 'blue',
-    secondary: 'moon',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.MOON,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'star',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.STAR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'clover',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.CLOVER,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'heart',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.HEART,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'circle',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.CIRCLE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'square',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.SQUARE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'jump',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'reverse',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.REVERSE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'changeColor',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.CHANGE_COLOR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'additionalTurn',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.ADDITIONAL_TURN,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'singleAttack',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.SINGLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'doubleAttack',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.DOUBLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'blue',
-    secondary: 'special3',
-    location: 'drawStack'
+    color: COLOR.BLUE,
+    secondary: SECONDARY.SPECIAL3,
+    location: LOCATION.DRAW_STACK
   },
 
   // yellow
   {
-    color: 'yellow',
-    secondary: 'moon',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.MOON,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'star',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.STAR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'clover',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.CLOVER,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'heart',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.HEART,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'circle',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.CIRCLE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'square',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.SQUARE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'jump',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'reverse',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.REVERSE,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'changeColor',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.CHANGE_COLOR,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'additionalTurn',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.ADDITIONAL_TURN,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'singleAttack',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.SINGLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'doubleAttack',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.DOUBLE_ATTACK,
+    location: LOCATION.DRAW_STACK
   },
   {
-    color: 'yellow',
-    secondary: 'special4',
-    location: 'drawStack'
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.SPECIAL4,
+    location: LOCATION.DRAW_STACK
   }
 ]

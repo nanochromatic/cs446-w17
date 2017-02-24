@@ -1,3 +1,5 @@
+import { LOCATION } from '../js/GameHelper'
+
 export default {
   reset (state, resetState) {
     state.player.name = resetState.player.name
@@ -6,6 +8,9 @@ export default {
     state.game.deck = resetState.game.deck
     state.game.players = resetState.game.players
     state.game.playOrder = resetState.game.playOrder
+    state.game.lastCardPlayed = resetState.game.lastCardPlayed
+    state.game.direction = resetState.game.direction
+    state.game.specialAttackStack = resetState.game.specialAttackStack
     state.game.statusMessage = resetState.game.statusMessage
   },
 
@@ -25,8 +30,16 @@ export default {
     state.game.deck[28].location = 'playedStack'
   },
 
-  draw (state, player) {
-    // var drawnCard = state.deck.shift()
-    // state.userHand.unshift(drawnCard)
+  playCard (state, card, player) {
+    state.game.deck.find(card).location = player
+    state.game.lastCardPlayed = card
+  },
+
+  drawCard (state, player) {
+    state.game.deck.find(LOCATION.DRAW_STACK).location = player
+  },
+
+  switchDirection (state) {
+    state.game.direction = (state.game.direction === 'cw') ? 'ccw' : 'cw'
   }
 }

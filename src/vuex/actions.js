@@ -18,6 +18,9 @@ export default {
           }
         ],
         playOrder: [],
+        lastCardPlayed: null,
+        direction: 'cw',
+        specialAttackStack: 0,
         statusMessage: ''
       }
     })
@@ -35,7 +38,15 @@ export default {
     commit('start')
   },
 
-  drawCard: function ({commit}, player) {
-    commit('draw', player)
+  playCardAction: function ({commit}, card, player) {
+    commit('playCard', card, player)
+  },
+
+  drawCardAction: function ({commit}, player) {
+    commit('drawCard', player)
+  },
+
+  switchDirectionAction: function ({commit}) {
+    commit('switchDirection')
   }
 }
