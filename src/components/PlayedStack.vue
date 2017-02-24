@@ -1,5 +1,6 @@
 <template>
   <div class="playedStack">
+    Played Stack
   </div>
 </template>
 
@@ -8,14 +9,16 @@ import Card from './Card'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+  components: {
+    Card
+  },
+
   data () {
-    return {
-      deckEmpty: null
-    }
+    return {}
   },
 
   computed: {
-    ..mapGetters([
+    ...mapGetters([
       'deck'
     ])
   },
@@ -25,13 +28,9 @@ export default {
       'drawCard'
     ]),
 
-
     draw () {
-      
-    },
+    }
+  }
 
-  },
-
-  components: {Card}
 }
 </script>

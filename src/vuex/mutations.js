@@ -8,7 +8,7 @@ export default {
     state.game.playOrder = resetState.game.playOrder
     state.game.statusMessage = resetState.game.statusMessage
   },
-  
+
   draw (state, player) {
     var drawnCard = state.deck.shift()
     state.userHand.unshift(drawnCard)
