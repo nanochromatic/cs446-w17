@@ -1,12 +1,13 @@
 <template>
   <div class="playedStack">
     Played Stack
+    <card v-for="card in playedStackDeck" :card="card" />
   </div>
 </template>
 
 <script>
 import Card from './Card'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -19,17 +20,11 @@ export default {
 
   computed: {
     ...mapGetters([
-      'deck'
+      'playedStackDeck'
     ])
   },
 
   methods: {
-    ...mapActions([
-      'drawCard'
-    ]),
-
-    draw () {
-    }
   }
 
 }

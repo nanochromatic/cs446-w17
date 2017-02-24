@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Board</h3>
-    <button v-on:click="resetGame">Start Game</button>
+
     <played-stack />
     <draw-stack />
     <player />

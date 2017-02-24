@@ -1,7 +1,7 @@
 <template>
   <div class="drawStack">
     Draw Stack
-    <card />
+    <card v-for="card in drawStackDeck" :card="card" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'deck'
+      'drawStackDeck'
     ])
   },
 
