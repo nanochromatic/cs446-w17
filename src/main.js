@@ -5,6 +5,7 @@ import VueFire from 'vuefire'
 import Firebase from 'firebase'
 import App from './App'
 import router from './router'
+import store from './vuex/store'
 
 Vue.use(VueFire)
 
@@ -25,6 +26,7 @@ new Vue({
     messages: db.ref('messages')
   },
   router,
-  template: '<App :messages="messages" />',
+  store,
+  template: '<App />',
   components: { App }
 })
