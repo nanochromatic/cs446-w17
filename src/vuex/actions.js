@@ -17,9 +17,7 @@ export default {
             timeRemaining: 10
           }
         ],
-        playOrder: [],
         lastCardPlayed: null,
-        direction: 'cw',
         specialAttackStack: 0,
         statusMessage: ''
       }
@@ -34,6 +32,8 @@ export default {
         timeRemaining: 0
       })
     }
+
+    commit('shufflePlayers')
 
     commit('dealCards')
 

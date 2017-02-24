@@ -1,4 +1,4 @@
-import { LOCATION } from '../js/GameHelper'
+import { LOCATION, shuffleArray } from '../js/GameHelper'
 
 export default {
 
@@ -12,9 +12,7 @@ export default {
     state.game.state = resetState.game.state
     state.game.deck = resetState.game.deck
     state.game.players = resetState.game.players
-    state.game.playOrder = resetState.game.playOrder
     state.game.lastCardPlayed = resetState.game.lastCardPlayed
-    state.game.direction = resetState.game.direction
     state.game.specialAttackStack = resetState.game.specialAttackStack
     state.game.statusMessage = resetState.game.statusMessage
   },
@@ -24,6 +22,13 @@ export default {
    */
   addPlayer (state, player) {
     state.game.players.push(player)
+  },
+
+  /*
+   * Shuffles the players to determine the playing order
+   */
+  shufflePlayers (state) {
+    shuffleArray(state.game.players)
   },
 
   /*
@@ -48,7 +53,7 @@ export default {
   },
 
   switchDirection (state) {
-    state.game.direction = (state.game.direction === 'cw') ? 'ccw' : 'cw'
+    state.game.players.reverse()
   },
 
   gameStateMessage (state, message) {

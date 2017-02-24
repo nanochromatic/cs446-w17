@@ -16,9 +16,7 @@ const state = {
     gameState: 'waiting',
     deck: [],
     players: [],
-    playOrder: [],
     lastCardPlayed: null,
-    direction: '',
     specialAttackStack: 0,
     statusMessage: ''
   }
