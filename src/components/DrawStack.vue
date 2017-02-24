@@ -1,6 +1,6 @@
 <template>
   <div class="drawStack">
-    Draw Stack
+    <b>Draw Stack</b>
     <card v-for="card in drawStackDeck" :card="card" />
   </div>
 </template>

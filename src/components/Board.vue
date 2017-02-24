@@ -4,15 +4,15 @@
 
     <played-stack />
     <draw-stack />
-    <player />
-    <player />
-    <player />
-    <player />
+    <player :playerNumber="1" />
+    <player :playerNumber="2" />
+    <player :playerNumber="3" />
+    <player :playerNumber="4" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import Player from './Player'
 import DrawStack from './DrawStack'
@@ -23,6 +23,12 @@ export default {
     Player,
     DrawStack,
     PlayedStack
+  },
+
+  computed: {
+    ...mapGetters([
+      'players'
+    ])
   },
 
   methods: {

@@ -4,5 +4,8 @@ export default {
   playerOneHand: state => state.game.deck.filter(card => card.location === 'playerOneHand'),
   playerTwoHand: state => state.game.deck.filter(card => card.location === 'playerTwoHand'),
   playerThreeHand: state => state.game.deck.filter(card => card.location === 'playerThreeHand'),
-  playerFourHand: state => state.game.deck.filter(card => card.location === 'playerFourHand')
+  playerFourHand: state => state.game.deck.filter(card => card.location === 'playerFourHand'),
+
+  gameStatus: state => state.game.gameState,
+  players: state => state.game.players
 }
