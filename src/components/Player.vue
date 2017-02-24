@@ -9,7 +9,7 @@
 
 <script>
 import Card from './Card'
-import { LOCATION, SECONDARY, SHAPES } from '../js/GameHelper'
+import { LOCATION, SECONDARY } from '../js/GameHelper'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -94,11 +94,9 @@ export default {
       if (card.color === lastColor) {
         return true
       }
-      // player can match the shape
+      // player can match the secondary type
       if (card.secondary === lastSecondary) {
-        if (SHAPES.includes(card.secondary) && SHAPES.includes(lastSecondary)) {
-          return true
-        }
+        return true
       }
       return false
     },
