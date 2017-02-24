@@ -1,7 +1,9 @@
 <template>
   <div>
     <b>{{ playerNumber }}</b>
-    <card v-for="card in playerHand" :card="card" />
+    <div v-for="card in playerHand" v-on:click="playCard(card)">
+      <card :card="card" />
+    </div>
   </div>
 </template>
 
@@ -63,7 +65,9 @@ export default {
     playCard: function (card) {
       if (this.checkLegalMove(card)) {
         this.processCardEffect(card)
-        this.playCardAction(card, this.playerNumber)
+        this.playCardAction([card, this.playerNumber])
+      } else {
+        console.log('illegal move')
       }
     },
 

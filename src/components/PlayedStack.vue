@@ -1,5 +1,7 @@
 <template>
   <div class="playedStack">
+    <b>Top Of Played Stack</b>
+    <card :card="lastCardPlayed" />
     <b>Played Stack</b>
     <card v-for="card in playedStackDeck" :card="card" />
   </div>
@@ -20,6 +22,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'lastCardPlayed',
       'playedStackDeck'
     ])
   },

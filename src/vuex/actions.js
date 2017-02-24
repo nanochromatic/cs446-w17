@@ -35,11 +35,16 @@ export default {
       })
     }
 
-    commit('start')
+    commit('dealCards')
+
+    commit('gameStateMessage', 'inProgress')
+
+    // Flip the top card off the DRAW_STACK, and move it to the PLAYED_STACK
+    commit('playCard', state.game.deck[28])
   },
 
-  playCardAction: function ({commit}, card, player) {
-    commit('playCard', card, player)
+  playCardAction: function ({commit}, [card, player]) {
+    commit('playCard', card)
   },
 
   drawCardAction: function ({commit}, player) {
