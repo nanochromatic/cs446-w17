@@ -1,10 +1,12 @@
+import { LOCATION } from '../js/GameHelper'
+
 export default {
-  drawStackDeck: state => state.game.deck.filter(card => card.location === 'drawStack'),
-  playedStackDeck: state => state.game.deck.filter(card => card.location === 'playedStack'),
-  playerOneHand: state => state.game.deck.filter(card => card.location === 'playerOneHand'),
-  playerTwoHand: state => state.game.deck.filter(card => card.location === 'playerTwoHand'),
-  playerThreeHand: state => state.game.deck.filter(card => card.location === 'playerThreeHand'),
-  playerFourHand: state => state.game.deck.filter(card => card.location === 'playerFourHand'),
+  drawStackDeck: state => state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK),
+  playedStackDeck: state => state.game.deck.filter(card => card.location === LOCATION.PLAYED_STACK),
+  playerOneHand: state => state.game.deck.filter(card => card.location === LOCATION.PLAYER1),
+  playerTwoHand: state => state.game.deck.filter(card => card.location === LOCATION.PLAYER2),
+  playerThreeHand: state => state.game.deck.filter(card => card.location === LOCATION.PLAYER3),
+  playerFourHand: state => state.game.deck.filter(card => card.location === LOCATION.PLAYER4),
 
   gameStatus: state => state.game.gameState,
   players: state => state.game.players,

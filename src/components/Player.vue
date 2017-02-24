@@ -1,19 +1,19 @@
 <template>
   <div>
-    <b>Player {{ playerNumber }}</b>
+    <b>{{ playerNumber }}</b>
     <card v-for="card in playerHand" :card="card" />
   </div>
 </template>
 
 <script>
 import Card from './Card'
-import { SECONDARY, SHAPES } from '../js/GameHelper'
+import { LOCATION, SECONDARY, SHAPES } from '../js/GameHelper'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
     playerNumber: {
-      type: Number,
+      type: String,
       required: true
     }
   },
@@ -33,10 +33,11 @@ export default {
 
     playerHand () {
       switch (this.playerNumber) {
-        case 1: return this.playerOneHand
-        case 2: return this.playerTwoHand
-        case 3: return this.playerThreeHand
-        case 4: return this.playerFourHand
+        case LOCATION.PLAYER1: return this.playerOneHand
+        case LOCATION.PLAYER2: return this.playerTwoHand
+        case LOCATION.PLAYER3: return this.playerThreeHand
+        case LOCATION.PLAYER4: return this.playerFourHand
+        default: []
       }
     }
   },

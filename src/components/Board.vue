@@ -4,16 +4,13 @@
 
     <played-stack />
     <draw-stack />
-    <player :playerNumber="1" />
-    <player :playerNumber="2" />
-    <player :playerNumber="3" />
-    <player :playerNumber="4" />
+    <player v-for="playerNumber in playersNumbers" :playerNumber="playerNumber" />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
+import { LOCATION } from '../js/GameHelper'
 import Player from './Player'
 import DrawStack from './DrawStack'
 import PlayedStack from './PlayedStack'
@@ -39,7 +36,12 @@ export default {
 
   data () {
     return {
-
+      playersNumbers: [
+        LOCATION.PLAYER1,
+        LOCATION.PLAYER2,
+        LOCATION.PLAYER3,
+        LOCATION.PLAYER4
+      ]
     }
   }
 }

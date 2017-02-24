@@ -22,12 +22,12 @@ export default {
     state.game.gameState = 'inProgress'
 
     for (var i = 0; i < 7; i++) {
-      state.game.deck[i * 4].location = 'playerOneHand'
-      state.game.deck[i * 4 + 1].location = 'playerTwoHand'
-      state.game.deck[i * 4 + 2].location = 'playerThreeHand'
-      state.game.deck[i * 4 + 3].location = 'playerFourHand'
+      state.game.deck[i * 4].location = LOCATION.PLAYER1
+      state.game.deck[i * 4 + 1].location = LOCATION.PLAYER2
+      state.game.deck[i * 4 + 2].location = LOCATION.PLAYER3
+      state.game.deck[i * 4 + 3].location = LOCATION.PLAYER4
     }
-    state.game.deck[28].location = 'playedStack'
+    state.game.deck[28].location = LOCATION.PLAYED_STACK
   },
 
   playCard (state, card, player) {
