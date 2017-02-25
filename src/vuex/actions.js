@@ -41,6 +41,7 @@ export default {
     commit('gameStateMessage', 'inProgress')
 
     // Flip the top card off the DRAW_STACK, and move it to the PLAYED_STACK
+    commit('changeColour', state.game.deck[28].color)
     commit('playCard', state.game.deck[28])
   },
 
@@ -58,5 +59,9 @@ export default {
 
   attackStackAction: function ({commit}, card) {
     commit('attackStack', card)
+  },
+
+  changeColourAction: function ({commit}, colour) {
+    commit('changeColour', colour)
   }
 }

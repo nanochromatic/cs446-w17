@@ -3,6 +3,7 @@
     <h3>Board</h3>
     <h4>Time Remaining<div class="timer" v-text="timerSeconds"></div></h4>
     <h4>Current Player<div class="player-label" v-text="currentPlayer"></div></h4>
+    <h4>Current Colour<div class="currentColour" v-text="lastColour"></div></h4>
     <played-stack />
     <draw-stack />
     <player v-for="playerNumber in playersNumbers" :playerNumber="playerNumber" />
@@ -26,7 +27,8 @@ export default {
   computed: {
     ...mapGetters([
       'players',
-      'currentPlayer'
+      'currentPlayer',
+      'lastColour'
     ])
   },
 

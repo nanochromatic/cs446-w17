@@ -83,6 +83,10 @@ export default {
     }
   },
 
+  changeColour (state, colour) {
+    state.game.currentColour = colour
+  },
+
   gameStateMessage (state, message) {
     state.game.gameState = message
   },
