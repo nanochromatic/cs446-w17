@@ -1,6 +1,6 @@
 <template>
   <div class="landing">
-    <img src="../assets/logo.png">
+    <img src="static/logo.png">
     <h1>{{ msg }}</h1>
     <router-link to="/sp">Single Player</router-link>
     <router-link to="/mp">Multiplayer</router-link>

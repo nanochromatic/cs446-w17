@@ -1,9 +1,6 @@
 <template>
   <div class="playedStack">
-    <b>Top Of Played Stack</b>
-    <card :card="lastCardPlayed" />
-    <b>Played Stack</b>
-    <card v-for="card in playedStackDeck" :card="card" />
+    <card v-for="card in playedStackDeck" :card="card" class="card-container"/>
   </div>
 </template>
 
@@ -32,3 +29,24 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+
+.playedStack {
+  display: -webkit-inline-flex;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.card-container {
+  -webkit-flex: 1 1 100px;
+  flex: 1 1 100px;
+  overflow: visible;
+}
+
+.card-container:last-child {
+  -webkit-flex: 0 0 100px;
+  flex: 0 0 100px;
+}
+
+</style>
