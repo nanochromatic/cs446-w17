@@ -20,6 +20,14 @@ export default {
     }
   },
 
+  watch: {
+    cpuBoardAction: function (oldVal, newVal) {
+      if (this.cpuBoardAction === this.playerNumber) {
+        this.botPlayCard()
+      }
+    }
+  },
+
   components: {
     Card
   },
@@ -30,7 +38,8 @@ export default {
       'playerTwoHand',
       'playerThreeHand',
       'playerFourHand',
-      'lastCardPlayed'
+      'lastCardPlayed',
+      'cpuBoardAction'
     ]),
 
     playerHand () {
@@ -58,8 +67,20 @@ export default {
     },
 
     botPlayCard: function () {
-      // check each card and see if it can be played, if none are playable
+      // Check each card and see if it can be played, if none are playable
       //  draw a card
+      var hand = this.playerHand
+      for (var i = 0; i < hand.length; i++) {
+        if (this.checkLegalMove(hand[i])) {
+          console.log(this.playerNumber + ' played card ' + hand[i].color + '-' + hand[i].secondary)
+          this.processCardEffect(hand[i])
+          this.playCardAction([hand[i], this.playerNumber])
+          return
+        }
+      }
+      // No valid moves for the bot
+      console.log('No valid moves for bot, drawing card')
+      this.drawCard()
     },
 
     playCard: function (card) {

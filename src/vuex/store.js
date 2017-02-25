@@ -18,7 +18,8 @@ const state = {
     players: [],
     lastCardPlayed: null,
     specialAttackStack: 0,
-    statusMessage: ''
+    statusMessage: '',
+    cpuBoardAction: ''
   }
 }
 
