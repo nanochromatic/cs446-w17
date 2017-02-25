@@ -1,4 +1,4 @@
-import { LOCATION, shuffleArray } from '../js/GameHelper'
+import { LOCATION, SECONDARY, shuffleArray } from '../js/GameHelper'
 
 export default {
 
@@ -58,11 +58,29 @@ export default {
   },
 
   drawCard (state, player) {
+    // If there are attacks stacked, then drawing means that thie player has lost the attack
+    if (state.game.specialAttackStack) {
+      // draw cards equal to the value of the stack and then reset the stack value
+      for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
+        state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
+      }
+      state.game.specialAttackStack = 0
+    }
+
     state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
   },
 
   switchDirection (state) {
     state.game.players.reverse()
+  },
+
+  attackStack (state, card) {
+    state.game.specialAttackStack += (card.secondary === SECONDARY.SINGLE_ATTACK) ? 1 : 2
+
+    // We chose 10 as the max attack stacking value
+    if (state.game.specialAttackStack > 10) {
+      state.game.specialAttackStack = 10
+    }
   },
 
   gameStateMessage (state, message) {
