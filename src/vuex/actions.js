@@ -27,7 +27,7 @@ export default {
   startGame: function ({commit, state}) {
     for (var i = state.game.players.length; i < 4; i++) {
       commit('addPlayer', {
-        id: 1,
+        id: i,
         type: 'cpu',
         timeRemaining: 0
       })

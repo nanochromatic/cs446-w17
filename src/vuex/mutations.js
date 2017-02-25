@@ -25,7 +25,7 @@ export default {
   },
 
   /*
-   * Shuffles the players to determine the playing order
+   * Shuffle the players to determine the playing order
    */
   shufflePlayers (state) {
     shuffleArray(state.game.players)
@@ -41,6 +41,14 @@ export default {
       state.game.deck[i * 4 + 2].location = LOCATION.PLAYER3
       state.game.deck[i * 4 + 3].location = LOCATION.PLAYER4
     }
+  },
+
+  /*
+   * End a player's turn
+   */
+  endTurn (state) {
+    var player = state.game.players.shift()
+    state.game.players.push(player)
   },
 
   playCard (state, card) {
