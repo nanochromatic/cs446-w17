@@ -1,6 +1,6 @@
 <template>
   <div class="playedStack">
-    <card v-for="card in playedStackDeck" :card="card" class="card-container"/>
+    <card v-for="card in reverse" :card="card" class="card-container"/>
   </div>
 </template>
 
@@ -21,7 +21,11 @@ export default {
     ...mapGetters([
       'lastCardPlayed',
       'playedStackDeck'
-    ])
+    ]),
+
+    reverse: function () {
+      return this.playedStackDeck.reverse()
+    }
   },
 
   methods: {

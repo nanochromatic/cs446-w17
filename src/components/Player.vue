@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container" v-if="playerNumber==='player1'">
-      <card v-for="card in playerHand" class="card-container" :card="card" v-on:click.native="playCard(card)"/>
+      <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
     </div>
     <div class="container" v-else>
       <card v-for="card in playerHand" class="card-container" :card="card" :show='false'/>
@@ -148,6 +148,12 @@ export default {
 .card-container:last-child {
   -webkit-flex: 0 0 100px;
   flex: 0 0 100px;
+}
+
+.player-card:hover {
+  display: relative;
+  top: -5px;
+  z-index: 2;
 }
 
 </style>

@@ -71,5 +71,6 @@ export default {
 .card--yellow {
   color: $card-color--yellow;
 }
+
 </style>
 
