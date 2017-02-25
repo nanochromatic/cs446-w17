@@ -41,7 +41,8 @@ export default {
     ]),
 
     ...mapMutations([
-      'endTurn'
+      'switchPlayer',
+      'changeCpuBoardAction'
     ]),
 
     startTimer () {
@@ -62,23 +63,39 @@ export default {
       }
       this.timerSeconds--
       if (this.timerSeconds === 0) {
-        this.completeTimer()
+        this.outOfTime()
+        return
+      }
+      if (this.timerSeconds === 10) {
+        // bot makes a move when timer is at 10s
+        this.processBot()
         return
       }
     },
 
-    completeTimer () {
+    stopTimer () {
       clearInterval(this.timerInterval)
       this.timerStarted = false
-      console.log('Out of time!')
-      this.outOfTime()
+    },
+
+    endTurn () {
+      this.switchPlayer()
+      this.startTimer()
     },
 
     outOfTime () {
+      this.stopTimer()
       this.drawCardAction(this.currentPlayer)
-      console.log('drawn card')
+      console.log('Out of time! Drawing card from deck...')
       this.endTurn()
-      this.startTimer()
+    },
+
+    processBot () {
+      if (this.currentPlayer.type === 'cpu') {
+        this.stopTimer()
+        this.changeCpuBoardAction(this.currentPlayer)
+        this.endTurn()
+      }
     }
   },
 

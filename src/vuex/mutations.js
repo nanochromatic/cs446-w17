@@ -15,6 +15,7 @@ export default {
     state.game.lastCardPlayed = resetState.game.lastCardPlayed
     state.game.specialAttackStack = resetState.game.specialAttackStack
     state.game.statusMessage = resetState.game.statusMessage
+    state.game.cpuBoardAction = resetState.game.cpuBoardAction
   },
 
   /*
@@ -46,7 +47,7 @@ export default {
   /*
    * End a player's turn
    */
-  endTurn (state) {
+  switchPlayer (state) {
     var player = state.game.players.shift()
     state.game.players.push(player)
   },
@@ -84,5 +85,9 @@ export default {
 
   gameStateMessage (state, message) {
     state.game.gameState = message
+  },
+
+  changeCpuBoardAction (state, player) {
+    state.game.cpuBoardAction = player.id
   }
 }

@@ -19,7 +19,8 @@ export default {
         ],
         lastCardPlayed: null,
         specialAttackStack: 0,
-        statusMessage: ''
+        statusMessage: '',
+        cpuBoardAction: ''
       }
     })
   },
