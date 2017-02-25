@@ -36,7 +36,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'resetGame'
+      'resetGame',
+      'drawCardAction'
     ]),
 
     ...mapMutations([
@@ -46,7 +47,7 @@ export default {
     startTimer () {
       if (!this.timerStarted) {
         this.timerStarted = true
-        setInterval(this.tickTimer, 1000)
+        this.timerInterval = setInterval(this.tickTimer, 1000)
         this.resetTimer()
       }
     },
@@ -67,8 +68,17 @@ export default {
     },
 
     completeTimer () {
+      clearInterval(this.timerInterval)
       this.timerStarted = false
       console.log('Out of time!')
+      this.outOfTime()
+    },
+
+    outOfTime () {
+      this.drawCardAction(this.currentPlayer)
+      console.log('drawn card')
+      this.endTurn()
+      this.startTimer()
     }
   },
 
@@ -82,7 +92,8 @@ export default {
       ],
       MAX_TIME: 15,
       timerSeconds: this.MAX_TIME,
-      timerStarted: false
+      timerStarted: false,
+      timerInterval: null
     }
   }
 }

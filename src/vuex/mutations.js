@@ -57,7 +57,7 @@ export default {
   },
 
   drawCard (state, player) {
-    state.game.deck.find(LOCATION.DRAW_STACK).location = player
+    state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
   },
 
   switchDirection (state) {
