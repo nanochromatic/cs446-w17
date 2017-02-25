@@ -53,5 +53,9 @@ export default {
 
   switchDirectionAction: function ({commit}) {
     commit('switchDirection')
+  },
+
+  attackStackAction: function ({commit}, card) {
+    commit('attackStack', card)
   }
 }

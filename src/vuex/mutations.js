@@ -1,4 +1,4 @@
-import { LOCATION } from '../js/GameHelper'
+import { LOCATION, SECONDARY } from '../js/GameHelper'
 
 export default {
 
@@ -44,11 +44,27 @@ export default {
   },
 
   drawCard (state, player) {
+    if (state.game.specialAttackStack) {
+      for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
+        state.game.deck.find(LOCATION.DRAW_STACK).location = player
+      }
+      state.game.specialAttackStack = 0
+    }
+
     state.game.deck.find(LOCATION.DRAW_STACK).location = player
   },
 
   switchDirection (state) {
     state.game.direction = (state.game.direction === 'cw') ? 'ccw' : 'cw'
+  },
+
+  attackStack (state, card) {
+    state.game.specialAttackStack += (card.secondary === SECONDARY.SINGLE_ATTACK) ? 1 : 2
+
+    // We chose 10 as the max attack stacking value
+    if (state.game.specialAttackStack > 10) {
+      state.game.specialAttackStack = 10
+    }
   },
 
   gameStateMessage (state, message) {

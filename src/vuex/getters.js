@@ -10,5 +10,6 @@ export default {
 
   gameStatus: state => state.game.gameState,
   players: state => state.game.players,
-  lastCardPlayed: state => state.game.lastCardPlayed
+  lastCardPlayed: state => state.game.lastCardPlayed,
+  attackStatus: state => state.game.specialAttackStack
 }
