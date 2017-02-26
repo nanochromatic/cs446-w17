@@ -1,7 +1,7 @@
 <template>
   <div class="card" v-bind:class="['card--'+card.color]">
-	<img class="back-frame" src="static/cardframe.png"/>
-	<img v-if="show == true" class="card-icon" :src="'static/card'+card.secondary+'.png'"/>
+	<img class="back-frame" :src="'static/cardframe'+card.color+'.png'"/>
+	<img v-if="show == true" class="card-icon" :src="'static/card'+card.secondary+card.color+'.png'"/>
 	<img v-else class="back-frame" src="static/cardframeback.png"/>
   </div>
 </template>

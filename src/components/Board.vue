@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>Board</h3>
-
-    <played-stack />
-    <draw-stack />
+    <div class="stacks">
+      <played-stack />
+      <draw-stack />
+	</div>
     <player v-for="playerNumber in playersNumbers" :playerNumber="playerNumber" :class="playerNumber"/>
   </div>
 </template>
@@ -50,18 +50,17 @@ export default {
 
 <style lang="scss">
 
-.played-stack {
-  position: absolute;
+.stacks {
+  width: 100%;
+  position: relative;
   top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(50%);
 }
 
 .player1 {
   position: fixed;
   bottom: 0;
-  width: 50%;
+  width: 100%;
   right: 0;
   left: 0;
   margin-right: auto;
@@ -92,7 +91,7 @@ export default {
 .player3 {
   position: fixed;
   top: 0;
-  width: 50%;
+  width: 100%;
   right: 0;
   left: 0;
   margin-right: auto;

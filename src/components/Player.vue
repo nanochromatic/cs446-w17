@@ -135,7 +135,7 @@ export default {
 
 .container {
   display: -webkit-inline-flex;
-  width: 100%;
+  width: 50%;
   margin: 0 auto;
 }
 

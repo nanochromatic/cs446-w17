@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="single">
     <h1>Single Player</h1>
     <button v-if="gameStatus === 'waiting'" v-on:click="begin" >Start Game</button>
     <board v-if="gameStatus === 'inProgress'" />
@@ -34,3 +34,18 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+
+.single {
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  background:#fff url(../../static/background.png) center center no-repeat;
+  background-attachment: fixed;
+  background-size:100% 100%;
+}
+
+</style>
