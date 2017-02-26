@@ -54,7 +54,7 @@ export default {
   width: 100%;
   position: relative;
   top: 50%;
-  transform: translateY(50%);
+  transform: translateY(110%);
 }
 
 .player1 {

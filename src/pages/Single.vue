@@ -1,6 +1,5 @@
 <template>
   <div class="single">
-    <h1>Single Player</h1>
     <button v-if="gameStatus === 'waiting'" v-on:click="begin" >Start Game</button>
     <board v-if="gameStatus === 'inProgress'" />
   </div>
