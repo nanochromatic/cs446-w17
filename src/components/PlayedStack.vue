@@ -1,6 +1,7 @@
 <template>
   <div class="playedStack">
-    <card v-for="card in reverse" :card="card" class="card-container"/>
+    <card :card="lastCardPlayed" />
+    <!--<card v-for="card in reverse" :card="card" class="card-container"/>-->
   </div>
 </template>
 
