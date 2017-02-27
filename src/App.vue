@@ -23,10 +23,6 @@ body {
   -webkit-user-select: none;
 }
 
-img {
-  max-width: 100%;
-}
-
 .screen {
   position: relative;
   width: 100%;
