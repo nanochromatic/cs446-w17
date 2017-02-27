@@ -13,6 +13,14 @@ export const shuffleArray = function (array) {
   return array
 }
 
+/**
+ * Generates a random integer between two integers.
+ * http://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+ */
+export const randomIntFromInterval = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 export const SECONDARY = {
   MOON: 'moon',
   STAR: 'star',

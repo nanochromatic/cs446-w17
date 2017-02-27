@@ -15,7 +15,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { LOCATION } from '../js/GameHelper'
+import { LOCATION, randomIntFromInterval } from '../js/GameHelper'
 import Player from './Player'
 import DrawStack from './DrawStack'
 import PlayedStack from './PlayedStack'
@@ -52,6 +52,9 @@ export default {
 
     startTimer () {
       if (!this.timerStarted) {
+        if (this.currentPlayer.type === 'cpu') {
+          this.randomBotMoveTime = randomIntFromInterval(5, 10)
+        }
         this.timerStarted = true
         this.timerInterval = setInterval(this.tickTimer, 1000)
         this.resetTimer()
@@ -71,8 +74,8 @@ export default {
         this.outOfTime()
         return
       }
-      if (this.timerSeconds === 10) {
-        // bot makes a move when timer is at 10s
+      if (this.timerSeconds === this.randomBotMoveTime) {
+        // bot makes a move when timer is equal to randomBotMoveTime
         this.processBot()
         return
       }
@@ -90,15 +93,15 @@ export default {
 
     outOfTime () {
       this.stopTimer()
-      this.drawCardAction(this.currentPlayer)
-      console.log('Out of time! Drawing card from deck...')
+      this.drawCardAction(this.currentPlayer.id)
+      console.log('Out of time!')
       this.endTurn()
     },
 
     processBot () {
       if (this.currentPlayer.type === 'cpu') {
         this.stopTimer()
-        this.changeCpuBoardAction(this.currentPlayer)
+        this.changeCpuBoardAction(this.currentPlayer.id)
         this.endTurn()
       }
     }
@@ -115,7 +118,8 @@ export default {
       MAX_TIME: 15,
       timerSeconds: this.MAX_TIME,
       timerStarted: false,
-      timerInterval: null
+      timerInterval: null,
+      randomBotMoveTime: 10
     }
   }
 }

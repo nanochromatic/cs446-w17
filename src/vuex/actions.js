@@ -34,7 +34,7 @@ export default {
       })
     }
 
-    commit('shufflePlayers')
+    // commit('shufflePlayers')
 
     commit('dealCards')
 
@@ -45,12 +45,13 @@ export default {
     commit('playCard', state.game.deck[28])
   },
 
-  playCardAction: function ({commit}, [card, player]) {
+  playCardAction: function ({commit}, [card, playerNumber]) {
     commit('playCard', card)
   },
 
-  drawCardAction: function ({commit}, player) {
-    commit('drawCard', player)
+  drawCardAction: function ({commit}, playerNumber) {
+    commit('drawCard', playerNumber)
+    commit('repopulateDrawStack')
   },
 
   switchDirectionAction: function ({commit}) {

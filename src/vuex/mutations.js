@@ -57,17 +57,20 @@ export default {
     state.game.lastCardPlayed = card
   },
 
-  drawCard (state, player) {
-    // If there are attacks stacked, then drawing means that thie player has lost the attack
+  drawCard (state, playerNumber) {
+    // If there are attacks stacked, then drawing means that the player has lost the attack
     if (state.game.specialAttackStack) {
       // draw cards equal to the value of the stack and then reset the stack value
       for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
-        state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
+        var spCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
+        spCard.location = playerNumber
+        console.log(playerNumber + ' special attack stack drawn card ' + spCard.color + '-' + spCard.secondary)
       }
       state.game.specialAttackStack = 0
     }
-
-    state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
+    var card = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
+    card.location = playerNumber
+    console.log(playerNumber + ' drawn card ' + card.color + '-' + card.secondary)
   },
 
   switchDirection (state) {
@@ -91,7 +94,17 @@ export default {
     state.game.gameState = message
   },
 
-  changeCpuBoardAction (state, player) {
-    state.game.cpuBoardAction = player.id
+  changeCpuBoardAction (state, playerNumber) {
+    state.game.cpuBoardAction = playerNumber
+  },
+
+  repopulateDrawStack (state) {
+    var drawStack = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK)
+    if (drawStack.length === 0) {
+      var playedStack = state.game.deck.filter(card => card.location === LOCATION.PLAYED_STACK)
+      for (var i = 0; i < playedStack.length; i++) {
+        playedStack[i].location = LOCATION.DRAW_STACK
+      }
+    }
   }
 }

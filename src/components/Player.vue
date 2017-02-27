@@ -94,6 +94,7 @@ export default {
 
     playCard: function (card) {
       if (this.checkLegalMove(card)) {
+        console.log('you played card ' + card.color + '-' + card.secondary)
         this.processCardEffect(card)
         this.playCardAction([card, this.playerNumber])
       } else {
