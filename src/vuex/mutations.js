@@ -1,4 +1,4 @@
-import { LOCATION } from '../js/GameHelper'
+import { LOCATION, SECONDARY, shuffleArray } from '../js/GameHelper'
 
 export default {
 
@@ -12,11 +12,10 @@ export default {
     state.game.state = resetState.game.state
     state.game.deck = resetState.game.deck
     state.game.players = resetState.game.players
-    state.game.playOrder = resetState.game.playOrder
     state.game.lastCardPlayed = resetState.game.lastCardPlayed
-    state.game.direction = resetState.game.direction
     state.game.specialAttackStack = resetState.game.specialAttackStack
     state.game.statusMessage = resetState.game.statusMessage
+    state.game.cpuBoardAction = resetState.game.cpuBoardAction
   },
 
   /*
@@ -24,6 +23,13 @@ export default {
    */
   addPlayer (state, player) {
     state.game.players.push(player)
+  },
+
+  /*
+   * Shuffle the players to determine the playing order
+   */
+  shufflePlayers (state) {
+    shuffleArray(state.game.players)
   },
 
   /*
@@ -38,20 +44,54 @@ export default {
     }
   },
 
+  /*
+   * End a player's turn
+   */
+  switchPlayer (state) {
+    var player = state.game.players.shift()
+    state.game.players.push(player)
+  },
+
   playCard (state, card) {
     state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = card
   },
 
   drawCard (state, player) {
-    state.game.deck.find(LOCATION.DRAW_STACK).location = player
+    // If there are attacks stacked, then drawing means that thie player has lost the attack
+    if (state.game.specialAttackStack) {
+      // draw cards equal to the value of the stack and then reset the stack value
+      for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
+        state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
+      }
+      state.game.specialAttackStack = 0
+    }
+
+    state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
   },
 
   switchDirection (state) {
-    state.game.direction = (state.game.direction === 'cw') ? 'ccw' : 'cw'
+    state.game.players.reverse()
+  },
+
+  attackStack (state, card) {
+    state.game.specialAttackStack += (card.secondary === SECONDARY.SINGLE_ATTACK) ? 1 : 2
+
+    // We chose 10 as the max attack stacking value
+    if (state.game.specialAttackStack > 10) {
+      state.game.specialAttackStack = 10
+    }
+  },
+
+  changeColour (state, colour) {
+    state.game.currentColour = colour
   },
 
   gameStateMessage (state, message) {
     state.game.gameState = message
+  },
+
+  changeCpuBoardAction (state, player) {
+    state.game.cpuBoardAction = player.id
   }
 }

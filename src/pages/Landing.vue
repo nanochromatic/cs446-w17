@@ -1,6 +1,6 @@
 <template>
-  <div class="landing">
-    <img src="../assets/logo.png">
+  <div class="screen landing">
+    <img src="static/logo.png">
     <h1>{{ msg }}</h1>
     <router-link to="/sp">Single Player</router-link>
     <router-link to="/mp">Multiplayer</router-link>
@@ -35,6 +35,19 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: #fff;
 }
+
+@media screen and (orientation: portrait) {
+  h1::after {
+    content: ' [Portrait]';
+  }
+}
+
+@media screen and (orientation: landscape) {
+  h1::after {
+    content: ' [Landscape]';
+  }
+}
+
 </style>

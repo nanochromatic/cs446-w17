@@ -1,4 +1,4 @@
-import { shuffleArray, masterDrawStack } from '../js/GameHelper'
+import { shuffleArray, masterDrawStack, PLAYER_LOCATION } from '../js/GameHelper'
 
 export default {
   resetGame: function ({commit}) {
@@ -12,16 +12,15 @@ export default {
         deck: shuffleArray(masterDrawStack),
         players: [
           {
-            id: 10,
+            id: PLAYER_LOCATION[0],
             type: 'human',
             timeRemaining: 10
           }
         ],
-        playOrder: [],
         lastCardPlayed: null,
-        direction: 'cw',
         specialAttackStack: 0,
-        statusMessage: ''
+        statusMessage: '',
+        cpuBoardAction: ''
       }
     })
   },
@@ -29,17 +28,20 @@ export default {
   startGame: function ({commit, state}) {
     for (var i = state.game.players.length; i < 4; i++) {
       commit('addPlayer', {
-        id: 1,
+        id: PLAYER_LOCATION[i],
         type: 'cpu',
         timeRemaining: 0
       })
     }
+
+    commit('shufflePlayers')
 
     commit('dealCards')
 
     commit('gameStateMessage', 'inProgress')
 
     // Flip the top card off the DRAW_STACK, and move it to the PLAYED_STACK
+    commit('changeColour', state.game.deck[28].color)
     commit('playCard', state.game.deck[28])
   },
 
@@ -53,5 +55,13 @@ export default {
 
   switchDirectionAction: function ({commit}) {
     commit('switchDirection')
+  },
+
+  attackStackAction: function ({commit}, card) {
+    commit('attackStack', card)
+  },
+
+  changeColourAction: function ({commit}, colour) {
+    commit('changeColour', colour)
   }
 }
