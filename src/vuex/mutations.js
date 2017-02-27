@@ -55,6 +55,8 @@ export default {
   playCard (state, card) {
     state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = card
+
+    state.game.lastCardPlayed.color = state.game.currentColour
   },
 
   drawCard (state, playerNumber) {
