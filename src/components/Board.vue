@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="board">
     <div class="debug">
       <h4>Time Remaining: {{ timerSeconds }}</h4>
       <h4>Current Player: {{ currentPlayer.id }}</h4>
@@ -123,6 +123,12 @@ export default {
 </script>
 
 <style>
+.board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
 
 .debug {
   position: absolute;
@@ -131,10 +137,6 @@ export default {
 }
 
 .stacks {
-  width: 100%;
-  position: relative;
-  top: 50%;
-  transform: translateY(110%);
 }
 
 .player1 {
