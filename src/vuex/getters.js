@@ -10,5 +10,8 @@ export default {
 
   gameStatus: state => state.game.gameState,
   players: state => state.game.players,
-  lastCardPlayed: state => state.game.lastCardPlayed
+  currentPlayer: state => state.game.players[0],
+  lastCardPlayed: state => state.game.lastCardPlayed,
+  attackStatus: state => state.game.specialAttackStack,
+  cpuBoardAction: state => state.game.cpuBoardAction
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b>{{ playerNumber }}</b>
+    <b v-on:click="drawCard(card)">{{ playerNumber }}</b>
     <div v-for="card in playerHand" v-on:click="playCard(card)">
       <card :card="card" />
     </div>
@@ -20,6 +20,14 @@ export default {
     }
   },
 
+  watch: {
+    cpuBoardAction: function (oldVal, newVal) {
+      if (this.cpuBoardAction === this.playerNumber) {
+        this.botPlayCard()
+      }
+    }
+  },
+
   components: {
     Card
   },
@@ -30,7 +38,9 @@ export default {
       'playerTwoHand',
       'playerThreeHand',
       'playerFourHand',
-      'lastCardPlayed'
+      'lastCardPlayed',
+      'attackStatus',
+      'cpuBoardAction'
     ]),
 
     playerHand () {
@@ -49,17 +59,31 @@ export default {
     ...mapActions([
       'playCardAction',
       'drawCardAction',
-      'switchDirectionAction'
+      'switchDirectionAction',
+      'attackStackAction'
     ]),
 
     drawCard: function () {
       // passing a turn = drawing a card
       this.drawCardAction(this.playerNumber)
+      // If there was an attack, this ends the attacks and draws the appropriate amount of cards.
     },
 
     botPlayCard: function () {
-      // check each card and see if it can be played, if none are playable
+      // Check each card and see if it can be played, if none are playable
       //  draw a card
+      var hand = this.playerHand
+      for (var i = 0; i < hand.length; i++) {
+        if (this.checkLegalMove(hand[i])) {
+          console.log(this.playerNumber + ' played card ' + hand[i].color + '-' + hand[i].secondary)
+          this.processCardEffect(hand[i])
+          this.playCardAction([hand[i], this.playerNumber])
+          return
+        }
+      }
+      // No valid moves for the bot
+      console.log('No valid moves for bot, drawing card')
+      this.drawCard()
     },
 
     playCard: function (card) {
@@ -76,20 +100,27 @@ export default {
       var lastSecondary = this.lastCardPlayed.secondary
       var singleAttack = SECONDARY.SINGLE_ATTACK
       var doubleAttack = SECONDARY.DOUBLE_ATTACK
-      // player must play a double attack card to counter a double attack card
-      if (lastSecondary === doubleAttack) {
-        if (card.secondary === doubleAttack) {
-          return true
+
+      // If there is no attack stacked, then even if there was an attack card played last,
+      // it has already been lost by someone else
+      if (this.attackStatus) {
+        // player must play a double attack card to counter a double attack card
+        if (lastSecondary === doubleAttack) {
+          if (card.secondary === doubleAttack) {
+            return true
+          }
+          return false
         }
-        return false
-      }
-      // player can play a single or double attack card to counter a single attack card
-      if (lastSecondary === singleAttack) {
-        if (card.secondary === singleAttack || card.secondary === doubleAttack) {
-          return true
+
+        // player can play a single or double attack card to counter a single attack card
+        if (lastSecondary === singleAttack) {
+          if (card.secondary === singleAttack || card.secondary === doubleAttack) {
+            return true
+          }
+          return false
         }
-        return false
       }
+
       // player can match the color of the previous card
       if (card.color === lastColor) {
         return true
@@ -112,8 +143,8 @@ export default {
         case SECONDARY.ADDITIONAL_TURN:
           break
         case SECONDARY.SINGLE_ATTACK:
-          break
         case SECONDARY.DOUBLE_ATTACK:
+          this.attackStackAction(card)
           break
         case SECONDARY.SPECIAL1:
           break

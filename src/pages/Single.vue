@@ -26,6 +26,7 @@ export default {
       'resetGame',
       'startGame'
     ]),
+
     begin () {
       this.resetGame()
       this.startGame()
