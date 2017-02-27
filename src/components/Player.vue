@@ -9,7 +9,7 @@
 
 <script>
 import Card from './Card'
-import { LOCATION, SECONDARY } from '../js/GameHelper'
+import { LOCATION, SECONDARY, COLOR } from '../js/GameHelper'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -38,9 +38,11 @@ export default {
       'playerTwoHand',
       'playerThreeHand',
       'playerFourHand',
+      'currentPlayer',
       'lastCardPlayed',
       'attackStatus',
-      'cpuBoardAction'
+      'cpuBoardAction',
+      'lastColour'
     ]),
 
     playerHand () {
@@ -60,7 +62,8 @@ export default {
       'playCardAction',
       'drawCardAction',
       'switchDirectionAction',
-      'attackStackAction'
+      'attackStackAction',
+      'changeColourAction'
     ]),
 
     drawCard: function () {
@@ -96,7 +99,7 @@ export default {
     },
 
     checkLegalMove: function (card) {
-      var lastColor = this.lastCardPlayed.color
+      var lastColor = this.lastColour
       var lastSecondary = this.lastCardPlayed.secondary
       var singleAttack = SECONDARY.SINGLE_ATTACK
       var doubleAttack = SECONDARY.DOUBLE_ATTACK
@@ -133,12 +136,36 @@ export default {
     },
 
     processCardEffect: function (card) {
+      // alwasy keep the current colour up to date
+      this.changeColourAction(card.color)
+
       var effect = card.secondary
       switch (effect) {
         case SECONDARY.REVERSE:
           this.switchDirectionAction()
           break
         case SECONDARY.CHANGE_COLOR:
+          // if its a bot, colour could be chosen randomly
+          if (this.currentPlayer.type === 'cpu') {
+            switch (Math.floor(Math.random() * 4)) {
+              case 0:
+                this.changeColourAction(COLOR.RED)
+                break
+              case 1:
+                this.changeColourAction(COLOR.GREEN)
+                break
+              case 2:
+                this.changeColourAction(COLOR.BLUE)
+                break
+              case 3:
+                this.changeColourAction(COLOR.YELLOW)
+                break
+            }
+          } else {
+            // process UI which asks user for a colour
+            // for testing lets always set the colour to red
+            this.changeColourAction(COLOR.RED)
+          }
           break
         case SECONDARY.ADDITIONAL_TURN:
           break

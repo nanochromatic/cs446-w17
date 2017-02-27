@@ -19,7 +19,8 @@ const state = {
     lastCardPlayed: null,
     specialAttackStack: 0,
     statusMessage: '',
-    cpuBoardAction: ''
+    cpuBoardAction: '',
+    currentColour: ''
   }
 }
 
