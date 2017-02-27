@@ -2,10 +2,10 @@
 <widget id="com.welm.quova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Quova</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A quick and fun card game.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+        Team WELM
     </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
@@ -16,13 +16,43 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="res/icon.png" />v
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <icon src="res/ios/icon-60@2x.png" width="120" height="120" />
+        <icon src="res/ios/icon-60@3x.png" width="180" height="180" />
+        <!-- iPad -->
+        <icon src="res/ios/icon-76.png" width="76" height="76" />
+        <icon src="res/ios/icon-76@2x.png" width="152" height="152" />
+        <!-- iPad Pro -->
+        <icon src="res/ios/icon-83.5@2x.png" width="167" height="167" />
+        <!-- Spotlight Icon -->
+        <icon src="res/ios/icon-Small-40.png" width="40" height="40" />
+        <icon src="res/ios/icon-Small-40@2x.png" width="80" height="80" />
+        <icon src="res/ios/icon-Small-40@3xx.png" width="120" height="120" />
+        <!-- iPhone Spotlight and Settings Icon -->
+        <icon src="res/ios/icon-Small.png" width="29" height="29" />
+        <icon src="res/ios/icon-Small@2x.png" width="58" height="58" />
+        <icon src="res/ios/icon-Small@3x.png" width="87" height="87" />
+        <!-- Splash Screens -->
+        <splash src="res/screen/ios/Default~iphone.png" width="320" height="480"/>
+        <splash src="res/screen/ios/Default@2x~iphone.png" width="640" height="960"/>
+        <splash src="res/screen/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
+        <splash src="res/screen/ios/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
+        <splash src="res/screen/ios/Default-Landscape~ipad.png" width="1024" height="768"/>
+        <splash src="res/screen/ios/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
+        <splash src="res/screen/ios/Default-568h@2x~iphone.png" width="640" height="1136"/>
+        <splash src="res/screen/ios/Default-667h.png" width="750" height="1334"/>
+        <splash src="res/screen/ios/Default-736h.png" width="1242" height="2208"/>
     </platform>
     <engine name="ios" spec="~4.3.1" />
     <engine name="android" spec="~6.1.2" />
+    <plugin name="hu.bitbaro.cordova-plugin-ios-backgroundcolor" spec="https://github.com/wallneradam/cordova-plugin-ios-backgroundcolor.git" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="BackgroundColor" value="0xffffffff" />
+    <preference name="BackupWebStorage" value="none" />
 </widget>
