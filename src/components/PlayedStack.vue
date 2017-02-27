@@ -35,7 +35,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 
 .playedStack {
   display: -webkit-inline-flex;

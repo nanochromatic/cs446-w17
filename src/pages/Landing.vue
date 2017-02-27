@@ -1,5 +1,5 @@
 <template>
-  <div class="landing">
+  <div class="screen landing">
     <img src="static/logo.png">
     <h1>{{ msg }}</h1>
     <router-link to="/sp">Single Player</router-link>
@@ -20,8 +20,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import "../scss/app.scss";
-
 h1, h2 {
   font-weight: normal;
 }
@@ -37,7 +35,7 @@ li {
 }
 
 a {
-  color: $color-primary;
+  color: #fff;
 }
 
 @media screen and (orientation: portrait) {

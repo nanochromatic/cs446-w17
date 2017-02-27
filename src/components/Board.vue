@@ -122,7 +122,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style>
 
 .debug {
   position: absolute;

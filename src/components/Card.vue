@@ -31,9 +31,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "../scss/app.scss";
-
+<style>
 .card {
   position: relative;
   width: 100px;
@@ -54,22 +52,6 @@ export default {
     left: 0;
   width: 100px;
   height: 150px;
-}
-
-.card--red {
-  color: $card-color--red;
-}
-
-.card--green {
-  color: $card-color--green;
-}
-
-.card--blue {
-  color: $card-color--blue;
-}
-
-.card--yellow {
-  color: $card-color--yellow;
 }
 
 </style>

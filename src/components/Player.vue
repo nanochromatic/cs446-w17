@@ -190,7 +190,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 
 .container {
   display: -webkit-inline-flex;
