@@ -1,6 +1,8 @@
 <template>
   <div class="card" v-bind:class="['card--'+card.color]">
-    Card - {{ card.secondary }}
+	<img class="back-frame" :src="'static/cardframe'+card.color+'.png'"/>
+	<img v-if="show == true" class="card-icon" :src="'static/card'+card.secondary+card.color+'.png'"/>
+	<img v-else class="back-frame" src="static/cardframeback.png"/>
   </div>
 </template>
 
@@ -18,6 +20,12 @@ export default {
           location: ''
         }
       }
+    },
+    show: {
+      type: Boolean,
+      default () {
+        return true
+      }
     }
   }
 }
@@ -27,7 +35,25 @@ export default {
 @import "../scss/app.scss";
 
 .card {
+  position: relative;
+  width: 100px;
+  height: 150px;
+}
 
+.back-frame {
+  position: absolute;
+    top: 0;
+    left: 0;
+  width: 100px;
+  height: 150px;
+}
+
+.card-icon {
+  position: absolute;
+    top: 0;
+    left: 0;
+  width: 100px;
+  height: 150px;
 }
 
 .card--red {
@@ -45,5 +71,6 @@ export default {
 .card--yellow {
   color: $card-color--yellow;
 }
+
 </style>
 

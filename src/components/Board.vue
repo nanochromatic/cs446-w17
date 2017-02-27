@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h3>Board</h3>
-    <h4>Time Remaining<div class="timer" v-text="timerSeconds"></div></h4>
-    <h4>Current Player<div class="player-label" v-text="currentPlayer"></div></h4>
-    <h4>Current Colour<div class="currentColour" v-text="lastColour"></div></h4>
-    <played-stack />
-    <draw-stack />
-    <player v-for="playerNumber in playersNumbers" :playerNumber="playerNumber" />
+    <div class="debug">
+      <h4>Time Remaining: {{ timerSeconds }}</h4>
+      <h4>Current Player: {{ currentPlayer.id }}</h4>
+      <h4>Current Colour: {{ lastColour }}</h4>
+    </div>
+    <div class="stacks">
+      <played-stack />
+      <draw-stack />
+    </div>
+    <player v-for="playerNumber in playersNumbers" :playerNumber="playerNumber" :class="playerNumber"/>
   </div>
 </template>
 
@@ -118,3 +121,81 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+
+.debug {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+}
+
+.stacks {
+  width: 100%;
+  position: relative;
+  top: 50%;
+  transform: translateY(110%);
+}
+
+.player1 {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  z-index: 1;
+}
+
+.player2 {
+  -webkit-transform-origin: 0 50%;
+  -moz-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  -o-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+  -webkit-transform: rotate(-90deg) translate(-50%, 50%);
+  -moz-transform: rotate(-90deg) translate(-50%, 50%);
+  -ms-transform: rotate(-90deg) translate(-50%, 50%);
+  -o-transform: rotate(-90deg) translate(-50%, 50%);
+  transform: rotate(-90deg) translate(-50%, 50%);
+  position: fixed;
+  left: 0;
+  width: 50%;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.player3 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.player4 {
+  -webkit-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  -webkit-transform: rotate(90deg) translate(50%, 50%);
+  -moz-transform: rotate(90deg) translate(50%, 50%);
+  -ms-transform: rotate(90deg) translate(50%, 50%);
+  -o-transform: rotate(90deg) translate(50%, 50%);
+  transform: rotate(90deg) translate(50%, 50%);
+  position: fixed;
+  right: 0;
+  width: 50%;
+  top: 0;
+  bottom: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+</style>

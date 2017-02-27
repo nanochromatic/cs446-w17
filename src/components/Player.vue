@@ -1,8 +1,11 @@
 <template>
   <div>
     <b v-on:click="drawCard(card)">{{ playerNumber }}</b>
-    <div v-for="card in playerHand" v-on:click="playCard(card)">
-      <card :card="card" />
+    <div class="container" v-if="playerNumber==='player1'">
+      <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
+    </div>
+    <div class="container" v-else>
+      <card v-for="card in playerHand" class="card-container" :card="card" :show='false'/>
     </div>
   </div>
 </template>
@@ -186,3 +189,30 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+
+.container {
+  display: -webkit-inline-flex;
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.card-container {
+  -webkit-flex: 1 1 100px;
+  flex: 1 1 100px;
+  overflow: visible;
+}
+
+.card-container:last-child {
+  -webkit-flex: 0 0 100px;
+  flex: 0 0 100px;
+}
+
+.player-card:hover {
+  display: relative;
+  top: -5px;
+  z-index: 2;
+}
+
+</style>
