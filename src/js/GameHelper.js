@@ -104,11 +104,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.RED,
-    secondary: SECONDARY.JUMP,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.RED,
+  //   secondary: SECONDARY.JUMP,
+  //   location: LOCATION.DRAW_STACK
+  // },
   {
     color: COLOR.RED,
     secondary: SECONDARY.REVERSE,
@@ -134,11 +134,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.DOUBLE_ATTACK,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.RED,
-    secondary: SECONDARY.SPECIAL1,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.RED,
+  //   secondary: SECONDARY.SPECIAL1,
+  //   location: LOCATION.DRAW_STACK
+  // },
 
   // green
   {
@@ -171,11 +171,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.GREEN,
-    secondary: SECONDARY.JUMP,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.GREEN,
+  //   secondary: SECONDARY.JUMP,
+  //   location: LOCATION.DRAW_STACK
+  // },
   {
     color: COLOR.GREEN,
     secondary: SECONDARY.REVERSE,
@@ -201,11 +201,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.DOUBLE_ATTACK,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.GREEN,
-    secondary: SECONDARY.SPECIAL2,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.GREEN,
+  //   secondary: SECONDARY.SPECIAL2,
+  //   location: LOCATION.DRAW_STACK
+  // },
 
   // blue
   {
@@ -238,11 +238,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.BLUE,
-    secondary: SECONDARY.JUMP,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.BLUE,
+  //   secondary: SECONDARY.JUMP,
+  //   location: LOCATION.DRAW_STACK
+  // },
   {
     color: COLOR.BLUE,
     secondary: SECONDARY.REVERSE,
@@ -268,11 +268,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.DOUBLE_ATTACK,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.BLUE,
-    secondary: SECONDARY.SPECIAL3,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.BLUE,
+  //   secondary: SECONDARY.SPECIAL3,
+  //   location: LOCATION.DRAW_STACK
+  // },
 
   // yellow
   {
@@ -305,11 +305,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  {
-    color: COLOR.YELLOW,
-    secondary: SECONDARY.JUMP,
-    location: LOCATION.DRAW_STACK
-  },
+  // {
+  //   color: COLOR.YELLOW,
+  //   secondary: SECONDARY.JUMP,
+  //   location: LOCATION.DRAW_STACK
+  // },
   {
     color: COLOR.YELLOW,
     secondary: SECONDARY.REVERSE,
@@ -334,10 +334,10 @@ export const masterDrawStack = [
     color: COLOR.YELLOW,
     secondary: SECONDARY.DOUBLE_ATTACK,
     location: LOCATION.DRAW_STACK
-  },
-  {
-    color: COLOR.YELLOW,
-    secondary: SECONDARY.SPECIAL4,
-    location: LOCATION.DRAW_STACK
   }
+  // {
+  //   color: COLOR.YELLOW,
+  //   secondary: SECONDARY.SPECIAL4,
+  //   location: LOCATION.DRAW_STACK
+  // }
 ]
