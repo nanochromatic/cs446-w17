@@ -63,6 +63,10 @@ export default {
     commit('switchDirection')
   },
 
+  additionalTurnAction: function ({commit}) {
+    commit('additionalTurn')
+  },
+
   attackStackAction: function ({commit}, card) {
     commit('attackStack', card)
   },

@@ -51,6 +51,11 @@ export default {
   switchPlayer (state) {
     var player = state.game.players.shift()
     state.game.players.push(player)
+    // check for additional turn, and removes the artifact
+    var lastElement = state.game.players[state.game.players.length - 1]
+    if (lastElement.id === state.game.players[0].id) {
+      state.game.players.pop()
+    }
   },
 
   startCurrentTurn (state) {
@@ -105,6 +110,12 @@ export default {
     var currentPlayer = state.game.players.shift()
     state.game.players.reverse()
     state.game.players.unshift(currentPlayer)
+  },
+
+  additionalTurn (state) {
+    var currentPlayerCopy = JSON.parse(JSON.stringify(state.game.players[0]))
+    currentPlayerCopy.currentTurn = false
+    state.game.players.splice(1, 0, currentPlayerCopy)
   },
 
   attackStack (state, card) {
