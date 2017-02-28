@@ -67,6 +67,16 @@ export default {
   },
 
   drawCard (state, playerNumber) {
+    function repopulateDrawStack () {
+      var drawStack = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK)
+      if (drawStack.length === 0) {
+        var playedStack = state.game.deck.filter(card => card.location === LOCATION.PLAYED_STACK)
+        for (var i = 0; i < playedStack.length; i++) {
+          playedStack[i].location = LOCATION.DRAW_STACK
+        }
+      }
+    }
+
     // If there are attacks stacked, then drawing means that the player has lost the attack
     if (state.game.specialAttackStack) {
       // draw cards equal to the value of the stack and then reset the stack value
@@ -74,11 +84,14 @@ export default {
         var spCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
         spCard.location = playerNumber
         console.log(playerNumber + ' special attack stack drew card ' + spCard.color + '-' + spCard.secondary)
+        repopulateDrawStack()
       }
       state.game.specialAttackStack = 0
     }
+
     var card = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
     card.location = playerNumber
+    repopulateDrawStack()
     console.log(playerNumber + ' drew card ' + card.color + '-' + card.secondary)
   },
 
