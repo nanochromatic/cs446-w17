@@ -71,7 +71,13 @@ export default {
   },
 
   switchDirection (state) {
+    /*
+     * grab the current player, reverse the array, and add the current player back on the front
+     * the current player will be moved to the back of the player array by a later call to switchPlayer
+     */
+    var currentPlayer = state.game.players.shift()
     state.game.players.reverse()
+    state.game.players.unshift(currentPlayer)
   },
 
   attackStack (state, card) {
