@@ -1,8 +1,11 @@
 <template>
   <div class="screen single">
-    <button v-if="gameStatus === 'waiting'" v-on:click="begin" class="button">Start Game</button>
-    <board v-if="gameStatus === 'inProgress'" />
-  </div>
+    <button v-if="gameStatus === 'waiting'" v-on:click="begin" >Start Game</button>
+    <board v-else-if="gameStatus === 'inProgress'" />
+	<div v-else>
+		<b>{{ gameStatus }}</b><br/>
+		<button v-on:click="begin" :gameStatus = 'waiting' >Restart Game</button>
+	</div>
 </template>
 
 <script>

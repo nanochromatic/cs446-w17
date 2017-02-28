@@ -53,8 +53,12 @@ export default {
   },
 
   playCard (state, card) {
+    var oldLocation = state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location
     state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = card
+    if (state.game.deck.filter(card => card.location === oldLocation).length === 0) {
+      state.game.gameState = 'Game Over: ' + oldLocation + ' wins!'
+    }
   },
 
   drawCard (state, player) {
