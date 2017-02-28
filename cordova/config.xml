@@ -16,7 +16,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <icon src="res/icon.png" />v
+    <icon src="res/icon.png" />
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -52,7 +52,8 @@
     <engine name="ios" spec="~4.3.1" />
     <engine name="android" spec="~6.1.2" />
     <plugin name="hu.bitbaro.cordova-plugin-ios-backgroundcolor" spec="https://github.com/wallneradam/cordova-plugin-ios-backgroundcolor.git" />
+    <preference name="orientation" value="landscape" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="BackgroundColor" value="0xffffffff" />
+    <preference name="BackgroundColor" value="0xff000000" />
     <preference name="BackupWebStorage" value="none" />
 </widget>

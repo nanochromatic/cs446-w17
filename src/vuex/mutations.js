@@ -16,6 +16,7 @@ export default {
     state.game.specialAttackStack = resetState.game.specialAttackStack
     state.game.statusMessage = resetState.game.statusMessage
     state.game.cpuBoardAction = resetState.game.cpuBoardAction
+    state.game.currentColour = resetState.game.currentColour
   },
 
   /*
@@ -52,30 +53,61 @@ export default {
     state.game.players.push(player)
   },
 
+  startCurrentTurn (state) {
+    state.game.players[0].currentTurn = true
+  },
+
+  endCurrentTurn (state) {
+    state.game.players[0].currentTurn = false
+  },
+
   playCard (state, card) {
     var oldLocation = state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location
     state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = card
+    state.game.lastCardPlayed.color = state.game.currentColour
     if (state.game.deck.filter(card => card.location === oldLocation).length === 0) {
       state.game.gameState = 'Game Over: ' + oldLocation + ' wins!'
     }
   },
 
-  drawCard (state, player) {
-    // If there are attacks stacked, then drawing means that thie player has lost the attack
+  drawCard (state, playerNumber) {
+    function repopulateDrawStack () {
+      var drawStack = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK)
+      if (drawStack.length === 0) {
+        var playedStack = state.game.deck.filter(card => card.location === LOCATION.PLAYED_STACK)
+        for (var i = 0; i < playedStack.length; i++) {
+          playedStack[i].location = LOCATION.DRAW_STACK
+        }
+      }
+    }
+
+    // If there are attacks stacked, then drawing means that the player has lost the attack
     if (state.game.specialAttackStack) {
       // draw cards equal to the value of the stack and then reset the stack value
       for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
-        state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
+        var spCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
+        spCard.location = playerNumber
+        console.log(playerNumber + ' special attack stack drew card ' + spCard.color + '-' + spCard.secondary)
+        repopulateDrawStack()
       }
       state.game.specialAttackStack = 0
     }
 
-    state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK).location = player.id
+    var card = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
+    card.location = playerNumber
+    repopulateDrawStack()
+    console.log(playerNumber + ' drew card ' + card.color + '-' + card.secondary)
   },
 
   switchDirection (state) {
+    /*
+     * grab the current player, reverse the array, and add the current player back on the front
+     * the current player will be moved to the back of the player array by a later call to switchPlayer
+     */
+    var currentPlayer = state.game.players.shift()
     state.game.players.reverse()
+    state.game.players.unshift(currentPlayer)
   },
 
   attackStack (state, card) {
@@ -95,7 +127,17 @@ export default {
     state.game.gameState = message
   },
 
-  changeCpuBoardAction (state, player) {
-    state.game.cpuBoardAction = player.id
+  changeCpuBoardAction (state, playerNumber) {
+    state.game.cpuBoardAction = playerNumber
+  },
+
+  repopulateDrawStack (state) {
+    var drawStack = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK)
+    if (drawStack.length === 0) {
+      var playedStack = state.game.deck.filter(card => card.location === LOCATION.PLAYED_STACK)
+      for (var i = 0; i < playedStack.length; i++) {
+        playedStack[i].location = LOCATION.DRAW_STACK
+      }
+    }
   }
 }
