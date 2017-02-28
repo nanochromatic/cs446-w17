@@ -65,7 +65,7 @@ export default {
       if (!this.timerStarted) {
         this.startCurrentTurn()
         if (this.currentPlayer.type === 'cpu') {
-          this.randomBotMoveTime = randomIntFromInterval(5, 10)
+          this.randomBotMoveTime = randomIntFromInterval(12, 13)
         }
         this.timerStarted = true
         this.timerInterval = setInterval(this.tickTimer, 1000)

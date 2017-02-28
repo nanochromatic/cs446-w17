@@ -1,5 +1,5 @@
 <template>
-  <div class="drawStack">
+  <div class="drawStack"  v-on:click="draw">
     <b>Draw Stack</b>
     <card v-for="card in drawStackDeck" :card="card" class="card-container" :show='false'/>
   </div>
@@ -7,7 +7,7 @@
 
 <script>
 import Card from './Card'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -20,16 +20,25 @@ export default {
 
   computed: {
     ...mapGetters([
-      'drawStackDeck'
+      'drawStackDeck',
+      'currentPlayer'
     ])
   },
 
   methods: {
     ...mapActions([
-      'drawCard'
+      'drawCardAction'
+    ]),
+
+    ...mapMutations([
+      'endCurrentTurn'
     ]),
 
     draw () {
+      if (this.currentPlayer.id === 'player1') {
+        this.drawCardAction('player1')
+        this.endCurrentTurn()
+      }
     }
 
   }
