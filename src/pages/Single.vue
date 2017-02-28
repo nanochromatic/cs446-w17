@@ -1,6 +1,14 @@
 <template>
   <div class="screen single">
-    <button v-if="gameStatus === 'waiting'" v-on:click="begin" >Start Game</button>
+    <div v-if="gameStatus === 'waiting'">
+      <div class="waiting-players">
+        <div class="game-player"><small>Player 1</small>You</div>
+        <div class="game-player"><small>Player 2</small>CPU 1</div>
+        <div class="game-player"><small>Player 3</small>CPU 2</div>
+        <div class="game-player"><small>Player 4</small>CPU 3</div>
+      </div>
+      <button  v-on:click="begin" class="button">Start Game</button>
+    </div>
     <board v-else-if="gameStatus === 'inProgress'" />
 	<div v-else>
 		<b>{{ gameStatus }}</b><br/>
@@ -38,11 +46,36 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.single {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.waiting-players {
+  display: flex;
+  flex-wrap: wrap;
+}
+.game-player {
+  box-sizing: border-box;
+  font-size: 1.5em;
+  padding: 1em;
+  border: 1px solid #fff;
+  width: 50%;
+}
+.game-player small {
+  display: block;
+  text-transform: uppercase;
+}
 
 .button {
+  margin: 1em;
+  padding: 0;
+  border:0px;
   font-size: 3em;
   color: #fff;
+  background: none;
 }
 
 </style>

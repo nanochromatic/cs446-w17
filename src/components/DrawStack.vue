@@ -1,6 +1,5 @@
 <template>
   <div class="drawStack"  v-on:click="draw">
-    <b>Draw Stack</b>
     <card v-for="card in drawStackDeck" :card="card" class="card-container" :show='false'/>
   </div>
 </template>

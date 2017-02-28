@@ -1,9 +1,10 @@
 <template>
   <div class="screen landing">
-    <img src="static/logo.png">
+    <img class="logo" src="static/logo.png">
     <h1>{{ msg }}</h1>
-    <router-link to="/sp">Single Player</router-link>
-    <router-link to="/mp">Multiplayer</router-link>
+    <p>
+      <router-link to="/sp">Single Player</router-link> | <router-link to="/mp">Multiplayer</router-link>
+    </p>
   </div>
 </template>
 
@@ -20,7 +21,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.logo {
+  max-height: 70%;
+}
 h1, h2 {
+  margin: 0;
   font-weight: normal;
 }
 
@@ -36,18 +41,6 @@ li {
 
 a {
   color: #fff;
-}
-
-@media screen and (orientation: portrait) {
-  h1::after {
-    content: ' [Portrait]';
-  }
-}
-
-@media screen and (orientation: landscape) {
-  h1::after {
-    content: ' [Landscape]';
-  }
 }
 
 </style>

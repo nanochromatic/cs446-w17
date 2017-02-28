@@ -1,7 +1,7 @@
 <template>
   <div class="board">
     <div class="debug">
-      <h4>Time Remaining for {{ currentPlayer.id }}: {{ timerSeconds }}</h4>
+      Time for {{ currentPlayer.id }}: <strong>{{ timerSeconds }}</strong>
       <!--<h4>Current Player: {{ currentPlayer.id }}</h4>-->
       <!--<h4>Current Colour: {{ lastColour }}</h4>-->
     </div>
@@ -160,7 +160,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 2vmin;
+  font-size: 3vmin;
   z-index: 2;
 }
 

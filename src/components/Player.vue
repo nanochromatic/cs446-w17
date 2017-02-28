@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <b v-on:click="drawCard(card)">{{ playerNumber }}</b>
+  <div class="player" v-bind:class="{'player-active-turn': isPlayerTurn}">
+    <b class="player-name">{{ playerNumber }}</b>
     <div class="container" v-if="playerNumber==='player1'">
       <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
     </div>
@@ -56,7 +56,12 @@ export default {
         case LOCATION.PLAYER4: return this.playerFourHand
         default: []
       }
+    },
+
+    isPlayerTurn () {
+      return this.currentPlayer.id === this.playerNumber
     }
+
   },
 
   methods: {
@@ -209,10 +214,16 @@ export default {
 </script>
 
 <style>
-
-b {
+.player-name {
+  position: absolute;
+  top: 10%;
+  left: 50%;
   font-size: 3vmin;
   z-index: 2;
+  transform: translateX(-50%);
+}
+.player1 .player-name {
+  display: none;
 }
 
 .container {
@@ -222,6 +233,16 @@ b {
   height: 100%;
   justify-content: center;
   -webkit-justify-content: center;
+  transform: translate3d(0,-30%,0);
+  transition: transform .5s;
+}
+
+.player1 .container {
+  transform: translate3d(0,30%,0);
+}
+
+.player-active-turn .container {
+  transform: translate3d(0,0,0);
 }
 
 .card-container {
