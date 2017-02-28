@@ -47,6 +47,11 @@ export default {
 
 <style lang="scss">
 
+b {
+  font-size: 3vmin;
+  z-index: 2;
+}
+
 .drawStack {
   display: -webkit-inline-flex;
   display: inline-flex;

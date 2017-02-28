@@ -210,6 +210,11 @@ export default {
 
 <style>
 
+b {
+  font-size: 3vmin;
+  z-index: 2;
+}
+
 .container {
   display: -webkit-inline-flex;
   display: inline-flex;

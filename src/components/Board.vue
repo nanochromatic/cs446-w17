@@ -1,9 +1,9 @@
 <template>
   <div class="board">
     <div class="debug">
-      <h4>Time Remaining: {{ timerSeconds }}</h4>
-      <h4>Current Player: {{ currentPlayer.id }}</h4>
-      <h4>Current Colour: {{ lastColour }}</h4>
+      <h4>Time Remaining for {{ currentPlayer.id }}: {{ timerSeconds }}</h4>
+      <!--<h4>Current Player: {{ currentPlayer.id }}</h4>-->
+      <!--<h4>Current Colour: {{ lastColour }}</h4>-->
     </div>
     <div class="stacks">
       <played-stack />
@@ -158,8 +158,10 @@ export default {
 
 .debug {
   position: absolute;
-  top: 40%;
-  left: 70%;
+  top: 0;
+  left: 0;
+  font-size: 2vmin;
+  z-index: 2;
 }
 
 .stacks {
