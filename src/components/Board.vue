@@ -160,7 +160,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 3vmin;
+  font-size: 5vmin;
   z-index: 2;
 }
 

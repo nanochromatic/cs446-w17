@@ -7,12 +7,12 @@
         <div class="game-player"><small>Player 3</small>CPU 2</div>
         <div class="game-player"><small>Player 4</small>CPU 3</div>
       </div>
-      <button  v-on:click="begin" class="button">Start Game</button>
+      <button v-on:click="begin" class="button">Start Game</button>
     </div>
     <board v-else-if="gameStatus === 'inProgress'" />
 	<div v-else>
-		<b>{{ gameStatus }}</b><br/>
-		<button v-on:click="begin" :gameStatus = 'waiting' >Restart Game</button>
+		<div class="message">{{ gameStatus }}</div>
+		<a v-on:click="begin" class="button">New Game</a><br /><router-link to="/" class="button">Back Home</router-link>
 	</div>
 </template>
 
@@ -73,9 +73,14 @@ export default {
   margin: 1em;
   padding: 0;
   border:0px;
-  font-size: 3em;
+  font-size: 2em;
   color: #fff;
   background: none;
+  text-decoration: none;
+}
+
+.message {
+  font-size: 3em;
 }
 
 </style>
