@@ -99,6 +99,10 @@ export default {
     },
 
     playCard: function (card) {
+      if (this.currentPlayer.id !== this.playerNumber) {
+        console.log('not your turn')
+        return
+      }
       if (this.checkLegalMove(card)) {
         console.log('you played card ' + card.color + '-' + card.secondary)
         this.processCardEffect(card)
