@@ -16,6 +16,7 @@ export default {
     state.game.specialAttackStack = resetState.game.specialAttackStack
     state.game.statusMessage = resetState.game.statusMessage
     state.game.cpuBoardAction = resetState.game.cpuBoardAction
+    state.game.currentColour = resetState.game.currentColour
   },
 
   /*
@@ -52,6 +53,14 @@ export default {
     state.game.players.push(player)
   },
 
+  startCurrentTurn (state) {
+    state.game.players[0].currentTurn = true
+  },
+
+  endCurrentTurn (state) {
+    state.game.players[0].currentTurn = false
+  },
+
   playCard (state, card) {
     state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = card
@@ -64,13 +73,13 @@ export default {
       for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
         var spCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
         spCard.location = playerNumber
-        console.log(playerNumber + ' special attack stack drawn card ' + spCard.color + '-' + spCard.secondary)
+        console.log(playerNumber + ' special attack stack drew card ' + spCard.color + '-' + spCard.secondary)
       }
       state.game.specialAttackStack = 0
     }
     var card = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
     card.location = playerNumber
-    console.log(playerNumber + ' drawn card ' + card.color + '-' + card.secondary)
+    console.log(playerNumber + ' drew card ' + card.color + '-' + card.secondary)
   },
 
   switchDirection (state) {

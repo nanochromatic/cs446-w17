@@ -27,15 +27,25 @@ export default {
     PlayedStack
   },
 
+  watch: {
+    currentTurnStatus: function (val, oldVal) {
+      if (val === false && oldVal === true) {
+        this.turnStatusChange()
+      }
+    }
+  },
+
   computed: {
     ...mapGetters([
       'players',
       'currentPlayer',
-      'lastColour'
+      'lastColour',
+      'currentTurnStatus'
     ])
   },
 
   mounted: function () {
+    // this.initPlayers()
     this.startTimer()
   },
 
@@ -47,11 +57,13 @@ export default {
 
     ...mapMutations([
       'switchPlayer',
-      'changeCpuBoardAction'
+      'changeCpuBoardAction',
+      'startCurrentTurn'
     ]),
 
     startTimer () {
       if (!this.timerStarted) {
+        this.startCurrentTurn()
         if (this.currentPlayer.type === 'cpu') {
           this.randomBotMoveTime = randomIntFromInterval(5, 10)
         }
@@ -102,8 +114,13 @@ export default {
       if (this.currentPlayer.type === 'cpu') {
         this.stopTimer()
         this.changeCpuBoardAction(this.currentPlayer.id)
-        this.endTurn()
+        // this.endTurn()
       }
+    },
+
+    turnStatusChange () {
+      this.stopTimer()
+      this.endTurn()
     }
   },
 
