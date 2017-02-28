@@ -55,6 +55,10 @@ export default {
     commit('repopulateDrawStack')
   },
 
+  jumpAction: function ({commit}) {
+    commit('switchPlayer')
+  },
+
   switchDirectionAction: function ({commit}) {
     commit('switchDirection')
   },

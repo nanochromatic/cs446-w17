@@ -66,6 +66,7 @@ export default {
       'drawCardAction',
       'switchDirectionAction',
       'attackStackAction',
+      'jumpAction',
       'changeColourAction'
     ]),
 
@@ -188,6 +189,9 @@ export default {
         case SECONDARY.SINGLE_ATTACK:
         case SECONDARY.DOUBLE_ATTACK:
           this.attackStackAction(card)
+          break
+        case SECONDARY.JUMP:
+          this.jumpAction()
           break
         case SECONDARY.SPECIAL1:
           break
