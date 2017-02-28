@@ -34,24 +34,22 @@ export default {
 <style>
 .card {
   position: relative;
-  width: 100px;
-  height: 150px;
+  height: 100%;
+  max-width: 20%;
 }
 
 .back-frame {
   position: absolute;
     top: 0;
     left: 0;
-  width: 100px;
-  height: 150px;
+  height: 100%;
 }
 
 .card-icon {
   position: absolute;
     top: 0;
     left: 0;
-  width: 100px;
-  height: 150px;
+  height: 100%;
 }
 
 </style>

@@ -194,19 +194,22 @@ export default {
 
 .container {
   display: -webkit-inline-flex;
-  max-width: 50%;
-  margin: 0 auto;
+  display: inline-flex;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  -webkit-justify-content: center;
 }
 
 .card-container {
-  -webkit-flex: 1 1 100px;
-  flex: 1 1 100px;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
   overflow: visible;
 }
 
 .card-container:last-child {
-  -webkit-flex: 0 0 100px;
-  flex: 0 0 100px;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .player-card:hover {

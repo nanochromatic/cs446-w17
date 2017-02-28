@@ -1,5 +1,6 @@
 <template>
   <div class="drawStack">
+    <b>Draw Stack</b>
     <card v-for="card in drawStackDeck" :card="card" class="card-container" :show='false'/>
   </div>
 </template>
@@ -35,12 +36,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 .drawStack {
   display: -webkit-inline-flex;
-  width: 150px;
-  margin: 0 auto;
+  display: inline-flex;
+  width: 20%;
+  float: right;
+  height: 100%;
+  margin-right: 30%;
 }
 
 .card-container {

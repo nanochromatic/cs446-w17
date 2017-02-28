@@ -125,9 +125,11 @@ export default {
 <style>
 .board {
   display: flex;
+  display: -webkit-flex;
   align-items: center;
   justify-content: center;
-
+  width: 100%;
+  height: 100%;
 }
 
 .debug {
@@ -137,12 +139,15 @@ export default {
 }
 
 .stacks {
+  width: 100%;
+  height: 30%;
 }
 
 .player1 {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 30%;
   right: 0;
   left: 0;
   margin-right: auto;
@@ -164,6 +169,7 @@ export default {
   position: fixed;
   left: 0;
   width: 50%;
+  height: 25%;
   top: 0;
   bottom: 0;
   margin-top: auto;
@@ -174,6 +180,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 25%;
   right: 0;
   left: 0;
   margin-right: auto;
@@ -186,14 +193,15 @@ export default {
   -ms-transform-origin: 100% 50%;
   -o-transform-origin: 100% 50%;
   transform-origin: 100% 50%;
-  -webkit-transform: rotate(90deg) translate(50%, 50%);
-  -moz-transform: rotate(90deg) translate(50%, 50%);
-  -ms-transform: rotate(90deg) translate(50%, 50%);
-  -o-transform: rotate(90deg) translate(50%, 50%);
-  transform: rotate(90deg) translate(50%, 50%);
+  -webkit-transform: rotate(90deg) translate(80%, 50%);
+  -moz-transform: rotate(90deg) translate(80%, 50%);
+  -ms-transform: rotate(90deg) translate(80%, 50%);
+  -o-transform: rotate(90deg) translate(80%, 50%);
+  transform: rotate(90deg) translate(80%, 50%);
   position: fixed;
   right: 0;
   width: 50%;
+  height: 25%;
   top: 0;
   bottom: 0;
   margin-right: auto;

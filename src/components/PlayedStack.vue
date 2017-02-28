@@ -35,12 +35,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 .playedStack {
   display: -webkit-inline-flex;
-  width: 150px;
-  margin: 0 auto;
+  display: inline-flex;
+  width: 20%;
+  height: 100%;
+  float: left;
+  margin-left: 30%;
 }
 
 .card-container {
