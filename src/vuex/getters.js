@@ -14,5 +14,6 @@ export default {
   lastCardPlayed: state => state.game.lastCardPlayed,
   attackStatus: state => state.game.specialAttackStack,
   cpuBoardAction: state => state.game.cpuBoardAction,
+  currentTurnStatus: state => state.game.players[0].currentTurn,
   lastColour: state => state.game.currentColour
 }

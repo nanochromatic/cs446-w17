@@ -14,13 +14,14 @@ export default {
           {
             id: PLAYER_LOCATION[0],
             type: 'human',
-            timeRemaining: 10
+            currentTurn: false
           }
         ],
         lastCardPlayed: null,
         specialAttackStack: 0,
         statusMessage: '',
-        cpuBoardAction: ''
+        cpuBoardAction: '',
+        currentColor: ''
       }
     })
   },
@@ -30,11 +31,11 @@ export default {
       commit('addPlayer', {
         id: PLAYER_LOCATION[i],
         type: 'cpu',
-        timeRemaining: 0
+        currentTurn: false
       })
     }
 
-    commit('shufflePlayers')
+    // commit('shufflePlayers')
 
     commit('dealCards')
 
@@ -45,12 +46,13 @@ export default {
     commit('playCard', state.game.deck[28])
   },
 
-  playCardAction: function ({commit}, [card, player]) {
+  playCardAction: function ({commit}, [card, playerNumber]) {
     commit('playCard', card)
   },
 
-  drawCardAction: function ({commit}, player) {
-    commit('drawCard', player)
+  drawCardAction: function ({commit}, playerNumber) {
+    commit('drawCard', playerNumber)
+    commit('repopulateDrawStack')
   },
 
   switchDirectionAction: function ({commit}) {
