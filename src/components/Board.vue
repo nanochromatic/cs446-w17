@@ -58,7 +58,8 @@ export default {
     ...mapMutations([
       'switchPlayer',
       'changeCpuBoardAction',
-      'startCurrentTurn'
+      'startCurrentTurn',
+      'endCurrentTurn'
     ]),
 
     startTimer () {
@@ -66,6 +67,7 @@ export default {
         this.startCurrentTurn()
         if (this.currentPlayer.type === 'cpu') {
           this.randomBotMoveTime = randomIntFromInterval(12, 13)
+          this.changeCpuBoardAction('')
         }
         this.timerStarted = true
         this.timerInterval = setInterval(this.tickTimer, 1000)
@@ -107,6 +109,7 @@ export default {
       this.stopTimer()
       this.drawCardAction(this.currentPlayer.id)
       console.log('Out of time!')
+      this.endCurrentTurn()
       this.endTurn()
     },
 
