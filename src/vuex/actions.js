@@ -9,7 +9,7 @@ export default {
       game: {
         id: 1,
         gameState: 'waiting',
-        deck: shuffleArray(masterDrawStack),
+        deck: shuffleArray(JSON.parse(JSON.stringify(masterDrawStack))),
         players: [
           {
             id: PLAYER_LOCATION[0],
