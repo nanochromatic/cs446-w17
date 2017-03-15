@@ -14,7 +14,8 @@ export default {
           {
             id: PLAYER_LOCATION[0],
             type: 'human',
-            currentTurn: false
+            currentTurn: false,
+            skipTurn: false
           }
         ],
         lastCardPlayed: null,
@@ -56,7 +57,7 @@ export default {
   },
 
   jumpAction: function ({commit}) {
-    commit('switchPlayer')
+    commit('skipTurn')
   },
 
   switchDirectionAction: function ({commit}) {

@@ -56,6 +56,12 @@ export default {
     if (lastElement.id === state.game.players[0].id) {
       state.game.players.pop()
     }
+    // check for skip turn, and skips the next player's turn
+    if (state.game.players[0].skipTurn) {
+      player = state.game.players.shift()
+      player.skipTurn = false
+      state.game.players.push(player)
+    }
   },
 
   startCurrentTurn (state) {
@@ -119,6 +125,10 @@ export default {
     var currentPlayerCopy = JSON.parse(JSON.stringify(state.game.players[0]))
     currentPlayerCopy.currentTurn = false
     state.game.players.splice(1, 0, currentPlayerCopy)
+  },
+
+  skipTurn (state) {
+    state.game.players[1].skipTurn = true
   },
 
   attackStack (state, card) {

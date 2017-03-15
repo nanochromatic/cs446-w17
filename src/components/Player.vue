@@ -198,6 +198,7 @@ export default {
           this.attackStackAction(card)
           break
         case SECONDARY.JUMP:
+          this.jumpAction()
           break
         case SECONDARY.SPECIAL1:
           break

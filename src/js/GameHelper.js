@@ -104,11 +104,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  // {
-  //   color: COLOR.RED,
-  //   secondary: SECONDARY.JUMP,
-  //   location: LOCATION.DRAW_STACK
-  // },
+  {
+    color: COLOR.RED,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
+  },
   {
     color: COLOR.RED,
     secondary: SECONDARY.REVERSE,
@@ -171,11 +171,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  // {
-  //   color: COLOR.GREEN,
-  //   secondary: SECONDARY.JUMP,
-  //   location: LOCATION.DRAW_STACK
-  // },
+  {
+    color: COLOR.GREEN,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
+  },
   {
     color: COLOR.GREEN,
     secondary: SECONDARY.REVERSE,
@@ -238,11 +238,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  // {
-  //   color: COLOR.BLUE,
-  //   secondary: SECONDARY.JUMP,
-  //   location: LOCATION.DRAW_STACK
-  // },
+  {
+    color: COLOR.BLUE,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
+  },
   {
     color: COLOR.BLUE,
     secondary: SECONDARY.REVERSE,
@@ -305,11 +305,11 @@ export const masterDrawStack = [
     secondary: SECONDARY.SQUARE,
     location: LOCATION.DRAW_STACK
   },
-  // {
-  //   color: COLOR.YELLOW,
-  //   secondary: SECONDARY.JUMP,
-  //   location: LOCATION.DRAW_STACK
-  // },
+  {
+    color: COLOR.YELLOW,
+    secondary: SECONDARY.JUMP,
+    location: LOCATION.DRAW_STACK
+  },
   {
     color: COLOR.YELLOW,
     secondary: SECONDARY.REVERSE,
