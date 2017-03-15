@@ -28,7 +28,7 @@ export default {
   },
 
   watch: {
-    currentTurnStatus: function (val, oldVal) {
+    'currentPlayer.currentTurn': function (val, oldVal) {
       if (val === false && oldVal === true) {
         this.turnStatusChange()
       }
@@ -39,8 +39,7 @@ export default {
     ...mapGetters([
       'players',
       'currentPlayer',
-      'lastColour',
-      'currentTurnStatus'
+      'lastColour'
     ])
   },
 
