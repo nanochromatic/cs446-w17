@@ -35,7 +35,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: scroll; /* we will probably want to change this to none */
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

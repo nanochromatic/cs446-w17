@@ -24,6 +24,7 @@ export default {
 .logo {
   max-height: 60%;
 }
+
 h1, h2 {
   margin: 0;
   font-weight: normal;
