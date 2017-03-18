@@ -214,7 +214,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .player-name {
   position: absolute;
   top: 10%;

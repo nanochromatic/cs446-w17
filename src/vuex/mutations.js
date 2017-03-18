@@ -2,6 +2,11 @@ import { LOCATION, SECONDARY, shuffleArray } from '../js/GameHelper'
 
 export default {
 
+  setPlayerName (state, name) {
+    state.player.name = name
+    localStorage.setItem('playerName', name)
+  },
+
   /*
    * Set the game state to the following defined base state
    * reset() must be called before any new game is initiated

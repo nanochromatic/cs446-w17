@@ -1,7 +1,13 @@
 <template>
   <div class="screen landing">
     <img class="logo" src="static/logo.png">
-    <h1>{{ msg }}</h1>
+    <h1>Welcome to Quova, {{ player.name }}</h1>
+
+    <div class="player-name">
+      <label for="name" class="player-name__label">Enter your name:</label>
+      <input type="text" id="name" v-model="playerName" placeholder="Your Name" class="player-name__input">
+    </div>
+
     <p class="options">
       <router-link to="/sp">Single Player</router-link> or <router-link to="/mp">Multiplayer</router-link>
     </p>
@@ -9,12 +15,31 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'landing',
-  data () {
-    return {
-      msg: 'Welcome to Quova'
+  computed: {
+    ...mapState([
+      'player'
+    ]),
+    playerName: {
+      get () {
+        var name = this.player.name || localStorage.getItem('playerName') || ''
+        if (!this.player.name) {
+          this.setPlayerName(name)
+        }
+        return name
+      },
+      set (newValue) {
+        this.setPlayerName(newValue)
+      }
     }
+  },
+  methods: {
+    ...mapMutations([
+      'setPlayerName'
+    ])
   }
 }
 </script>
@@ -45,4 +70,16 @@ a {
   font-size: 2em;
 }
 
+.player-name {
+  font-size: 2em;
+}
+.player-name__label {}
+.player-name__input {
+  border: none;
+  border-bottom: 2px solid #fff;
+  padding-top: .25em;
+  font-size: 1em;
+  color: #fff;
+  background: none;
+}
 </style>
