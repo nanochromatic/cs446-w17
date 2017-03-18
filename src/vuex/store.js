@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexFire from 'vuexfire'
 
 import getters from './getters'
 import mutations from './mutations'
@@ -24,12 +25,16 @@ const state = {
   }
 }
 
-const debug = process.env.NODE_ENV !== 'production'
+// apparently vuexfire doesn't work with strict mode...
+// const debug = process.env.NODE_ENV !== 'production'
+
+// "Concat" VuexFire mutations to the custom ones
+const allMutations = Object.assign({}, mutations, VuexFire.mutations)
 
 export default new Vuex.Store({
   state,
   actions,
-  mutations,
+  mutations: allMutations,
   getters,
-  strict: debug
+  strict: false
 })
