@@ -21,6 +21,17 @@ export const randomIntFromInterval = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+export const PLAYER_TYPE = {
+  HUMAN: 'human',
+  CPU: 'cpu'
+}
+
+export const PLAYER_ROLE = {
+  PERSONALITY1: 'cpu1',
+  PERSONALITY2: 'cpu2',
+  PERSONALITY3: 'cpu3'
+}
+
 export const SECONDARY = {
   MOON: 'moon',
   STAR: 'star',

@@ -1,144 +1,49 @@
 <template>
   <div class="board">
-    <div class="debug">
-      Time for {{ currentPlayer.id }}: <strong>{{ timerSeconds }}</strong>
-      <!--<h4>Current Player: {{ currentPlayer.id }}</h4>-->
-      <!--<h4>Current Colour: {{ lastColour }}</h4>-->
-    </div>
+    <timer :subject="currentPlayer.name" v-on:timeExpired="outOfTime" />
     <div class="stacks">
       <played-stack />
       <draw-stack />
     </div>
-    <player v-for="playerNumber in playersNumbers" :playerNumber="playerNumber" :class="playerNumber"/>
+    <player v-for="player in players" :key="player.location" :player="player" :class="player.location"/>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { LOCATION, randomIntFromInterval } from '../js/GameHelper'
+import Timer from './Timer'
 import Player from './Player'
 import DrawStack from './DrawStack'
 import PlayedStack from './PlayedStack'
 
 export default {
   components: {
+    Timer,
     Player,
     DrawStack,
     PlayedStack
   },
 
-  watch: {
-    'currentPlayer.currentTurn': function (val, oldVal) {
-      if (val === false && oldVal === true) {
-        this.turnStatusChange()
-      }
-    }
-  },
-
   computed: {
     ...mapGetters([
       'players',
-      'currentPlayer',
-      'lastColour'
+      'currentPlayer'
     ])
-  },
-
-  mounted: function () {
-    // this.initPlayers()
-    this.startTimer()
   },
 
   methods: {
     ...mapActions([
-      'resetGame',
       'drawCardAction'
     ]),
 
     ...mapMutations([
-      'switchPlayer',
-      'changeCpuBoardAction',
-      'startCurrentTurn',
-      'endCurrentTurn'
+      'endTurn'
     ]),
 
-    startTimer () {
-      if (!this.timerStarted) {
-        this.startCurrentTurn()
-        if (this.currentPlayer.type === 'cpu') {
-          this.randomBotMoveTime = randomIntFromInterval(12, 13)
-          this.changeCpuBoardAction('')
-        }
-        this.timerStarted = true
-        this.timerInterval = setInterval(this.tickTimer, 1000)
-        this.resetTimer()
-      }
-    },
-
-    resetTimer () {
-      this.timerSeconds = this.MAX_TIME
-    },
-
-    tickTimer () {
-      if (!this.timerStarted) {
-        return
-      }
-      this.timerSeconds--
-      if (this.timerSeconds === 0) {
-        this.outOfTime()
-        return
-      }
-      if (this.timerSeconds === this.randomBotMoveTime) {
-        // bot makes a move when timer is equal to randomBotMoveTime
-        this.processBot()
-        return
-      }
-    },
-
-    stopTimer () {
-      clearInterval(this.timerInterval)
-      this.timerStarted = false
-    },
-
-    endTurn () {
-      this.switchPlayer()
-      this.startTimer()
-    },
-
     outOfTime () {
-      this.stopTimer()
-      this.drawCardAction(this.currentPlayer.id)
-      console.log('Out of time!')
-      this.endCurrentTurn()
+      console.log('Time is up!')
+      this.drawCardAction(this.currentPlayer.location)
       this.endTurn()
-    },
-
-    processBot () {
-      if (this.currentPlayer.type === 'cpu') {
-        this.stopTimer()
-        this.changeCpuBoardAction(this.currentPlayer.id)
-        // this.endTurn()
-      }
-    },
-
-    turnStatusChange () {
-      this.stopTimer()
-      this.endTurn()
-    }
-  },
-
-  data () {
-    return {
-      playersNumbers: [
-        LOCATION.PLAYER1,
-        LOCATION.PLAYER2,
-        LOCATION.PLAYER3,
-        LOCATION.PLAYER4
-      ],
-      MAX_TIME: 15,
-      timerSeconds: this.MAX_TIME,
-      timerStarted: false,
-      timerInterval: null,
-      randomBotMoveTime: 10
     }
   }
 }

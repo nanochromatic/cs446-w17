@@ -30,13 +30,13 @@ export default {
     ]),
 
     ...mapMutations([
-      'endCurrentTurn'
+      'endTurn'
     ]),
 
     draw () {
-      if (this.currentPlayer.id === 'player1') {
+      if (this.currentPlayer.location === 'player1') {
         this.drawCardAction('player1')
-        this.endCurrentTurn()
+        this.endTurn()
       }
     }
 

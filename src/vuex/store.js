@@ -13,6 +13,7 @@ const state = {
   player: {
     name: ''
   },
+  isGameController: false,
   game: {
     id: '',
     gameState: 'waiting',
@@ -21,7 +22,6 @@ const state = {
     lastCardPlayed: null,
     specialAttackStack: 0,
     statusMessage: '',
-    cpuBoardAction: '',
     currentColour: ''
   }
 }

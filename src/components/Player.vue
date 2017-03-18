@@ -1,7 +1,7 @@
 <template>
   <div class="player" v-bind:class="{'player-active-turn': isPlayerTurn}">
-    <b class="player-name">{{ playerNumber }}</b>
-    <div class="container" v-if="playerNumber==='player1'">
+    <b class="player-name">{{ player.name}} - {{ player.location }}</b>
+    <div class="container" v-if="player.location==='player1'">
       <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
     </div>
     <div class="container" v-else>
@@ -12,22 +12,14 @@
 
 <script>
 import Card from './Card'
-import { LOCATION, SECONDARY, COLOR } from '../js/GameHelper'
+import { LOCATION, SECONDARY, COLOR, PLAYER_TYPE, randomIntFromInterval } from '../js/GameHelper'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   props: {
-    playerNumber: {
-      type: String,
+    player: {
+      type: Object,
       required: true
-    }
-  },
-
-  watch: {
-    cpuBoardAction: function (oldVal, newVal) {
-      if (this.cpuBoardAction === this.playerNumber) {
-        this.botPlayCard()
-      }
     }
   },
 
@@ -44,12 +36,11 @@ export default {
       'currentPlayer',
       'lastCardPlayed',
       'attackStatus',
-      'cpuBoardAction',
       'lastColour'
     ]),
 
     playerHand () {
-      switch (this.playerNumber) {
+      switch (this.player.location) {
         case LOCATION.PLAYER1: return this.playerOneHand
         case LOCATION.PLAYER2: return this.playerTwoHand
         case LOCATION.PLAYER3: return this.playerThreeHand
@@ -59,7 +50,15 @@ export default {
     },
 
     isPlayerTurn () {
-      return this.currentPlayer.id === this.playerNumber
+      var isPlayerTurn = this.currentPlayer.location === this.player.location
+
+      if (isPlayerTurn && this.player.type === PLAYER_TYPE.CPU) {
+        var timeDelay = randomIntFromInterval(3, 4)
+        console.log('delay:', timeDelay)
+        setTimeout(this.botPlayCard, timeDelay * 1000)
+      }
+
+      return isPlayerTurn
     }
 
   },
@@ -77,44 +76,43 @@ export default {
     ]),
 
     ...mapMutations([
-      'endCurrentTurn'
+      'endTurn'
     ]),
 
     drawCard: function () {
       // passing a turn = drawing a card
-      this.drawCardAction(this.playerNumber)
+      this.drawCardAction(this.player.location)
       // If there was an attack, this ends the attacks and draws the appropriate amount of cards.
     },
 
     botPlayCard: function () {
-      // Check each card and see if it can be played, if none are playable
-      //  draw a card
+      // Check each card and see if it can be played, if none are playable draw a card
       var hand = this.playerHand
       for (var i = 0; i < hand.length; i++) {
         if (this.checkLegalMove(hand[i])) {
-          console.log(this.playerNumber + ' played card ' + hand[i].color + '-' + hand[i].secondary)
+          console.log(this.player.location + ' played card ' + hand[i].color + '-' + hand[i].secondary)
           this.processCardEffect(hand[i])
-          this.playCardAction([hand[i], this.playerNumber])
-          this.endCurrentTurn()
+          this.playCardAction([hand[i], this.player.location])
+          this.endTurn()
           return
         }
       }
       // No valid moves for the bot
       console.log('No valid moves for bot, drawing card')
       this.drawCard()
-      this.endCurrentTurn()
+      this.endTurn()
     },
 
     playCard: function (card) {
-      if (this.currentPlayer.id !== this.playerNumber) {
+      if (this.currentPlayer.location !== this.player.location) {
         console.log('not your turn')
         return
       }
       if (this.checkLegalMove(card)) {
         console.log('you played card ' + card.color + '-' + card.secondary)
         this.processCardEffect(card)
-        this.playCardAction([card, this.playerNumber])
-        this.endCurrentTurn()
+        this.playCardAction([card, this.player.location])
+        this.endTurn()
         console.log('ending current turn')
       } else {
         console.log('illegal move')
@@ -159,7 +157,7 @@ export default {
     },
 
     processCardEffect: function (card) {
-      // alwasy keep the current colour up to date
+      // always keep the current colour up to date
       this.changeColourAction(card.color)
 
       var effect = card.secondary
@@ -169,7 +167,7 @@ export default {
           break
         case SECONDARY.CHANGE_COLOR:
           // if its a bot, colour could be chosen randomly
-          if (this.currentPlayer.type === 'cpu') {
+          if (this.currentPlayer.type === PLAYER_TYPE.CPU) {
             switch (Math.floor(Math.random() * 4)) {
               case 0:
                 this.changeColourAction(COLOR.RED)

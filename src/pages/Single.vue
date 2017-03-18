@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { PLAYER_TYPE, PLAYER_ROLE } from '../js/GameHelper'
 import Board from 'components/Board'
 
 export default {
@@ -32,13 +33,22 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'setGameController'
+    ]),
     ...mapActions([
       'resetGame',
+      'setPlayer',
       'startGame'
     ]),
 
     begin () {
       this.resetGame()
+      this.setGameController(true)
+      this.setPlayer({index: 0, name: 'Jimmy', type: PLAYER_TYPE.HUMAN, role: PLAYER_ROLE.CONTROLLER})
+      this.setPlayer({index: 1, name: 'CPU Alice', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY1})
+      this.setPlayer({index: 2, name: 'CPU Bob', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY2})
+      this.setPlayer({index: 3, name: 'CPU Carol', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY3})
       this.startGame()
     }
   }

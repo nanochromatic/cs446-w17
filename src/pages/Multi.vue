@@ -22,6 +22,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import fdb from '../vuex/firebase'
+import { PLAYER_TYPE, PLAYER_ROLE } from '../js/GameHelper'
 import Board from 'components/Board'
 
 export default {
@@ -51,12 +52,12 @@ export default {
       'gameStatus'
     ]),
     players () {
-      var cpuCount = 1
+      var cpuCount = 0
       return [
-        this.waitingPlayers[0] ? this.waitingPlayers[0].name : `CPU${cpuCount++}`,
-        this.waitingPlayers[1] ? this.waitingPlayers[1].name : `CPU${cpuCount++}`,
-        this.waitingPlayers[2] ? this.waitingPlayers[2].name : `CPU${cpuCount++}`,
-        this.waitingPlayers[3] ? this.waitingPlayers[3].name : `CPU${cpuCount++}`
+        this.waitingPlayers[0] ? this.waitingPlayers[0].name : `CPU${++cpuCount}`,
+        this.waitingPlayers[1] ? this.waitingPlayers[1].name : `CPU${++cpuCount}`,
+        this.waitingPlayers[2] ? this.waitingPlayers[2].name : `CPU${++cpuCount}`,
+        this.waitingPlayers[3] ? this.waitingPlayers[3].name : `CPU${++cpuCount}`
       ]
     }
   },
@@ -64,13 +65,41 @@ export default {
   methods: {
     ...mapActions([
       'resetGame',
+      'setPlayer',
       'startGame'
     ]),
 
     begin () {
-      console.log(this.$firebaseRefs.waitingPlayers)
-      // this.resetGame()
-      // this.startGame()
+      var player = {
+        index: 0,
+        name: '',
+        type: '',
+        role: false
+      }
+      var humanCount = 0
+      var cpuCount = 0
+
+      this.resetGame()
+      for (var i = 0; i < 4; i++) {
+        player.index = i
+        if (this.waitingPlayers[i]) {
+          // Human
+          player.name = this.waitingPlayers[i].name
+          player.type = PLAYER_TYPE.HUMAN
+          player.role = false
+        } else {
+          // CPU
+          player.name = `CPU${++cpuCount}`
+          player.type = PLAYER_TYPE.CPU
+          player.role = PLAYER_ROLE.PERSONALITY1
+        }
+        this.setPlayer(player)
+      }
+      // Need to go backwards through the waitingPlayers, otherwise we delete and the indexes change
+      for (i = humanCount - 1; i >= 0; i--) {
+        this.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).remove()
+      }
+      this.startGame()
     }
   },
 

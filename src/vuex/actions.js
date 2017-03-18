@@ -1,43 +1,33 @@
-import { shuffleArray, masterDrawStack, PLAYER_LOCATION } from '../js/GameHelper'
+import { shuffleArray, masterDrawStack, LOCATION, SECONDARY, PLAYER_LOCATION } from '../js/GameHelper'
 
 export default {
   resetGame: function ({commit}) {
-    commit('reset', {
+    var gameObject = {
+      gameState: 'waiting',
+      deck: shuffleArray(JSON.parse(JSON.stringify(masterDrawStack))),
+      players: [],
+      lastCardPlayed: null,
+      specialAttackStack: 0,
+      statusMessage: '',
+      currentColour: ''
+    }
+    commit('reset', gameObject)
+  },
+
+  setPlayer: function ({commit}, {index, name, type, role = false}) {
+    commit('setPlayer', {
+      index,
       player: {
-        name: 'Player 1'
-      },
-      game: {
-        id: 1,
-        gameState: 'waiting',
-        deck: shuffleArray(JSON.parse(JSON.stringify(masterDrawStack))),
-        players: [
-          {
-            id: PLAYER_LOCATION[0],
-            type: 'human',
-            currentTurn: false,
-            skipTurn: false
-          }
-        ],
-        lastCardPlayed: null,
-        specialAttackStack: 0,
-        statusMessage: '',
-        cpuBoardAction: '',
-        currentColor: ''
+        name: name,
+        location: PLAYER_LOCATION[index],
+        type: type,
+        role: role,
+        skipTurn: false
       }
     })
   },
 
   startGame: function ({commit, state}) {
-    for (var i = state.game.players.length; i < 4; i++) {
-      commit('addPlayer', {
-        id: PLAYER_LOCATION[i],
-        type: 'cpu',
-        currentTurn: false
-      })
-    }
-
-    // commit('shufflePlayers')
-
     commit('dealCards')
 
     commit('gameStateMessage', 'inProgress')
@@ -51,9 +41,25 @@ export default {
     commit('playCard', card)
   },
 
-  drawCardAction: function ({commit}, playerNumber) {
-    commit('drawCard', playerNumber)
-    commit('repopulateDrawStack')
+  drawCardAction: function ({commit, state}, playerNumber) {
+    var drawStackCount = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK).length
+
+    // If there are attacks stacked, then drawing means that the player has lost the attack
+    if (state.game.specialAttackStack) {
+      // draw cards equal to the value of the stack and then reset the stack value
+      for (var i = 0; i < state.game.specialAttackStack; i++) {
+        commit('drawCard', playerNumber)
+        if (drawStackCount - i === 1) {
+          commit('repopulateDrawStack')
+        }
+      }
+      state.game.specialAttackStack = 0
+    } else {
+      commit('drawCard', playerNumber)
+      if (drawStackCount === 1) {
+        commit('repopulateDrawStack')
+      }
+    }
   },
 
   jumpAction: function ({commit}) {
@@ -69,7 +75,7 @@ export default {
   },
 
   attackStackAction: function ({commit}, card) {
-    commit('attackStack', card)
+    commit('attackStack', (card.secondary === SECONDARY.SINGLE_ATTACK ? 1 : 2))
   },
 
   changeColourAction: function ({commit}, colour) {
