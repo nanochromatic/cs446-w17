@@ -13,5 +13,5 @@ export default {
   currentPlayer: state => state.game.players[0],
   lastCardPlayed: state => state.game.lastCardPlayed,
   attackStatus: state => state.game.specialAttackStack,
-  lastColour: state => state.game.currentColour
+  lastColor: state => state.game.lastCardPlayed ? state.game.lastCardPlayed.color : ''
 }

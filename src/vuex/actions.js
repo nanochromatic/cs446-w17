@@ -8,8 +8,7 @@ export default {
       players: [],
       lastCardPlayed: null,
       specialAttackStack: 0,
-      statusMessage: '',
-      currentColour: ''
+      statusMessage: ''
     }
     commit('reset', gameObject)
   },
@@ -33,7 +32,7 @@ export default {
     commit('gameStateMessage', 'inProgress')
 
     // Flip the top card off the DRAW_STACK, and move it to the PLAYED_STACK
-    commit('changeColour', state.game.deck[28].color)
+    commit('changeColor', state.game.deck[28].color)
     commit('playCard', state.game.deck[28])
   },
 
@@ -78,8 +77,8 @@ export default {
     commit('attackStack', (card.secondary === SECONDARY.SINGLE_ATTACK ? 1 : 2))
   },
 
-  changeColourAction: function ({commit}, colour) {
-    commit('changeColour', colour)
+  changeColorAction: function ({commit}, color) {
+    commit('changeColor', color)
   },
 
   endTurnAction: function ({commit}) {

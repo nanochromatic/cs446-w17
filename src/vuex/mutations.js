@@ -72,8 +72,8 @@ export default {
   playCard (state, card) {
     var oldLocation = card.location
     state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
-    state.game.lastCardPlayed = card
-    state.game.lastCardPlayed.color = state.game.currentColour
+    state.game.lastCardPlayed = Object.assign({}, card)
+    // TODO: Win condition should be elsewhere
     if (state.game.deck.filter(card => card.location === oldLocation).length === 0) {
       state.game.gameState = 'Game Over: ' + oldLocation + ' wins!'
     }
@@ -109,8 +109,8 @@ export default {
     state.game.specialAttackStack = Math.min(state.game.specialAttackStack + value, 10)
   },
 
-  changeColour (state, colour) {
-    state.game.currentColour = colour
+  changeColor (state, color) {
+    state.game.lastCardPlayed.color = color
   },
 
   gameStateMessage (state, message) {

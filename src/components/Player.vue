@@ -36,7 +36,7 @@ export default {
       'currentPlayer',
       'lastCardPlayed',
       'attackStatus',
-      'lastColour'
+      'lastColor'
     ]),
 
     playerHand () {
@@ -72,7 +72,7 @@ export default {
       'attackStackAction',
       'jumpAction',
       'additionalTurnAction',
-      'changeColourAction',
+      'changeColorAction',
       'endTurnAction'
     ]),
 
@@ -117,7 +117,7 @@ export default {
     },
 
     checkLegalMove: function (card) {
-      var lastColor = this.lastColour
+      var lastColor = this.lastColor
       var lastSecondary = this.lastCardPlayed.secondary
       var singleAttack = SECONDARY.SINGLE_ATTACK
       var doubleAttack = SECONDARY.DOUBLE_ATTACK
@@ -154,8 +154,8 @@ export default {
     },
 
     processCardEffect: function (card) {
-      // always keep the current colour up to date
-      this.changeColourAction(card.color)
+      // always keep the current color up to date
+      this.changeColorAction(card.color)
 
       var effect = card.secondary
       switch (effect) {
@@ -163,26 +163,26 @@ export default {
           this.switchDirectionAction()
           break
         case SECONDARY.CHANGE_COLOR:
-          // if its a bot, colour could be chosen randomly
+          // if its a bot, color could be chosen randomly
           if (this.currentPlayer.type === PLAYER_TYPE.CPU) {
             switch (Math.floor(Math.random() * 4)) {
               case 0:
-                this.changeColourAction(COLOR.RED)
+                this.changeColorAction(COLOR.RED)
                 break
               case 1:
-                this.changeColourAction(COLOR.GREEN)
+                this.changeColorAction(COLOR.GREEN)
                 break
               case 2:
-                this.changeColourAction(COLOR.BLUE)
+                this.changeColorAction(COLOR.BLUE)
                 break
               case 3:
-                this.changeColourAction(COLOR.YELLOW)
+                this.changeColorAction(COLOR.YELLOW)
                 break
             }
           } else {
-            // process UI which asks user for a colour
-            // for testing lets always set the colour to red
-            this.changeColourAction(COLOR.RED)
+            // process UI which asks user for a color
+            // for testing lets always set the color to red
+            this.changeColorAction(COLOR.RED)
           }
           break
         case SECONDARY.ADDITIONAL_TURN:
