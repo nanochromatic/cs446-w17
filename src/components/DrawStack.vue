@@ -6,7 +6,7 @@
 
 <script>
 import Card from './Card'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -26,17 +26,14 @@ export default {
 
   methods: {
     ...mapActions([
-      'drawCardAction'
-    ]),
-
-    ...mapMutations([
-      'endTurn'
+      'drawCardAction',
+      'endTurnAction'
     ]),
 
     draw () {
       if (this.currentPlayer.location === 'player1') {
         this.drawCardAction('player1')
-        this.endTurn()
+        this.endTurnAction()
       }
     }
 

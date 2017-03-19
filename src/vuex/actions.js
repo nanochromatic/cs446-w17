@@ -80,5 +80,9 @@ export default {
 
   changeColourAction: function ({commit}, colour) {
     commit('changeColour', colour)
+  },
+
+  endTurnAction: function ({commit}) {
+    commit('endTurn')
   }
 }

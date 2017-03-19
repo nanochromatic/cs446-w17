@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Timer from './Timer'
 import Player from './Player'
 import DrawStack from './DrawStack'
@@ -33,17 +33,14 @@ export default {
 
   methods: {
     ...mapActions([
-      'drawCardAction'
-    ]),
-
-    ...mapMutations([
-      'endTurn'
+      'drawCardAction',
+      'endTurnAction'
     ]),
 
     outOfTime () {
       console.log('Time is up!')
       this.drawCardAction(this.currentPlayer.location)
-      this.endTurn()
+      this.endTurnAction()
     }
   }
 }

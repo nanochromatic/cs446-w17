@@ -13,7 +13,7 @@
 <script>
 import Card from './Card'
 import { LOCATION, SECONDARY, COLOR, PLAYER_TYPE, randomIntFromInterval } from '../js/GameHelper'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
@@ -72,11 +72,8 @@ export default {
       'attackStackAction',
       'jumpAction',
       'additionalTurnAction',
-      'changeColourAction'
-    ]),
-
-    ...mapMutations([
-      'endTurn'
+      'changeColourAction',
+      'endTurnAction'
     ]),
 
     drawCard: function () {
@@ -93,14 +90,14 @@ export default {
           console.log(this.player.location + ' played card ' + hand[i].color + '-' + hand[i].secondary)
           this.processCardEffect(hand[i])
           this.playCardAction([hand[i], this.player.location])
-          this.endTurn()
+          this.endTurnAction()
           return
         }
       }
       // No valid moves for the bot
       console.log('No valid moves for bot, drawing card')
       this.drawCard()
-      this.endTurn()
+      this.endTurnAction()
     },
 
     playCard: function (card) {
@@ -112,7 +109,7 @@ export default {
         console.log('you played card ' + card.color + '-' + card.secondary)
         this.processCardEffect(card)
         this.playCardAction([card, this.player.location])
-        this.endTurn()
+        this.endTurnAction()
         console.log('ending current turn')
       } else {
         console.log('illegal move')
