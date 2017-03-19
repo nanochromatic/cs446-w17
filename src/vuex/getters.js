@@ -1,4 +1,4 @@
-import { LOCATION } from '../js/GameHelper'
+import { LOCATION } from '../js/DeckHelper'
 
 export default {
   drawStackDeck: state => state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK),

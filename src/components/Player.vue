@@ -12,7 +12,9 @@
 
 <script>
 import Card from './Card'
-import { LOCATION, SECONDARY, COLOR, PLAYER_TYPE, randomIntFromInterval } from '../js/GameHelper'
+import { COLOR, SECONDARY, LOCATION } from '../js/DeckHelper'
+import { randomIntFromInterval } from '../js/GameHelper'
+import { PLAYER_TYPE } from '../js/PlayerHelper'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {

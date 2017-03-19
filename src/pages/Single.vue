@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { PLAYER_TYPE, PLAYER_ROLE } from '../js/GameHelper'
+import { PLAYER_TYPE, PLAYER_ROLE } from '../js/PlayerHelper'
 import Board from 'components/Board'
 
 export default {

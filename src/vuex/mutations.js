@@ -1,4 +1,5 @@
-import { LOCATION, shuffleArray } from '../js/GameHelper'
+import { LOCATION } from '../js/DeckHelper'
+import { shuffleArray } from '../js/GameHelper'
 
 export default {
 

@@ -1,4 +1,6 @@
-import { shuffleArray, masterDrawStack, LOCATION, SECONDARY, PLAYER_LOCATION } from '../js/GameHelper'
+import { LOCATION, SECONDARY, masterDrawStack } from '../js/DeckHelper'
+import { shuffleArray } from '../js/GameHelper'
+import { PLAYER_LOCATION } from '../js/PlayerHelper'
 import { fdbGameInit, fdbCommit, fdbSync } from '../vuex/firebase'
 
 export default {
