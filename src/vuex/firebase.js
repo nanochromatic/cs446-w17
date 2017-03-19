@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Firebase from 'firebase'
 import VuexFire from 'vuexfire'
+import mutations from './mutations'
 
 Vue.use(VuexFire)
 
@@ -12,6 +13,31 @@ const firebaseApp = Firebase.initializeApp({
   messagingSenderId: '159172839201'
 })
 
-const db = firebaseApp.database()
+export const fdb = firebaseApp.database()
 
-export default db
+var remoteDB = null
+var mockState = null
+
+export const fdbGameInit = function (gameId) {
+  remoteDB = fdb.ref(gameId)
+  mockState = {}
+}
+
+export const fdbCommit = function (name, data) {
+  if (typeof data === 'object') {
+    console.log('object', data)
+    data = JSON.parse(JSON.stringify(data))
+  }
+  console.info(`fdbC: ${name}`, new Date())
+  mutations[name](mockState, data)
+  /*
+   * We can save some data by syncing batches manually.
+   * See fdbSync() below
+   */
+  // remoteDB.update(mockState)
+}
+
+export const fdbSync = function () {
+  console.info(`fdbSYNC`, new Date())
+  remoteDB.update(mockState)
+}

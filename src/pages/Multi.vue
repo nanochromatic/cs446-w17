@@ -21,7 +21,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import fdb from '../vuex/firebase'
+import { fdb } from '../vuex/firebase'
 import { PLAYER_TYPE, PLAYER_ROLE } from '../js/GameHelper'
 import Board from 'components/Board'
 
