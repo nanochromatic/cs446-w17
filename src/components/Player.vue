@@ -107,8 +107,8 @@ export default {
       }
       if (this.checkLegalMove(card)) {
         console.log('you played card ' + card.color + '-' + card.secondary)
-        this.processCardEffect(card)
         this.playCardAction([card, this.player.location])
+        this.processCardEffect(card)
         this.endTurnAction()
         console.log('ending current turn')
       } else {
@@ -154,9 +154,6 @@ export default {
     },
 
     processCardEffect: function (card) {
-      // always keep the current color up to date
-      this.changeColorAction(card.color)
-
       var effect = card.secondary
       switch (effect) {
         case SECONDARY.REVERSE:
