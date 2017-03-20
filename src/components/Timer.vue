@@ -1,13 +1,13 @@
 <template>
   <div class="timer">
-    Time for {{ subject }}: <strong>{{ timerSeconds }}</strong>
+    Time for {{ name }}: <strong>{{ timerSeconds }}</strong>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    subject: {
+    name: {
       type: String,
       default () {
         return '[NAME]'
@@ -24,8 +24,8 @@ export default {
   },
 
   watch: {
-    // When the subject changes, that means we've switched to a new user
-    subject: function (subject) {
+    // When the name changes, that means we've switched to a new user
+    name: function (name) {
       this.startTimer()
     }
   },

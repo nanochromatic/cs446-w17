@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <timer :subject="currentPlayer.name" v-on:timeExpired="outOfTime" />
+    <timer :name="currentPlayer.name" v-on:timeExpired="outOfTime" />
     <div class="stacks">
       <played-stack />
       <draw-stack />
