@@ -32,13 +32,6 @@ export default {
   },
 
   /*
-   * Shuffle the players to determine the playing order
-   */
-  shufflePlayers (state) {
-    shuffleArray(state.game.players)
-  },
-
-  /*
    * Deal 7 cards to each player
    */
   dealCards (state) {
