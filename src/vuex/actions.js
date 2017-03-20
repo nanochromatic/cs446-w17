@@ -77,25 +77,34 @@ export default {
     }
   },
 
-  jumpAction: function ({commit}) {
-    commit('skipTurn')
-    fdbCommit('skipTurn')
-  },
-
-  switchDirectionAction: function ({commit}) {
-    commit('switchDirection')
-    fdbCommit('switchDirection')
-  },
-
-  additionalTurnAction: function ({commit}) {
-    commit('additionalTurn')
-    fdbCommit('additionalTurn')
-  },
-
-  attackStackAction: function ({commit}, card) {
-    var attackAmount = card.secondary === SECONDARY.SINGLE_ATTACK ? 1 : 2
-    commit('attackStack', attackAmount)
-    fdbCommit('attackStack', attackAmount)
+  cardEffectAction: function ({commit}, cardSecondary) {
+    switch (cardSecondary) {
+      case SECONDARY.REVERSE:
+        commit('switchDirection')
+        fdbCommit('switchDirection')
+        break
+      case SECONDARY.ADDITIONAL_TURN:
+        commit('additionalTurn')
+        fdbCommit('additionalTurn')
+        break
+      case SECONDARY.SINGLE_ATTACK:
+        commit('attackStack', 1)
+        fdbCommit('attackStack', 1)
+        break
+      case SECONDARY.DOUBLE_ATTACK:
+        commit('attackStack', 2)
+        fdbCommit('attackStack', 2)
+        break
+      case SECONDARY.JUMP:
+        commit('skipTurn')
+        fdbCommit('skipTurn')
+        break
+      case SECONDARY.SPECIAL1:
+      case SECONDARY.SPECIAL2:
+      case SECONDARY.SPECIAL3:
+      case SECONDARY.SPECIAL4:
+        break
+    }
   },
 
   changeColorAction: function ({commit}, color) {

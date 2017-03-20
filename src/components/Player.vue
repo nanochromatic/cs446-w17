@@ -70,10 +70,7 @@ export default {
     ...mapActions([
       'playCardAction',
       'drawCardAction',
-      'switchDirectionAction',
-      'attackStackAction',
-      'jumpAction',
-      'additionalTurnAction',
+      'cardEffectAction',
       'changeColorAction',
       'endTurnAction'
     ]),
@@ -158,9 +155,6 @@ export default {
     processCardEffect: function (card) {
       var effect = card.secondary
       switch (effect) {
-        case SECONDARY.REVERSE:
-          this.switchDirectionAction()
-          break
         case SECONDARY.CHANGE_COLOR:
           // if its a bot, color could be chosen randomly
           if (this.currentPlayer.type === PLAYER_TYPE.CPU) {
@@ -184,23 +178,16 @@ export default {
             this.changeColorAction(COLOR.RED)
           }
           break
+        case SECONDARY.REVERSE:
         case SECONDARY.ADDITIONAL_TURN:
-          this.additionalTurnAction()
-          break
         case SECONDARY.SINGLE_ATTACK:
         case SECONDARY.DOUBLE_ATTACK:
-          this.attackStackAction(card)
-          break
         case SECONDARY.JUMP:
-          this.jumpAction()
-          break
         case SECONDARY.SPECIAL1:
-          break
         case SECONDARY.SPECIAL2:
-          break
         case SECONDARY.SPECIAL3:
-          break
         case SECONDARY.SPECIAL4:
+          this.cardEffectAction(effect)
           break
       }
     }
