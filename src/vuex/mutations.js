@@ -75,6 +75,7 @@ export default {
   drawCard (state, playerNumber) {
     var drawnCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
     drawnCard.location = playerNumber
+    state.game.specialAttackStack = 0
     console.log(playerNumber + ' drew card ' + drawnCard.color + '-' + drawnCard.secondary)
   },
 

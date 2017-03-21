@@ -6,10 +6,11 @@ import router from './router'
 import store from './vuex/store'
 
 /* eslint-disable no-new */
-new Vue({
+window.vm = new Vue({
   el: '#app',
   router,
   store,
+  firebase: {},
   template: '<App />',
   components: { App }
 })

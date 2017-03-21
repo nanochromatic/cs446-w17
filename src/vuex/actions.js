@@ -54,26 +54,15 @@ export default {
 
   drawCardAction: function ({commit, state}, playerNumber) {
     var drawStackCount = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK).length
+    var cardsToDraw = state.game.specialAttackStack || 1
 
-    // If there are attacks stacked, then drawing means that the player has lost the attack
-    if (state.game.specialAttackStack) {
-      if (drawStackCount - state.game.specialAttackStack <= 0) {
-        commit('repopulateDrawStack')
-        fdbCommit('repopulateDrawStack')
-      }
-      // draw cards equal to the value of the stack and then reset the stack value
-      for (var i = 0; i < state.game.specialAttackStack; i++) {
-        commit('drawCard', playerNumber)
-        fdbCommit('drawCard', playerNumber)
-      }
-      state.game.specialAttackStack = 0
-    } else {
+    if (drawStackCount - cardsToDraw <= 0) {
+      commit('repopulateDrawStack')
+      fdbCommit('repopulateDrawStack')
+    }
+    for (var i = 0; i < cardsToDraw; i++) {
       commit('drawCard', playerNumber)
       fdbCommit('drawCard', playerNumber)
-      if (drawStackCount === 1) {
-        commit('repopulateDrawStack')
-        fdbCommit('repopulateDrawStack')
-      }
     }
   },
 

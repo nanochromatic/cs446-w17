@@ -3,12 +3,6 @@
     <div v-if="gameStatus === 'waiting'">
       <div class="waiting-players">
         <div v-for="(player, i) in players" class="game-player"><small>Player {{ i+1 }}</small>{{ player }}</div>
-        <!--
-        <div class="game-player"><small>Player 1</small>You</div>
-        <div class="game-player"><small>Player 2</small>CPU 1</div>
-        <div class="game-player"><small>Player 3</small>CPU 2</div>
-        <div class="game-player"><small>Player 4</small>CPU 3</div>
-        -->
       </div>
       <button v-on:click="begin" class="button">Start Game</button><router-link to="/" class="button">Back Home</router-link>
     </div>
@@ -28,12 +22,6 @@ import Board from 'components/Board'
 export default {
   components: {
     Board
-  },
-
-  firebase () {
-    return {
-      waitingPlayers: fdb.ref('waitingPlayers')
-    }
   },
 
   data () {
@@ -79,7 +67,8 @@ export default {
       var humanCount = 0
       var cpuCount = 0
 
-      this.resetGame()
+      this.resetGame({sync: true, gameId: 'g3'})
+
       for (var i = 0; i < 4; i++) {
         player.index = i
         if (this.waitingPlayers[i]) {
@@ -87,37 +76,45 @@ export default {
           player.name = this.waitingPlayers[i].name
           player.type = PLAYER_TYPE.HUMAN
           player.role = false
+          humanCount++
         } else {
           // CPU
           player.name = `CPU${++cpuCount}`
           player.type = PLAYER_TYPE.CPU
           player.role = PLAYER_ROLE.PERSONALITY1
+          cpuCount++
         }
         this.setPlayer(player)
       }
+
+      this.setGameController(true) // this.waitingPlayers[0].playerId === getPlayerId()
+
       // Need to go backwards through the waitingPlayers, otherwise we delete and the indexes change
       for (i = humanCount - 1; i >= 0; i--) {
-        this.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).remove()
+        window.vm.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).remove()
       }
+
       this.startGame()
     }
   },
 
   mounted () {
-    this.userId = Date.now()
-    this.playerKey = this.$firebaseRefs.waitingPlayers.child(this.userId).set({
+    window.vm.$bindAsArray('waitingPlayers', fdb.ref('waitingPlayers'))
+
+    this.playerId = getPlayerId()
+    console.log('playerId', this.playerId)
+    this.playerKey = window.vm.$firebaseRefs.waitingPlayers.push({
       name: this.player.name,
-      ping: Date.now()
-    })
+      playerId: this.playerId,
+      ping: Date.now(),
+      gameId: 0
+    }).key
   },
 
   beforeDestroy () {
-    //  TODO: We need to remove a waiting player if they leave this screen, but this doesn't work because vuexfire removes the $firebaseRefs before this is called. Also need to handle case where the app is closed.
-    // console.log(this.playerKey, this.$firebaseRefs)
-    // this.$firebaseRefs.waitingPlayers.child(this.userId).remove()
-    console.log('beforeDestroy')
+    window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
+    window.vm.$unbind('waitingPlayers')
   }
-
 }
 </script>
 

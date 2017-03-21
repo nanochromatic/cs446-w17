@@ -43,7 +43,7 @@ export default {
     ]),
 
     begin () {
-      this.resetGame()
+      this.resetGame({sync: false})
       this.setGameController(true)
       this.setPlayer({index: 0, name: 'Jimmy', type: PLAYER_TYPE.HUMAN, role: PLAYER_ROLE.CONTROLLER})
       this.setPlayer({index: 1, name: 'CPU Alice', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY1})
