@@ -20,3 +20,17 @@ export const shuffleArray = function (array) {
 export const randomIntFromInterval = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+export const getPlayerId = function () {
+  var newId = Date.now()
+
+  if (window.device) {
+    console.log(window.device.uuid)
+    return window.device.uuid
+  } else if (localStorage.getItem('playerId')) {
+    return localStorage.getItem('playerId')
+  } else {
+    localStorage.setItem('playerId', newId)
+    return Date.now()
+  }
+}

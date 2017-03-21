@@ -2,7 +2,7 @@
   <div class="screen single">
     <div v-if="gameStatus === 'waiting'">
       <div class="waiting-players">
-        <div class="game-player"><small>Player 1</small>You</div>
+        <div class="game-player"><small>Player 1</small>You ({{ player.name }})</div>
         <div class="game-player"><small>Player 2</small>CPU 1</div>
         <div class="game-player"><small>Player 3</small>CPU 2</div>
         <div class="game-player"><small>Player 4</small>CPU 3</div>
@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { getPlayerId } from '../js/GameHelper'
 import { PLAYER_TYPE, PLAYER_ROLE } from '../js/PlayerHelper'
 import Board from 'components/Board'
 
@@ -27,6 +28,9 @@ export default {
   },
 
   computed: {
+    ...mapState([
+      'player'
+    ]),
     ...mapGetters([
       'gameStatus'
     ])
@@ -45,10 +49,10 @@ export default {
     begin () {
       this.resetGame({sync: false})
       this.setGameController(true)
-      this.setPlayer({index: 0, name: 'Jimmy', type: PLAYER_TYPE.HUMAN, role: PLAYER_ROLE.CONTROLLER})
-      this.setPlayer({index: 1, name: 'CPU Alice', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY1})
-      this.setPlayer({index: 2, name: 'CPU Bob', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY2})
-      this.setPlayer({index: 3, name: 'CPU Carol', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY3})
+      this.setPlayer({index: 0, name: this.player.name, id: getPlayerId(), type: PLAYER_TYPE.HUMAN, role: PLAYER_ROLE.CONTROLLER})
+      this.setPlayer({index: 1, name: 'CPU Alice', id: 'CPU1', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY1})
+      this.setPlayer({index: 2, name: 'CPU Bob', id: 'CPU2', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY2})
+      this.setPlayer({index: 3, name: 'CPU Carol', id: 'CPU3', type: PLAYER_TYPE.CPU, role: PLAYER_ROLE.PERSONALITY3})
       this.startGame()
     }
   }

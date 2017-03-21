@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import Card from './Card'
 import { mapActions, mapGetters } from 'vuex'
+import { getPlayerId } from '../js/GameHelper'
+import Card from './Card'
 
 export default {
   components: {
@@ -31,8 +32,8 @@ export default {
     ]),
 
     draw () {
-      if (this.currentPlayer.location === 'player1') {
-        this.drawCardAction('player1')
+      if (this.currentPlayer.id === getPlayerId()) {
+        this.drawCardAction(this.currentPlayer.location)
         this.endTurnAction()
       }
     }

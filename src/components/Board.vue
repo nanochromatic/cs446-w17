@@ -5,12 +5,14 @@
       <played-stack />
       <draw-stack />
     </div>
-    <player v-for="player in players" :key="player.location" :player="player" :class="player.location"/>
+    <player v-for="(location, id) in locations" :key="id" :player="players[getPlayerIndex(id)]" :class="location"/>
+    <!-- <player v-for="player in players" :key="player.location" :player="player" :class="locations[player.id]"/> -->
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { getPlayerId } from '../js/GameHelper'
 import Timer from './Timer'
 import Player from './Player'
 import DrawStack from './DrawStack'
@@ -28,7 +30,22 @@ export default {
     ...mapGetters([
       'players',
       'currentPlayer'
-    ])
+    ]),
+    locations () {
+      var devicePlayerId = getPlayerId()
+      var locations = {}
+      var classNames = ['bottom', 'left', 'top', 'right']
+      var ids = this.players.map(player => player.id)
+      var index = ids.findIndex(id => id === devicePlayerId)
+      // ensure the device player is first in ids[], so that they get position bottom
+      for (var i = 0; i < index; i++) {
+        var a = ids.shift()
+        ids.push(a)
+      }
+      ids.forEach((id, i) => { locations[id] = classNames[i] })
+
+      return locations
+    }
   },
 
   methods: {
@@ -36,6 +53,10 @@ export default {
       'drawCardAction',
       'endTurnAction'
     ]),
+
+    getPlayerIndex (id) {
+      return this.players.findIndex(player => player.id === id)
+    },
 
     outOfTime () {
       console.log('Time is up!')
@@ -70,7 +91,7 @@ export default {
   height: 30%;
 }
 
-.player1 {
+.bottom {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -82,16 +103,8 @@ export default {
   z-index: 1;
 }
 
-.player2 {
-  -webkit-transform-origin: 0 50%;
-  -moz-transform-origin: 0 50%;
-  -ms-transform-origin: 0 50%;
-  -o-transform-origin: 0 50%;
+.left {
   transform-origin: 0 50%;
-  -webkit-transform: rotate(-90deg) translate(-50%, 50%);
-  -moz-transform: rotate(-90deg) translate(-50%, 50%);
-  -ms-transform: rotate(-90deg) translate(-50%, 50%);
-  -o-transform: rotate(-90deg) translate(-50%, 50%);
   transform: rotate(-90deg) translate(-50%, 50%);
   position: fixed;
   left: 0;
@@ -103,7 +116,7 @@ export default {
   margin-bottom: auto;
 }
 
-.player3 {
+.top {
   position: fixed;
   top: 0;
   width: 100%;
@@ -114,16 +127,8 @@ export default {
   margin-left: auto;
 }
 
-.player4 {
-  -webkit-transform-origin: 100% 50%;
-  -moz-transform-origin: 100% 50%;
-  -ms-transform-origin: 100% 50%;
-  -o-transform-origin: 100% 50%;
+.right {
   transform-origin: 100% 50%;
-  -webkit-transform: rotate(90deg) translate(80%, 50%);
-  -moz-transform: rotate(90deg) translate(80%, 50%);
-  -ms-transform: rotate(90deg) translate(80%, 50%);
-  -o-transform: rotate(90deg) translate(80%, 50%);
   transform: rotate(90deg) translate(80%, 50%);
   position: fixed;
   right: 0;

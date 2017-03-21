@@ -1,7 +1,7 @@
 <template>
   <div class="player" v-bind:class="{'player-active-turn': isPlayerTurn}">
-    <b class="player-name">{{ player.name}} - {{ player.location }}</b>
-    <div class="container" v-if="player.location==='player1'">
+    <b class="player-name">{{ player.name}}</b>
+    <div class="container" v-if="player.id === devicePlayerId">
       <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
     </div>
     <div class="container" v-else>
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import Card from './Card'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import { COLOR, SECONDARY, LOCATION } from '../js/DeckHelper'
-import { randomIntFromInterval } from '../js/GameHelper'
+import { getPlayerId, randomIntFromInterval } from '../js/GameHelper'
 import { PLAYER_TYPE } from '../js/PlayerHelper'
-import { mapGetters, mapActions } from 'vuex'
+import Card from './Card'
 
 export default {
   props: {
@@ -30,6 +30,9 @@ export default {
   },
 
   computed: {
+    ...mapState([
+      'isGameController'
+    ]),
     ...mapGetters([
       'playerOneHand',
       'playerTwoHand',
@@ -40,6 +43,10 @@ export default {
       'attackStatus',
       'lastColor'
     ]),
+
+    devicePlayerId () {
+      return getPlayerId()
+    },
 
     playerHand () {
       switch (this.player.location) {
@@ -54,9 +61,9 @@ export default {
     isPlayerTurn () {
       var isPlayerTurn = this.currentPlayer.location === this.player.location
 
-      if (isPlayerTurn && this.player.type === PLAYER_TYPE.CPU) {
-        var timeDelay = randomIntFromInterval(3, 4)
-        console.log('delay:', timeDelay)
+      if (isPlayerTurn && this.player.type === PLAYER_TYPE.CPU && this.isGameController) {
+        var timeDelay = randomIntFromInterval(3, 7)
+        console.log(`delay is ${timeDelay}`)
         setTimeout(this.botPlayCard, timeDelay * 1000)
       }
 
@@ -204,7 +211,7 @@ export default {
   z-index: 2;
   transform: translateX(-50%);
 }
-.player1 .player-name {
+.bottom .player-name {
   display: none;
 }
 
@@ -219,7 +226,7 @@ export default {
   transition: transform .5s;
 }
 
-.player1 .container {
+.bottom .container {
   transform: translate3d(0,30%,0);
 }
 
