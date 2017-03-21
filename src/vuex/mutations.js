@@ -102,7 +102,7 @@ export default {
     // If there are attacks stacked, then drawing means that the player has lost the attack
     if (state.game.specialAttackStack) {
       // draw cards equal to the value of the stack and then reset the stack value
-      for (var i = 0; i < state.game.specialAttackStack - 1; i++) {
+      for (var i = 0; i < state.game.specialAttackStack; i++) {
         var spCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
         spCard.location = playerNumber
         console.log(playerNumber + ' special attack stack drew card ' + spCard.color + '-' + spCard.secondary)
