@@ -63,6 +63,12 @@ export const PLAYER_LOCATION = [
   LOCATION.PLAYER4
 ]
 
+export const DIFFICULTIES = {
+  NORMAL: 'normal',
+  IMPOSSIBLE: 'impossible',
+  EASY: 'easy'
+}
+
 export const SHAPES = [
   SECONDARY.MOON,
   SECONDARY.STAR,

@@ -14,6 +14,7 @@ export default {
           {
             id: PLAYER_LOCATION[0],
             type: 'human',
+            difficulty: null,
             currentTurn: false,
             skipTurn: false
           }
@@ -32,6 +33,7 @@ export default {
       commit('addPlayer', {
         id: PLAYER_LOCATION[i],
         type: 'cpu',
+        difficulty: 'normal',
         currentTurn: false
       })
     }
