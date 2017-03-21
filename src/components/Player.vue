@@ -3,11 +3,18 @@
     <b class="player-name">{{ playerNumber }}</b>
     <div class="container" v-if="playerNumber==='player1'">
       <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
+      <div id='col' class="colour-picker" v-if="chooseColourGuiOpen">
+        <div class="colour-selection Red"  v-on:click="makeRed"></div>
+        <div class="colour-selection Yellow"  v-on:click="makeYellow"></div>
+        <div class="colour-selection Green"  v-on:click="makeGreen"></div>
+        <div class="colour-selection Blue"  v-on:click="makeBlue"></div>
+      </div>
     </div>
     <div class="container" v-else>
       <card v-for="card in playerHand" class="card-container" :card="card" :show='false'/>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -35,6 +42,14 @@ export default {
     Card
   },
 
+  data () {
+    return {
+      chooseColour: false,
+      storeCard: null,
+      storePlayer: 0
+    }
+  },
+
   computed: {
     ...mapGetters([
       'playerOneHand',
@@ -60,6 +75,14 @@ export default {
 
     isPlayerTurn () {
       return this.currentPlayer.id === this.playerNumber
+    },
+
+    chooseColourGuiOpen () {
+      if (this.storePlayer !== this.currentPlayer.id) {
+        this.chooseColour = false
+        return false
+      }
+      return this.chooseColour
     }
 
   },
@@ -113,9 +136,11 @@ export default {
       if (this.checkLegalMove(card)) {
         console.log('you played card ' + card.color + '-' + card.secondary)
         this.processCardEffect(card)
-        this.playCardAction([card, this.playerNumber])
-        this.endCurrentTurn()
-        console.log('ending current turn')
+        if (!this.chooseColour) {
+          this.playCardAction([card, this.playerNumber])
+          this.endCurrentTurn()
+          console.log('ending current turn')
+        }
       } else {
         console.log('illegal move')
       }
@@ -186,8 +211,9 @@ export default {
             }
           } else {
             // process UI which asks user for a colour
-            // for testing lets always set the colour to red
-            this.changeColourAction(COLOR.RED)
+            this.storeCard = card
+            this.storePlayer = this.playerNumber
+            this.chooseColour = true
           }
           break
         case SECONDARY.ADDITIONAL_TURN:
@@ -209,6 +235,38 @@ export default {
         case SECONDARY.SPECIAL4:
           break
       }
+    },
+
+    makeRed () {
+      this.changeColourAction(COLOR.RED)
+      this.chooseColour = false
+      this.playCardAction([this.storeCard, this.playerNumber])
+      this.endCurrentTurn()
+      console.log('ending current turn')
+    },
+
+    makeYellow () {
+      this.changeColourAction(COLOR.YELLOW)
+      this.chooseColour = false
+      this.playCardAction([this.storeCard, this.playerNumber])
+      this.endCurrentTurn()
+      console.log('ending current turn')
+    },
+
+    makeGreen () {
+      this.changeColourAction(COLOR.GREEN)
+      this.chooseColour = false
+      this.playCardAction([this.storeCard, this.playerNumber])
+      this.endCurrentTurn()
+      console.log('ending current turn')
+    },
+
+    makeBlue () {
+      this.changeColourAction(COLOR.BLUE)
+      this.chooseColour = false
+      this.playCardAction([this.storeCard, this.playerNumber])
+      this.endCurrentTurn()
+      console.log('ending current turn')
     }
   }
 }
@@ -261,6 +319,60 @@ export default {
   display: relative;
   top: -5px;
   z-index: 2;
+}
+
+.colour-picker {
+  border: 2px solid;
+  border-radius: 50px;
+  position: absolute;
+  height: 200%;
+  width: 100%;
+  bottom: 50%;
+  z-index: 2;
+  background-image: url('../../static/background.png');
+  opacity: 0.9;
+  overflow: hidden;
+}
+
+.colour-selection {
+  float: left;
+  width: 50%;
+  height: 50%;
+  background-size: contain;
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
+.Red {
+  background-image: url('../../static/cardcirclered.png');
+}
+
+.Yellow {
+  background-image: url('../../static/cardcircleyellow.png');
+}
+
+.Green {
+  background-image: url('../../static/cardcirclegreen.png');
+}
+
+.Blue {
+  background-image: url('../../static/cardcircleblue.png');
+}
+
+.Red:active {
+  background-color: rgba(243,67,84,0.3);
+}
+
+.Yellow:active {
+  background-color: rgba(244,186,83,0.3);
+}
+
+.Green:active {
+  background-color: rgba(92,239,71,0.3);
+}
+
+.Blue:active {
+  background-color: rgba(74,205,239,0.3);
 }
 
 </style>
