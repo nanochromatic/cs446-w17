@@ -94,6 +94,17 @@ export default {
       var hand = this.playerHand
       for (var i = 0; i < hand.length; i++) {
         if (this.checkLegalMove(hand[i])) {
+          // On easy difficulty, the bot draws once and a while even when it has a valid card to play.
+          // Vurrently set to a third of the time
+          if (this.currentPlayer.difficulty === DIFFICULTIES.EASY) {
+            var dumbnessCheck = Math.floor(Math.random() * 3)
+            if (dumbnessCheck === 0) {
+              console.log('Bot it dumb, drawing card')
+              this.drawCard()
+              this.endCurrentTurn()
+              return
+            }
+          }
           console.log(this.playerNumber + ' played card ' + hand[i].color + '-' + hand[i].secondary)
           this.processCardEffect(hand[i])
           this.playCardAction([hand[i], this.playerNumber])
@@ -110,7 +121,7 @@ export default {
             var saveCard = pile[j]
             var obj = [hand[0], pile[j]]
             this.swapCardAction(obj)
-            console.log(this.playerNumber + ' played card ' + saveCard.color + '-' + saveCard.secondary)
+            console.log('Clever bot: ' + this.playerNumber + ' played card ' + saveCard.color + '-' + saveCard.secondary)
             this.processCardEffect(saveCard)
             this.playCardAction([saveCard, this.playerNumber])
             this.endCurrentTurn()

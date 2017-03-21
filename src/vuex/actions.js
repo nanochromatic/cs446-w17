@@ -33,7 +33,7 @@ export default {
       commit('addPlayer', {
         id: PLAYER_LOCATION[i],
         type: 'cpu',
-        difficulty: DIFFICULTIES.IMPOSSIBLE,
+        difficulty: DIFFICULTIES.EASY,
         currentTurn: false
       })
     }
