@@ -12,7 +12,7 @@
 
 <script>
 import Card from './Card'
-import { LOCATION, SECONDARY, COLOR } from '../js/GameHelper'
+import { LOCATION, SECONDARY, COLOR, DIFFICULTIES } from '../js/GameHelper'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -37,6 +37,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'drawStackDeck',
       'playerOneHand',
       'playerTwoHand',
       'playerThreeHand',
@@ -68,6 +69,7 @@ export default {
 
     ...mapActions([
       'playCardAction',
+      'swapCardAction',
       'drawCardAction',
       'switchDirectionAction',
       'attackStackAction',
@@ -97,6 +99,23 @@ export default {
           this.playCardAction([hand[i], this.playerNumber])
           this.endCurrentTurn()
           return
+        }
+      }
+      // If cpu is in impossible mode, after relizing that it has no valid cards in its hand,
+      // it will swap its first card out for a valid card in the deck stack and play it
+      if (this.currentPlayer.difficulty === DIFFICULTIES.IMPOSSIBLE) {
+        var pile = this.drawStackDeck
+        for (var j = 0; j < pile.length; j++) {
+          if (this.checkLegalMove(pile[j])) {
+            var saveCard = pile[j]
+            var obj = [hand[0], pile[j]]
+            this.swapCardAction(obj)
+            console.log(this.playerNumber + ' played card ' + saveCard.color + '-' + saveCard.secondary)
+            this.processCardEffect(saveCard)
+            this.playCardAction([saveCard, this.playerNumber])
+            this.endCurrentTurn()
+            return
+          }
         }
       }
       // No valid moves for the bot

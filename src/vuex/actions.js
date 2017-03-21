@@ -1,4 +1,4 @@
-import { shuffleArray, masterDrawStack, PLAYER_LOCATION } from '../js/GameHelper'
+import { shuffleArray, masterDrawStack, PLAYER_LOCATION, DIFFICULTIES } from '../js/GameHelper'
 
 export default {
   resetGame: function ({commit}) {
@@ -33,7 +33,7 @@ export default {
       commit('addPlayer', {
         id: PLAYER_LOCATION[i],
         type: 'cpu',
-        difficulty: 'normal',
+        difficulty: DIFFICULTIES.IMPOSSIBLE,
         currentTurn: false
       })
     }
@@ -51,6 +51,10 @@ export default {
 
   playCardAction: function ({commit}, [card, playerNumber]) {
     commit('playCard', card)
+  },
+
+  swapCardAction: function ({commit}, obj) {
+    commit('swapCard', obj)
   },
 
   drawCardAction: function ({commit}, playerNumber) {

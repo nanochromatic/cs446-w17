@@ -82,6 +82,12 @@ export default {
     }
   },
 
+  swapCard (state, card) {
+    var oldLocation = state.game.deck.find(deckCard => deckCard.color === card[0].color && deckCard.secondary === card[0].secondary).location
+    state.game.deck.find(deckCard => deckCard.color === card[1].color && deckCard.secondary === card[1].secondary).location = oldLocation
+    state.game.deck.find(deckCard => deckCard.color === card[0].color && deckCard.secondary === card[0].secondary).location = LOCATION.DRAW_STACK
+  },
+
   drawCard (state, playerNumber) {
     function repopulateDrawStack () {
       var drawStack = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK)
