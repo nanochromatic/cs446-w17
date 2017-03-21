@@ -23,12 +23,15 @@ var mockState = null
 export const fdbGameInit = function (gameId) {
   remoteDB = fdb.ref(`games/${gameId}`)
   mockState = {}
+  return remoteDB
 }
 
 export const fdbCommit = function (name, data) {
   // Don't try and commit if we're not connected to firebase (ie, singleplayer)
-  if (remoteDB === null) { return false }
+  if (remoteDB === null) { console.error('blocked commit'); return false }
+  if (mockState.game === undefined && name !== 'reset') { console.error('mockState.game UNDEFINED') }
 
+  // Necessary to strip some Vue observers
   if (typeof data === 'object') {
     data = JSON.parse(JSON.stringify(data))
   }
@@ -48,7 +51,7 @@ export const fdbSync = function () {
   if (remoteDB === null) { return false }
 
   if (DEBUGFIREBASE) {
-    console.info(`fdbSYNC`, new Date())
+    console.info(`fdbSYNC`, new Date(), JSON.parse(JSON.stringify(mockState)))
   }
   remoteDB.update(mockState)
 }

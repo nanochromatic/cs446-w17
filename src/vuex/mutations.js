@@ -2,6 +2,10 @@ import { LOCATION } from '../js/DeckHelper'
 
 export default {
 
+  gameObject (state, object) {
+    state.game = object
+  },
+
   setPlayerName (state, name) {
     state.player.name = name
     localStorage.setItem('playerName', name)
@@ -64,7 +68,8 @@ export default {
 
   playCard (state, card) {
     var oldLocation = card.location
-    state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary).location = LOCATION.PLAYED_STACK
+    var cardInDeck = state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary)
+    cardInDeck.location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = Object.assign({}, card)
     // TODO: Win condition should be elsewhere
     if (state.game.deck.filter(card => card.location === oldLocation).length === 0) {

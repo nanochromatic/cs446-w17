@@ -3,8 +3,10 @@ import { shuffleArray } from '../js/GameHelper'
 import { PLAYER_LOCATION } from '../js/PlayerHelper'
 import { fdbGameInit, fdbCommit, fdbSync } from '../vuex/firebase'
 
+var useRemote = false
+
 export default {
-  resetGame: function ({commit}) {
+  resetGame: function ({commit}, {sync, gameId}) {
     var gameObject = {
       gameState: 'waiting',
       deck: shuffleArray(JSON.parse(JSON.stringify(masterDrawStack))),
@@ -13,16 +15,29 @@ export default {
       specialAttackStack: 0,
       statusMessage: ''
     }
+
+    useRemote = sync
+
+    if (useRemote) {
+      var o = fdbGameInit(gameId)
+      o.on('value', function (snapshot) {
+        var obj = snapshot.val()
+        console.info('Update store from Firebase [RESET-MASTER]')
+        commit('gameObject', obj.game)
+        fdbCommit('gameObject', obj.game)
+      })
+    }
+
     commit('reset', gameObject)
-    fdbGameInit('g2')
     fdbCommit('reset', gameObject)
   },
 
-  setPlayer: function ({commit}, {index, name, type, role = false}) {
+  setPlayer: function ({commit}, {index, name, id, type, role = false}) {
     var commitData = {
       index,
       player: {
         name: name,
+        id: id,
         location: PLAYER_LOCATION[index],
         type: type,
         role: role,
@@ -47,12 +62,24 @@ export default {
     fdbSync()
   },
 
+  joinGame: function ({commit}, gameId) {
+    useRemote = true
+
+    var o = fdbGameInit(gameId)
+    o.on('value', function (snapshot) {
+      var obj = snapshot.val()
+      console.info('Update store from Firebase [JOINGAME-SUB]')
+      commit('gameObject', obj.game)
+      fdbCommit('gameObject', obj.game)
+    })
+  },
+
   playCardAction: function ({commit}, [card, playerNumber]) {
     commit('playCard', card)
     fdbCommit('playCard', card)
   },
 
-  drawCardAction: function ({commit, state}, playerNumber) {
+  drawCardAction: function ({commit, state}, toLocation) {
     var drawStackCount = state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK).length
     var cardsToDraw = state.game.specialAttackStack || 1
 
@@ -61,8 +88,8 @@ export default {
       fdbCommit('repopulateDrawStack')
     }
     for (var i = 0; i < cardsToDraw; i++) {
-      commit('drawCard', playerNumber)
-      fdbCommit('drawCard', playerNumber)
+      commit('drawCard', toLocation)
+      fdbCommit('drawCard', toLocation)
     }
   },
 

@@ -4,7 +4,9 @@
       <div class="waiting-players">
         <div v-for="(player, i) in players" class="game-player"><small>Player {{ i+1 }}</small>{{ player }}</div>
       </div>
-      <button v-on:click="begin" class="button">Start Game</button><router-link to="/" class="button">Back Home</router-link>
+      <button v-on:click="begin" class="button">Start Game</button>
+      <button v-on:click="join" class="button">Join Game</button>
+      <router-link to="/" class="button">Back Home</router-link>
     </div>
     <board v-else-if="gameStatus === 'inProgress'" />
   <div v-else>
@@ -14,8 +16,9 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { fdb } from '../vuex/firebase'
+import { getPlayerId } from '../js/GameHelper'
 import { PLAYER_TYPE, PLAYER_ROLE } from '../js/PlayerHelper'
 import Board from 'components/Board'
 
@@ -41,20 +44,29 @@ export default {
     ]),
     players () {
       var cpuCount = 0
-      return [
+      var players = [
         this.waitingPlayers[0] ? this.waitingPlayers[0].name : `CPU${++cpuCount}`,
         this.waitingPlayers[1] ? this.waitingPlayers[1].name : `CPU${++cpuCount}`,
         this.waitingPlayers[2] ? this.waitingPlayers[2].name : `CPU${++cpuCount}`,
         this.waitingPlayers[3] ? this.waitingPlayers[3].name : `CPU${++cpuCount}`
       ]
+      if (cpuCount === 0) {
+        this.begin()
+      }
+      return players
     }
   },
 
   methods: {
+    ...mapMutations([
+      'setGameController'
+    ]),
+
     ...mapActions([
       'resetGame',
       'setPlayer',
-      'startGame'
+      'startGame',
+      'joinGame'
     ]),
 
     begin () {
@@ -74,15 +86,17 @@ export default {
         if (this.waitingPlayers[i]) {
           // Human
           player.name = this.waitingPlayers[i].name
+          player.id = this.waitingPlayers[i].playerId
           player.type = PLAYER_TYPE.HUMAN
           player.role = false
           humanCount++
         } else {
           // CPU
-          player.name = `CPU${++cpuCount}`
+          cpuCount++
+          player.name = `CPU${cpuCount}`
+          player.id = `CPU${cpuCount}`
           player.type = PLAYER_TYPE.CPU
           player.role = PLAYER_ROLE.PERSONALITY1
-          cpuCount++
         }
         this.setPlayer(player)
       }
@@ -95,6 +109,11 @@ export default {
       }
 
       this.startGame()
+    },
+
+    join () {
+      this.setGameController(false)
+      this.joinGame('g3')
     }
   },
 
@@ -102,7 +121,6 @@ export default {
     window.vm.$bindAsArray('waitingPlayers', fdb.ref('waitingPlayers'))
 
     this.playerId = getPlayerId()
-    console.log('playerId', this.playerId)
     this.playerKey = window.vm.$firebaseRefs.waitingPlayers.push({
       name: this.player.name,
       playerId: this.playerId,
