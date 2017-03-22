@@ -78,12 +78,11 @@ export default {
     },
 
     chooseColourGuiOpen () {
-      return true
-      /*      if (this.storePlayer !== this.currentPlayer.id) {
+      if (this.storePlayer !== this.currentPlayer.id) {
         this.chooseColour = false
         return false
       }
-      return this.chooseColour */
+      return this.chooseColour
     }
 
   },
