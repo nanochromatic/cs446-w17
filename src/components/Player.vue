@@ -3,6 +3,12 @@
     <b class="player-name">{{ player.name}}</b>
     <div class="container" v-if="player.id === devicePlayerId">
       <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
+      <div class="color-picker" v-if="chooseColor">
+        <div class="color-selection red" v-on:click="setColor('red')"></div>
+        <div class="color-selection yellow" v-on:click="setColor('yellow')"></div>
+        <div class="color-selection green" v-on:click="setColor('green')"></div>
+        <div class="color-selection blue" v-on:click="setColor('blue')"></div>
+      </div>
     </div>
     <div class="container" v-else>
       <card v-for="card in playerHand" class="card-container" :card="card" :show='false'/>
@@ -27,6 +33,12 @@ export default {
 
   components: {
     Card
+  },
+
+  data () {
+    return {
+      chooseColor: false
+    }
   },
 
   computed: {
@@ -120,8 +132,10 @@ export default {
         console.log('you played card ' + card.color + '-' + card.secondary)
         this.playCardAction([card, this.player.location])
         this.processCardEffect(card)
-        this.endTurnAction()
-        console.log('ending current turn')
+        if (!this.chooseColor) {
+          this.endTurnAction()
+          console.log('ending current turn')
+        }
       } else {
         console.log('illegal move')
       }
@@ -186,8 +200,7 @@ export default {
             }
           } else {
             // process UI which asks user for a color
-            // for testing lets always set the color to red
-            this.changeColorAction(COLOR.RED)
+            this.chooseColor = true
           }
           break
         case SECONDARY.REVERSE:
@@ -202,6 +215,13 @@ export default {
           this.cardEffectAction(effect)
           break
       }
+    },
+
+    setColor (color) {
+      this.changeColorAction(color)
+      this.chooseColor = false
+      this.endTurnAction()
+      console.log('ending current turn (after choosing color)')
     }
   }
 }
@@ -254,6 +274,59 @@ export default {
   display: relative;
   top: -5px;
   z-index: 2;
+}
+
+.color-picker {
+  overflow: hidden;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  position: absolute;
+  height: 60vh;
+  width: 50vw;
+  bottom: 20vh;
+  background: rgba(0,0,0,.8);
+  z-index: 2;
+}
+
+.color-selection {
+  float: left;
+  width: 50%;
+  height: 50%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.red {
+  background-image: url('../../static/chooseRed.png');
+}
+
+.yellow {
+  background-image: url('../../static/chooseYellow.png');
+}
+
+.green {
+  background-image: url('../../static/chooseGreen.png');
+}
+
+.blue {
+  background-image: url('../../static/chooseBlue.png');
+}
+
+.red:active {
+  background-color: rgba(243,67,84,0.3);
+}
+
+.yellow:active {
+  background-color: rgba(244,186,83,0.3);
+}
+
+.green:active {
+  background-color: rgba(92,239,71,0.3);
+}
+
+.blue:active {
+  background-color: rgba(74,205,239,0.3);
 }
 
 </style>
