@@ -64,9 +64,9 @@ export const PLAYER_LOCATION = [
 ]
 
 export const DIFFICULTIES = {
-  NORMAL: 'normal',
-  IMPOSSIBLE: 'impossible',
-  EASY: 'easy'
+  NORMAL: 'Normal',
+  IMPOSSIBLE: 'Impossible',
+  EASY: 'Easy'
 }
 
 export const SHAPES = [

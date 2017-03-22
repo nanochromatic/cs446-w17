@@ -3,9 +3,9 @@
     <div v-if="gameStatus === 'waiting'">
       <div class="waiting-players">
         <div class="game-player"><small>Player 1</small>You</div>
-        <div class="game-player"><small>Player 2</small>CPU 1</div>
-        <div class="game-player"><small>Player 3</small>CPU 2</div>
-        <div class="game-player"><small>Player 4</small>CPU 3</div>
+        <div class="game-player" v-on:click="changeDifficulty(1)"><small>Player 2</small>CPU 1<span>Difficulty: {{ difficultyList[difficulties[1]] }}</span></div>
+        <div class="game-player" v-on:click="changeDifficulty(2)"><small>Player 3</small>CPU 2<span>Difficulty: {{ difficultyList[difficulties[2]] }}</span></span></div>
+        <div class="game-player" v-on:click="changeDifficulty(3)"><small>Player 4</small>CPU 3<span>Difficulty: {{ difficultyList[difficulties[3]] }}</span></div>
       </div>
       <button v-on:click="begin" class="button">Start Game</button>
     </div>
@@ -18,11 +18,24 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { DIFFICULTIES } from '../js/GameHelper'
 import Board from 'components/Board'
 
 export default {
   components: {
     Board
+  },
+
+  data () {
+    return {
+      diff1: 0,
+      difficulties: [0, 0, 1, 2],
+      difficultyList: [
+        DIFFICULTIES.NORMAL,
+        DIFFICULTIES.IMPOSSIBLE,
+        DIFFICULTIES.EASY
+      ]
+    }
   },
 
   computed: {
@@ -37,9 +50,21 @@ export default {
       'startGame'
     ]),
 
+    changeDifficulty: function (playerNum) {
+      if (this.difficulties[playerNum] === this.difficultyList.length - 1) {
+        this.$set(this.difficulties, playerNum, 0)
+      } else {
+        this.$set(this.difficulties, playerNum, this.difficulties[playerNum] + 1)
+      }
+    },
+
     begin () {
       this.resetGame()
-      this.startGame()
+      var sendDifficulties = [null, null, null, null]
+      for (var i = 0; i < this.difficulties.length; i++) {
+        sendDifficulties[i] = this.difficultyList[this.difficulties[i]]
+      }
+      this.startGame(sendDifficulties)
     }
   }
 
@@ -67,6 +92,11 @@ export default {
 .game-player small {
   display: block;
   text-transform: uppercase;
+}
+
+.game-player span {
+  display: block;
+  font-style: italic;
 }
 
 .button {
