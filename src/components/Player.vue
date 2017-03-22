@@ -78,11 +78,12 @@ export default {
     },
 
     chooseColourGuiOpen () {
-      if (this.storePlayer !== this.currentPlayer.id) {
+      return true
+      /*      if (this.storePlayer !== this.currentPlayer.id) {
         this.chooseColour = false
         return false
       }
-      return this.chooseColour
+      return this.chooseColour */
     }
 
   },
@@ -344,19 +345,19 @@ export default {
 }
 
 .Red {
-  background-image: url('../../static/cardcirclered.png');
+  background-image: url('../../static/chooseRed.png');
 }
 
 .Yellow {
-  background-image: url('../../static/cardcircleyellow.png');
+  background-image: url('../../static/chooseYellow.png');
 }
 
 .Green {
-  background-image: url('../../static/cardcirclegreen.png');
+  background-image: url('../../static/chooseGreen.png');
 }
 
 .Blue {
-  background-image: url('../../static/cardcircleblue.png');
+  background-image: url('../../static/chooseBlue.png');
 }
 
 .Red:active {
