@@ -1,7 +1,7 @@
 <template>
   <div class="screen landing">
     <img class="logo" src="static/logo.png">
-    <h1>Welcome to Quova, {{ player.name }}</h1>
+    <h1>Welcome to Quova, {{ playerName }}</h1>
 
     <div class="player-name">
       <label for="name" class="player-name__label">Enter your name:</label>
@@ -25,11 +25,7 @@ export default {
     ]),
     playerName: {
       get () {
-        var name = this.player.name || localStorage.getItem('playerName') || ''
-        if (!this.player.name) {
-          this.setPlayerName(name)
-        }
-        return name
+        return this.player.name
       },
       set (newValue) {
         this.setPlayerName(newValue)

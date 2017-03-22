@@ -29,8 +29,7 @@ export default {
 
   data () {
     return {
-      userId: '',
-      playerName: ''
+      devicePlayerId: ''
     }
   },
 
@@ -43,6 +42,7 @@ export default {
       'gameStatus'
     ]),
     players () {
+      if (!this.waitingPlayers) { return [] }
       var cpuCount = 0
       var players = [
         this.waitingPlayers[0] ? this.waitingPlayers[0].name : `CPU${++cpuCount}`,
@@ -101,11 +101,11 @@ export default {
         this.setPlayer(player)
       }
 
-      this.setGameController(true) // this.waitingPlayers[0].playerId === getPlayerId()
+      this.setGameController(true)
 
       // Need to go backwards through the waitingPlayers, otherwise we delete and the indexes change
       for (i = humanCount - 1; i >= 0; i--) {
-        window.vm.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).remove()
+        window.vm.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).update({gameId: 'g3'})
       }
 
       this.startGame()
@@ -118,15 +118,24 @@ export default {
   },
 
   mounted () {
-    window.vm.$bindAsArray('waitingPlayers', fdb.ref('waitingPlayers'))
+    console.log('mounting')
+    function mount () {
+      console.log('mount attempt', window.vm, this.player)
+      if (window.vm !== undefined) {
+        clearInterval(interval)
+        window.vm.$bindAsArray('waitingPlayers', fdb.ref('waitingPlayers'))
 
-    this.playerId = getPlayerId()
-    this.playerKey = window.vm.$firebaseRefs.waitingPlayers.push({
-      name: this.player.name,
-      playerId: this.playerId,
-      ping: Date.now(),
-      gameId: 0
-    }).key
+        this.devicePlayerId = getPlayerId()
+        this.playerKey = window.vm.$firebaseRefs.waitingPlayers.push({
+          name: this.player.name,
+          playerId: this.devicePlayerId,
+          ping: Date.now(),
+          gameId: 0
+        }).key
+      }
+    }
+
+    var interval = setInterval(mount.bind(this), 100)
   },
 
   beforeDestroy () {

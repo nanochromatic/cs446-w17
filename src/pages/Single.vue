@@ -8,6 +8,7 @@
         <div class="game-player"><small>Player 4</small>CPU 3</div>
       </div>
       <button v-on:click="begin" class="button">Start Game</button>
+      <router-link to="/" class="button">Back Home</router-link>
     </div>
     <board v-else-if="gameStatus === 'inProgress'" />
 	<div v-else>

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './vuex/store'
+import { mapMutations } from 'vuex'
 
 /* eslint-disable no-new */
 window.vm = new Vue({
@@ -12,5 +13,13 @@ window.vm = new Vue({
   store,
   firebase: {},
   template: '<App />',
-  components: { App }
+  components: { App },
+  methods: {
+    ...mapMutations([
+      'setPlayerName'
+    ])
+  },
+  mounted () {
+    this.setPlayerName(localStorage.getItem('playerName') || 'Anon')
+  }
 })
