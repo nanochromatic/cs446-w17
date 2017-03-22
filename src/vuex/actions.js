@@ -1,12 +1,12 @@
 import { LOCATION, SECONDARY, masterDrawStack } from '../js/DeckHelper'
 import { shuffleArray } from '../js/GameHelper'
 import { PLAYER_LOCATION } from '../js/PlayerHelper'
-import { fdbGameInit, fdbCommit, fdbSync } from '../vuex/firebase'
+import { fdbGameInit, fdbGameJoin, fdbCommit, fdbSync } from '../vuex/firebase'
 
 var useRemote = false
 
 export default {
-  resetGame: function ({commit}, {sync, gameId}) {
+  resetGame: function ({commit}, {sync}) {
     var gameObject = {
       gameState: 'waiting',
       deck: shuffleArray(JSON.parse(JSON.stringify(masterDrawStack))),
@@ -19,10 +19,12 @@ export default {
     useRemote = sync
 
     if (useRemote) {
-      var o = fdbGameInit(gameId)
-      o.on('value', function (snapshot) {
+      var db = fdbGameInit()
+      commit('setCurrentGameId', db.key)
+
+      db.on('value', function (snapshot) {
         var obj = snapshot.val()
-        console.info('Update store from Firebase [RESET-MASTER]')
+        // console.info('Update store from Firebase [RESET-MASTER]')
         commit('gameObject', obj.game)
         fdbCommit('gameObject', obj.game)
       })
@@ -65,10 +67,10 @@ export default {
   joinGame: function ({commit}, gameId) {
     useRemote = true
 
-    var o = fdbGameInit(gameId)
-    o.on('value', function (snapshot) {
+    var db = fdbGameJoin(gameId)
+    db.on('value', function (snapshot) {
       var obj = snapshot.val()
-      console.info('Update store from Firebase [JOINGAME-SUB]')
+      // console.info('Update store from Firebase [JOINGAME-SUB]')
       commit('gameObject', obj.game)
       fdbCommit('gameObject', obj.game)
     })

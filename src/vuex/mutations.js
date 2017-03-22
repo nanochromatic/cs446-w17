@@ -6,6 +6,10 @@ export default {
     state.game = object
   },
 
+  setCurrentGameId (state, gameId) {
+    state.currentGameId = gameId
+  },
+
   setPlayerName (state, name) {
     state.player.name = name
     localStorage.setItem('playerName', name)

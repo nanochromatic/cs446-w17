@@ -14,8 +14,8 @@ const state = {
     name: ''
   },
   isGameController: false,
+  currentGameId: null,
   game: {
-    id: '',
     gameState: 'waiting',
     deck: [],
     players: [],

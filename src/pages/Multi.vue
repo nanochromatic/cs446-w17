@@ -5,7 +5,6 @@
         <div v-for="(player, i) in players" class="game-player"><small>Player {{ i+1 }}</small>{{ player }}</div>
       </div>
       <button v-on:click="begin" class="button">Start Game</button>
-      <button v-on:click="join" class="button">Join Game</button>
       <router-link to="/" class="button">Back Home</router-link>
     </div>
     <board v-else-if="gameStatus === 'inProgress'" />
@@ -36,7 +35,9 @@ export default {
   computed: {
     ...mapState([
       'player',
-      'waitingPlayers'
+      'waitingPlayers',
+      'isGameController',
+      'currentGameId'
     ]),
     ...mapGetters([
       'gameStatus'
@@ -50,7 +51,10 @@ export default {
         this.waitingPlayers[2] ? this.waitingPlayers[2].name : `CPU${++cpuCount}`,
         this.waitingPlayers[3] ? this.waitingPlayers[3].name : `CPU${++cpuCount}`
       ]
-      if (cpuCount === 0) {
+
+      if (cpuCount === 0 && this.waitingPlayers[0].playerId === this.devicePlayerId) {
+        // Have the first player in the lobby start the game and become controller
+        console.log('STARTING GAME!!!')
         this.begin()
       }
       return players
@@ -59,7 +63,8 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setGameController'
+      'setGameController',
+      'setCurrentGameId'
     ]),
 
     ...mapActions([
@@ -105,22 +110,15 @@ export default {
 
       // Need to go backwards through the waitingPlayers, otherwise we delete and the indexes change
       for (i = humanCount - 1; i >= 0; i--) {
-        window.vm.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).update({gameId: 'g3'})
+        window.vm.$firebaseRefs.waitingPlayers.child(this.waitingPlayers[i]['.key']).update({gameId: this.currentGameId})
       }
 
       this.startGame()
-    },
-
-    join () {
-      this.setGameController(false)
-      this.joinGame('g3')
     }
   },
 
   mounted () {
-    console.log('mounting')
     function mount () {
-      console.log('mount attempt', window.vm, this.player)
       if (window.vm !== undefined) {
         clearInterval(interval)
         window.vm.$bindAsArray('waitingPlayers', fdb.ref('waitingPlayers'))
@@ -132,6 +130,18 @@ export default {
           ping: Date.now(),
           gameId: 0
         }).key
+
+        window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).child('gameId').on('value', function (snapshot) {
+          var gameId = snapshot.val()
+          if (gameId) {
+            window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
+            if (!this.isGameController) {
+              this.setGameController(false)
+              this.setCurrentGameId(gameId)
+              this.joinGame(gameId)
+            }
+          }
+        }, this)
       }
     }
 
