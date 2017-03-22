@@ -42,7 +42,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
-  background: #000 url(/static/background.png) center center no-repeat;
+  background: #000 url(/static/background.jpg) center center no-repeat;
   background-size: cover;
 }
 </style>
