@@ -133,5 +133,12 @@ export default {
     fdbCommit('endTurn')
 
     fdbSync()
+  },
+
+  setGameMessage: function ({commit}, message) {
+    commit('gameStateMessage', message)
+    fdbCommit('gameStateMessage', message)
+
+    fdbSync()
   }
 }

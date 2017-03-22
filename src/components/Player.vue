@@ -49,21 +49,25 @@ export default {
     },
 
     playerHand () {
+      var hand
       switch (this.player.location) {
-        case LOCATION.PLAYER1: return this.playerOneHand
-        case LOCATION.PLAYER2: return this.playerTwoHand
-        case LOCATION.PLAYER3: return this.playerThreeHand
-        case LOCATION.PLAYER4: return this.playerFourHand
+        case LOCATION.PLAYER1: hand = this.playerOneHand; break
+        case LOCATION.PLAYER2: hand = this.playerTwoHand; break
+        case LOCATION.PLAYER3: hand = this.playerThreeHand; break
+        case LOCATION.PLAYER4: hand = this.playerFourHand; break
         default: []
       }
+      if (hand.length === 0) {
+        this.setGameMessage(`Game Over: ${this.player.name} wins!`)
+      }
+      return hand
     },
 
     isPlayerTurn () {
       var isPlayerTurn = this.currentPlayer.location === this.player.location
 
       if (isPlayerTurn && this.player.type === PLAYER_TYPE.CPU && this.isGameController) {
-        var timeDelay = randomIntFromInterval(3, 7)
-        console.log(`delay is ${timeDelay}`)
+        var timeDelay = randomIntFromInterval(3, 4)
         setTimeout(this.botPlayCard, timeDelay * 1000)
       }
 
@@ -79,7 +83,8 @@ export default {
       'drawCardAction',
       'cardEffectAction',
       'changeColorAction',
-      'endTurnAction'
+      'endTurnAction',
+      'setGameMessage'
     ]),
 
     drawCard: function () {
