@@ -18,7 +18,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { fdb } from '../vuex/firebase'
 import { getPlayerId } from '../js/GameHelper'
-import { PLAYER_TYPE, PLAYER_ROLE } from '../js/PlayerHelper'
+import { PLAYER_TYPE, PLAYER_DIFFICULTY } from '../js/PlayerHelper'
 import Board from 'components/Board'
 
 export default {
@@ -79,7 +79,7 @@ export default {
         index: 0,
         name: '',
         type: '',
-        role: false
+        difficulty: false
       }
       var humanCount = 0
       var cpuCount = 0
@@ -93,7 +93,7 @@ export default {
           player.name = this.waitingPlayers[i].name
           player.id = this.waitingPlayers[i].playerId
           player.type = PLAYER_TYPE.HUMAN
-          player.role = false
+          player.difficulty = false
           humanCount++
         } else {
           // CPU
@@ -101,7 +101,7 @@ export default {
           player.name = `CPU${cpuCount}`
           player.id = `CPU${cpuCount}`
           player.type = PLAYER_TYPE.CPU
-          player.role = PLAYER_ROLE.PERSONALITY1
+          player.difficulty = PLAYER_DIFFICULTY.NORMAL
         }
         this.setPlayer(player)
       }

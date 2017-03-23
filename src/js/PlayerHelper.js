@@ -5,10 +5,10 @@ export const PLAYER_TYPE = {
   CPU: 'cpu'
 }
 
-export const PLAYER_ROLE = {
-  PERSONALITY1: 'cpu1',
-  PERSONALITY2: 'cpu2',
-  PERSONALITY3: 'cpu3'
+export const PLAYER_DIFFICULTY = {
+  EASY: 'Easy',
+  NORMAL: 'Normal',
+  IMPOSSIBLE: 'Impossible'
 }
 
 export const PLAYER_LOCATION = [

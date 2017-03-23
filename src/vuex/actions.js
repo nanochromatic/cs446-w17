@@ -34,7 +34,7 @@ export default {
     fdbCommit('reset', gameObject)
   },
 
-  setPlayer: function ({commit}, {index, name, id, type, role = false}) {
+  setPlayer: function ({commit}, {index, name, id, type, difficulty = false}) {
     var commitData = {
       index,
       player: {
@@ -42,7 +42,7 @@ export default {
         id: id,
         location: PLAYER_LOCATION[index],
         type: type,
-        role: role,
+        difficulty: difficulty,
         skipTurn: false
       }
     }
@@ -79,6 +79,10 @@ export default {
   playCardAction: function ({commit}, [card, playerNumber]) {
     commit('playCard', card)
     fdbCommit('playCard', card)
+  },
+
+  swapCardAction: function ({commit}, cards) {
+    commit('swapCard', cards)
   },
 
   drawCardAction: function ({commit, state}, toLocation) {

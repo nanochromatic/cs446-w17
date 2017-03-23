@@ -76,6 +76,11 @@ export default {
     state.game.lastCardPlayed = Object.assign({}, card)
   },
 
+  swapCard (state, [handCard, pileCard]) {
+    // We don't actually need to change the pileCard location, since it will get set to PLAYED_STACK in playCard()
+    state.game.deck.find(deckCard => deckCard.color === handCard.color && deckCard.secondary === handCard.secondary).location = LOCATION.DRAW_STACK
+  },
+
   drawCard (state, toLocation) {
     var drawnCard = state.game.deck.find(deckCard => deckCard.location === LOCATION.DRAW_STACK)
     drawnCard.location = toLocation

@@ -20,7 +20,7 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 import { COLOR, SECONDARY, LOCATION } from '../js/DeckHelper'
 import { getPlayerId, randomIntFromInterval } from '../js/GameHelper'
-import { PLAYER_TYPE } from '../js/PlayerHelper'
+import { PLAYER_TYPE, PLAYER_DIFFICULTY } from '../js/PlayerHelper'
 import Card from './Card'
 
 export default {
@@ -46,6 +46,7 @@ export default {
       'isGameController'
     ]),
     ...mapGetters([
+      'drawStackDeck',
       'playerOneHand',
       'playerTwoHand',
       'playerThreeHand',
@@ -92,6 +93,7 @@ export default {
 
     ...mapActions([
       'playCardAction',
+      'swapCardAction',
       'drawCardAction',
       'cardEffectAction',
       'changeColorAction',
@@ -110,6 +112,17 @@ export default {
       var hand = this.playerHand
       for (var i = 0; i < hand.length; i++) {
         if (this.checkLegalMove(hand[i])) {
+          // On easy difficulty, the bot draws once and a while even when it has a valid card to play.
+          // Vurrently set to a third of the time
+          if (this.currentPlayer.difficulty === PLAYER_DIFFICULTY.EASY) {
+            var dumbnessCheck = Math.floor(Math.random() * 3)
+            if (dumbnessCheck === 0) {
+              console.log('Bot is dumb, drawing card')
+              this.drawCard()
+              this.endTurnAction()
+              return
+            }
+          }
           console.log(this.player.location + ' played card ' + hand[i].color + '-' + hand[i].secondary)
           this.processCardEffect(hand[i])
           this.playCardAction([hand[i], this.player.location])
@@ -117,6 +130,24 @@ export default {
           return
         }
       }
+
+      // If cpu is in impossible mode, after relizing that it has no valid cards in its hand,
+      // it will swap its first card out for a valid card in the deck stack and play it
+      if (this.currentPlayer.difficulty === PLAYER_DIFFICULTY.IMPOSSIBLE) {
+        var pile = this.drawStackDeck
+        for (var j = 0; j < pile.length; j++) {
+          if (this.checkLegalMove(pile[j])) {
+            var saveCard = pile[j]
+            this.swapCardAction([hand[0], pile[j]])
+            console.log('Clever bot: ' + this.player.location + ' played card ' + saveCard.color + '-' + saveCard.secondary)
+            this.processCardEffect(saveCard)
+            this.playCardAction([saveCard, this.player.location])
+            this.endTurnAction()
+            return
+          }
+        }
+      }
+
       // No valid moves for the bot
       console.log('No valid moves for bot, drawing card')
       this.drawCard()
