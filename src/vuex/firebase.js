@@ -40,7 +40,12 @@ export const fdbGameJoin = function (gameId) {
 
 export const fdbCommit = function (name, data) {
   // Don't try and commit if we're not connected to firebase (ie, singleplayer)
-  if (remoteDB === null) { console.error('blocked commit'); return false }
+  if (remoteDB === null) {
+    if (DEBUGFIREBASE) {
+      console.error('blocked commit')
+    }
+    return false
+  }
   if (mockState.game === undefined && name !== 'reset') { console.error(`mockState.game UNDEFINED for commit: ${name}`) }
 
   // Necessary to strip some Vue observers
