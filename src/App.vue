@@ -1,12 +1,24 @@
 <template>
-  <div id="app">
+  <div id="app" :class="'appTheme'+playerTheme">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'app'
+  name: 'app',
+  computed: {
+    ...mapState([
+      'player'
+    ]),
+    playerTheme: {
+      get () {
+        return this.player.theme
+      }
+    }
+  }
 }
 </script>
 
@@ -42,7 +54,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
+}
+
+.appTheme {
   background: #000 url(/static/background.jpg) center center no-repeat;
+  background-size: cover;
+}
+
+.appTheme2 {
+  background: #000 url(/static/background2.jpg) center center no-repeat;
   background-size: cover;
 }
 </style>

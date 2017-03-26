@@ -78,6 +78,7 @@ export default {
       var player = {
         index: 0,
         name: '',
+        theme: '',
         type: '',
         difficulty: false
       }
@@ -92,6 +93,7 @@ export default {
           // Human
           player.name = this.waitingPlayers[i].name
           player.id = this.waitingPlayers[i].playerId
+          player.theme = this.waitingPlayers[i].playerTheme
           player.type = PLAYER_TYPE.HUMAN
           player.difficulty = false
           humanCount++
@@ -100,6 +102,7 @@ export default {
           cpuCount++
           player.name = `CPU${cpuCount}`
           player.id = `CPU${cpuCount}`
+          player.theme = ''
           player.type = PLAYER_TYPE.CPU
           player.difficulty = PLAYER_DIFFICULTY.NORMAL
         }
@@ -127,6 +130,7 @@ export default {
         this.playerKey = window.vm.$firebaseRefs.waitingPlayers.push({
           name: this.player.name,
           playerId: this.devicePlayerId,
+          playerTheme: this.player.theme,
           ping: Date.now(),
           gameId: 0
         }).key

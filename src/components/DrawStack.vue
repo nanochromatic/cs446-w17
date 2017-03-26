@@ -1,12 +1,12 @@
 <template>
   <div class="drawStack"  v-on:click="draw">
-    <card v-for="card in drawStackDeck" :card="card" class="card-container" :show='false'/>
+    <card v-for="card in drawStackDeck" :card="card" class="card-container" :show='false' :theme="devicePlayerTheme"/>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { getPlayerId } from '../js/GameHelper'
+import { getPlayerId, getPlayerTheme } from '../js/GameHelper'
 import Card from './Card'
 
 export default {
@@ -22,7 +22,11 @@ export default {
     ...mapGetters([
       'drawStackDeck',
       'currentPlayer'
-    ])
+    ]),
+
+    devicePlayerTheme () {
+      return getPlayerTheme()
+    }
   },
 
   methods: {

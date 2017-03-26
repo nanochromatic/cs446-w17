@@ -1,6 +1,6 @@
 <template>
   <div class="playedStack">
-    <card :card="lastCardPlayed" />
+    <card :card="lastCardPlayed" :theme="devicePlayerTheme"/>
     <!--<card v-for="card in reverse" :card="card" class="card-container"/>-->
   </div>
 </template>
@@ -8,6 +8,7 @@
 <script>
 import Card from './Card'
 import { mapGetters } from 'vuex'
+import { getPlayerTheme } from '../js/GameHelper'
 
 export default {
   components: {
@@ -21,11 +22,16 @@ export default {
   computed: {
     ...mapGetters([
       'lastCardPlayed',
-      'playedStackDeck'
+      'playedStackDeck',
+      'currentPlayer'
     ]),
 
     reverse: function () {
       return this.playedStackDeck.reverse()
+    },
+
+    devicePlayerTheme () {
+      return getPlayerTheme()
     }
   },
 

@@ -11,7 +11,8 @@ Vue.use(Vuex)
 const state = {
   waitingPlayers: [],
   player: {
-    name: ''
+    name: '',
+    theme: ''
   },
   isGameController: false,
   currentGameId: null,

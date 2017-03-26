@@ -1,6 +1,6 @@
 <template>
   <div class="screen landing">
-    <img class="logo" src="static/logo.png">
+    <img class="logo" :src="'static/logo'+playerTheme+'.png'">
     <h1>Welcome to Quova, {{ playerName }}</h1>
 
     <div class="player-name">
@@ -11,6 +11,7 @@
     <p class="options">
       <router-link to="/sp">Single Player</router-link> or <router-link to="/mp">Multiplayer</router-link>
     </p>
+	<p v-on:click="changeTheme">Change Theme</p>
   </div>
 </template>
 
@@ -30,12 +31,29 @@ export default {
       set (newValue) {
         this.setPlayerName(newValue)
       }
+    },
+    playerTheme: {
+      get () {
+        return this.player.theme
+      },
+      set (newValue) {
+        this.setPlayerTheme(newValue)
+      }
     }
   },
   methods: {
     ...mapMutations([
-      'setPlayerName'
-    ])
+      'setPlayerName',
+      'setPlayerTheme'
+    ]),
+
+    changeTheme () {
+      if (this.player.theme === '') {
+        this.setPlayerTheme('2')
+      } else {
+        this.setPlayerTheme('')
+      }
+    }
   }
 }
 </script>

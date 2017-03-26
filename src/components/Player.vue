@@ -2,7 +2,7 @@
   <div class="player" v-bind:class="{'player-active-turn': isPlayerTurn}">
     <b class="player-name">{{ player.name}}</b>
     <div class="container" v-if="player.id === devicePlayerId">
-      <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)"/>
+      <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)" :theme="player.theme"/>
       <div class="color-picker" v-if="chooseColor">
         <div class="color-selection red" v-on:click="setColor('red')"></div>
         <div class="color-selection yellow" v-on:click="setColor('yellow')"></div>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="container" v-else>
-      <card v-for="card in playerHand" class="card-container" :card="card" :show='false'/>
+      <card v-for="card in playerHand" class="card-container" :card="card" :show='false' :theme="player.theme"/>
     </div>
   </div>
 </template>

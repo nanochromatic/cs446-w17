@@ -1,10 +1,10 @@
 <template>
   <div class="card" v-bind:class="['card--'+card.color]">
   <template v-if="show === true">
-  	<img class="back-frame" :src="'static/cardframe'+card.color+'.png'"/>
-  	<img class="card-icon" :src="'static/card'+card.secondary+card.color+'.png'"/>
+  	<img class="back-frame" :src="'static/cardframe'+card.color+theme+'.png'"/>
+  	<img class="card-icon" :src="'static/card'+card.secondary+card.color+theme+'.png'"/>
   </template>
-	<img v-else class="back-frame" src="static/cardframeback.png"/>
+	<img v-else class="back-frame" :src="'static/cardframeback'+theme+'.png'"/>
   </div>
 </template>
 
@@ -25,6 +25,12 @@ export default {
       type: Boolean,
       default () {
         return true
+      }
+    },
+    theme: {
+      type: String,
+      default () {
+        return ''
       }
     }
   }

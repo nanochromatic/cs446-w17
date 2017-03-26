@@ -34,12 +34,13 @@ export default {
     fdbCommit('reset', gameObject)
   },
 
-  setPlayer: function ({commit}, {index, name, id, type, difficulty = false}) {
+  setPlayer: function ({commit}, {index, name, id, theme, type, difficulty = false}) {
     var commitData = {
       index,
       player: {
         name: name,
         id: id,
+        theme: theme,
         location: PLAYER_LOCATION[index],
         type: type,
         difficulty: difficulty,
