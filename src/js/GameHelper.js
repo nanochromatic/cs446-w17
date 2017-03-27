@@ -31,6 +31,6 @@ export const getPlayerId = function () {
     return localStorage.getItem('playerId')
   } else {
     localStorage.setItem('playerId', newId)
-    return Date.now()
+    return Date.now().toString()
   }
 }
