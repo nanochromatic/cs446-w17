@@ -1,4 +1,4 @@
-import { LOCATION } from '../js/GameHelper'
+import { LOCATION } from '../js/DeckHelper'
 
 export default {
   drawStackDeck: state => state.game.deck.filter(card => card.location === LOCATION.DRAW_STACK),
@@ -13,6 +13,5 @@ export default {
   currentPlayer: state => state.game.players[0],
   lastCardPlayed: state => state.game.lastCardPlayed,
   attackStatus: state => state.game.specialAttackStack,
-  cpuBoardAction: state => state.game.cpuBoardAction,
-  lastColour: state => state.game.currentColour
+  lastColor: state => state.game.lastCardPlayed ? state.game.lastCardPlayed.color : ''
 }
