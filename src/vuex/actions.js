@@ -61,6 +61,27 @@ export default {
     commit('playCard', state.game.deck[28])
     fdbCommit('playCard', state.game.deck[28])
 
+    // Process card effects, but not additional turn
+    switch (state.game.deck[28].secondary) {
+      case SECONDARY.REVERSE:
+        commit('switchDirection')
+        fdbCommit('switchDirection')
+        break
+      case SECONDARY.SINGLE_ATTACK:
+        commit('attackStack', 1)
+        fdbCommit('attackStack', 1)
+        break
+      case SECONDARY.DOUBLE_ATTACK:
+        commit('attackStack', 2)
+        fdbCommit('attackStack', 2)
+        break
+      case SECONDARY.JUMP:
+        commit('endTurn')
+        fdbCommit('endTurn')
+        fdbSync()
+        break
+    }
+
     fdbSync()
   },
 
