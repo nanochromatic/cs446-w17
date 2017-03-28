@@ -34,14 +34,3 @@ export const getPlayerId = function () {
     return Date.now().toString()
   }
 }
-
-export const getPlayerTheme = function () {
-  var newTheme = ''
-
-  if (localStorage.getItem('playerTheme')) {
-    return localStorage.getItem('playerTheme')
-  } else {
-    localStorage.setItem('playerTheme', newTheme)
-    return newTheme
-  }
-}

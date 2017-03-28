@@ -1,6 +1,6 @@
 <template>
   <div class="screen landing">
-    <img class="logo" :src="'static/logo'+playerTheme+'.png'">
+    <img class="logo" :src="'static/logo' + player.theme + '.png'">
     <h1>Welcome to Quova, {{ playerName }}</h1>
 
     <div class="player-name">
@@ -30,14 +30,6 @@ export default {
       },
       set (newValue) {
         this.setPlayerName(newValue)
-      }
-    },
-    playerTheme: {
-      get () {
-        return this.player.theme
-      },
-      set (newValue) {
-        this.setPlayerTheme(newValue)
       }
     }
   },

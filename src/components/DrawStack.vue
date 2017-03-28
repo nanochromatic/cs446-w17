@@ -2,7 +2,7 @@
   <div class="draw-stack" v-on:click="draw">
     <transition-group name="draw-card" tag="div" class="t-el">
       <div class="card-container" v-for="card in stack" :key="card.id">
-        <card :card="card" :show='false' :theme="devicePlayerTheme"/>
+        <card :card="card" :show='false'/>
       </div>
     </transition-group>
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { getPlayerId, getPlayerTheme } from '../js/GameHelper'
+import { getPlayerId } from '../js/GameHelper'
 import Card from './Card'
 
 export default {
@@ -27,10 +27,6 @@ export default {
       'drawStackDeck',
       'currentPlayer'
     ]),
-
-    devicePlayerTheme () {
-      return getPlayerTheme()
-    },
 
     stack () {
       return this.drawStackDeck.reverse()

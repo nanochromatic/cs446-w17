@@ -1,22 +1,27 @@
 <template>
-  <div id="app" :class="'appTheme'+playerTheme">
+  <div id="app" :class="'appTheme' + player.theme">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'app',
   computed: {
     ...mapState([
       'player'
-    ]),
-    playerTheme: {
-      get () {
-        return this.player.theme
-      }
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'setPlayerTheme'
+    ])
+  },
+  mounted () {
+    if (localStorage.getItem('playerTheme') !== undefined) {
+      this.setPlayerTheme(localStorage.getItem('playerTheme'))
     }
   }
 }

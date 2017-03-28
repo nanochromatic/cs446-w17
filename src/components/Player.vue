@@ -3,7 +3,7 @@
     <b class="player-name">{{ player.name}}</b>
     <transition-group name="play-card" tag="div" class="container">
       <div class="card-container" v-for="card in playerHand" :key="card.id">
-          <card :card="card" v-on:click.native="playCard(card)" :show="player.id === devicePlayerId" :theme="player.theme"/>
+          <card :card="card" v-on:click.native="playCard(card)" :show="player.id === devicePlayerId"/>
       </div>
     </transition-group>
     <transition name="fade">

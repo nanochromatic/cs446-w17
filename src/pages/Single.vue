@@ -76,10 +76,10 @@ export default {
     begin () {
       this.resetGame({sync: false})
       this.setGameController(true)
-      this.setPlayer({index: 0, name: this.player.name, id: getPlayerId(), theme: this.player.theme, type: PLAYER_TYPE.HUMAN})
-      this.setPlayer({index: 1, name: 'CPU Alice', id: 'CPU1', theme: this.player.theme, type: PLAYER_TYPE.CPU, difficulty: this.difficulties[1]})
-      this.setPlayer({index: 2, name: 'CPU Bob', id: 'CPU2', theme: this.player.theme, type: PLAYER_TYPE.CPU, difficulty: this.difficulties[2]})
-      this.setPlayer({index: 3, name: 'CPU Carol', id: 'CPU3', theme: this.player.theme, type: PLAYER_TYPE.CPU, difficulty: this.difficulties[3]})
+      this.setPlayer({index: 0, name: this.player.name, id: getPlayerId(), type: PLAYER_TYPE.HUMAN})
+      this.setPlayer({index: 1, name: 'CPU Alice', id: 'CPU1', type: PLAYER_TYPE.CPU, difficulty: this.difficulties[1]})
+      this.setPlayer({index: 2, name: 'CPU Bob', id: 'CPU2', type: PLAYER_TYPE.CPU, difficulty: this.difficulties[2]})
+      this.setPlayer({index: 3, name: 'CPU Carol', id: 'CPU3', type: PLAYER_TYPE.CPU, difficulty: this.difficulties[3]})
       this.startGame()
     }
   }
