@@ -13,7 +13,7 @@
     <board v-else-if="gameStatus === 'inProgress'" />
 	<div v-else>
 		<div class="message">{{ gameStatus }}</div>
-		<a v-on:click="begin" class="button">New Game</a><br /><router-link to="/" class="button">Back Home</router-link>
+		<a v-on:click="begin" class="button">New Game</a><br /><router-link v-on:click.native="returnHome" to="/" class="button">Back Home</router-link>
 	</div>
 </template>
 
@@ -81,6 +81,10 @@ export default {
       this.setPlayer({index: 2, name: 'CPU Bob', id: 'CPU2', type: PLAYER_TYPE.CPU, difficulty: this.difficulties[2]})
       this.setPlayer({index: 3, name: 'CPU Carol', id: 'CPU3', type: PLAYER_TYPE.CPU, difficulty: this.difficulties[3]})
       this.startGame()
+    },
+
+    returnHome () {
+      this.resetGame({sync: false})
     }
   }
 
