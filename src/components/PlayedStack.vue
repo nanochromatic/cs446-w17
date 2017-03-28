@@ -1,7 +1,8 @@
 <template>
-  <div class="playedStack">
-    <card :card="lastCardPlayed" :theme="devicePlayerTheme"/>
-    <!--<card v-for="card in reverse" :card="card" class="card-container"/>-->
+  <div class="played-stack">
+    <transition name="played">
+      <card :card="lastCardPlayed" :theme="devicePlayerTheme"/>
+    </transition>
   </div>
 </template>
 
@@ -22,8 +23,7 @@ export default {
   computed: {
     ...mapGetters([
       'lastCardPlayed',
-      'playedStackDeck',
-      'currentPlayer'
+      'playedStackDeck'
     ]),
 
     reverse: function () {
@@ -41,26 +41,22 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-.playedStack {
-  display: -webkit-inline-flex;
-  display: inline-flex;
+<style scoped>
+.played-stack {
   width: 20%;
   height: 100%;
-  float: left;
-  margin-left: 30%;
+  margin-right: 5%;
 }
 
-.card-container {
-  -webkit-flex: 1 1 100px;
-  flex: 1 1 100px;
-  overflow: visible;
+.played-enter-active,
+.played-leave-active {
+  transition: all .3s ease-in;
+  transform: scale(1);
+  opacity: 1;
 }
-
-.card-container:last-child {
-  -webkit-flex: 0 0 100px;
-  flex: 0 0 100px;
+.played-enter,
+.played-leave-to {
+  transform: scale(0);
+  opacity: 0;
 }
-
 </style>

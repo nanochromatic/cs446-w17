@@ -1,18 +1,19 @@
 <template>
   <div class="player" v-bind:class="{'player-active-turn': isPlayerTurn}">
     <b class="player-name">{{ player.name}}</b>
-    <div class="container" v-if="player.id === devicePlayerId">
-      <card v-for="card in playerHand" class="card-container player-card" :card="card" v-on:click.native="playCard(card)" :theme="player.theme"/>
-      <div class="color-picker" v-if="chooseColor">
+    <transition-group name="play-card" tag="div" class="container">
+      <div class="card-container" v-for="card in playerHand" :key="card.id">
+          <card :card="card" v-on:click.native="playCard(card)" :show="player.id === devicePlayerId" :theme="player.theme"/>
+      </div>
+    </transition-group>
+    <transition name="fade">
+      <div class="color-picker" v-if="chooseColor && player.id === devicePlayerId">
         <div class="color-selection red" v-on:click="setColor('red')"></div>
         <div class="color-selection yellow" v-on:click="setColor('yellow')"></div>
         <div class="color-selection green" v-on:click="setColor('green')"></div>
         <div class="color-selection blue" v-on:click="setColor('blue')"></div>
       </div>
-    </div>
-    <div class="container" v-else>
-      <card v-for="card in playerHand" class="card-container" :card="card" :show='false' :theme="player.theme"/>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -155,6 +156,10 @@ export default {
     },
 
     playCard: function (card) {
+      if (this.player.id !== this.devicePlayerId) {
+        console.log('not your cards')
+        return
+      }
       if (this.currentPlayer.location !== this.player.location) {
         console.log('not your turn')
         return
@@ -265,25 +270,19 @@ export default {
   left: 50%;
   font-size: 3vmin;
   z-index: 2;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(180deg);
 }
 .bottom .player-name {
   display: none;
 }
 
 .container {
-  display: -webkit-inline-flex;
   display: inline-flex;
-  width: 50%;
+  width: 55%;
   height: 100%;
   justify-content: center;
-  -webkit-justify-content: center;
-  transform: translate3d(0,-30%,0);
-  transition: transform .5s;
-}
-
-.bottom .container {
-  transform: translate3d(0,30%,0);
+  transform: translate3d(0,40%,0);
+  transition: transform .5s 1s;
 }
 
 .player-active-turn .container {
@@ -291,19 +290,17 @@ export default {
 }
 
 .card-container {
-  -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
-  overflow: visible;
+  max-width: 119px;
 }
 
 .card-container:last-child {
-  -webkit-flex: 0 0 auto;
-  flex: 0 0 auto;
+  flex: 0 0 119px;
 }
 
 .player-card:hover {
-  display: relative;
-  top: -5px;
+  /*display: relative;
+  top: -5px;*/
   z-index: 2;
 }
 
@@ -312,6 +309,7 @@ export default {
   border: 2px solid #fff;
   border-radius: 50px;
   position: absolute;
+  left: 25%;
   height: 60vh;
   width: 50vw;
   bottom: 20vh;
@@ -358,6 +356,39 @@ export default {
 
 .blue:active {
   background-color: rgba(74,205,239,0.3);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .3s ease-in;
+  transform: scale(1);
+  opacity: 1;
+}
+.fade-enter,
+.fade-leave-to {
+  transform: scale(0);
+  opacity: 0;
+}
+
+/*.play-card-enter-active,*/
+.play-card-leave-active {
+  transition: all .3s ease-in;
+}
+/*.play-card-enter,*/
+.play-card-leave-to {
+  transform: translate3d(0, -50%, 0);
+  opacity: .7;
+}
+.play-card-enter-active {
+  transition: all .3s .3s ease-in;
+  opacity: 1;
+}
+.play-card-enter {
+  opacity: 0;
+}
+
+.play-card-list-move {
+  transition: transform 1s;
 }
 
 </style>

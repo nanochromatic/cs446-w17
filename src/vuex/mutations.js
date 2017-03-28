@@ -76,14 +76,20 @@ export default {
   },
 
   playCard (state, card) {
-    var cardInDeck = state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary)
-    cardInDeck.location = LOCATION.PLAYED_STACK
+    card.location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = Object.assign({}, card)
   },
 
   swapCard (state, [handCard, pileCard]) {
     // We don't actually need to change the pileCard location, since it will get set to PLAYED_STACK in playCard()
-    state.game.deck.find(deckCard => deckCard.color === handCard.color && deckCard.secondary === handCard.secondary).location = LOCATION.DRAW_STACK
+    handCard.location = LOCATION.DRAW_STACK
+
+    // Just swapping the locations doesn't work, since the animations reveal the player cheating
+    // Need to maintain the v-for key, which is the id
+    var id = handCard.id
+    handCard.id = pileCard.id
+    pileCard.id = id
+    console.log('cheater, cheater, pumpkin eater!')
   },
 
   drawCard (state, toLocation) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-bind:class="['card--'+card.color]">
+  <div class="card" v-bind:class="['card--'+card.location]">
   <template v-if="show === true">
   	<img class="back-frame" :src="'static/cardframe'+card.color+theme+'.png'"/>
   	<img class="card-icon" :src="'static/card'+card.secondary+card.color+theme+'.png'"/>
@@ -40,8 +40,8 @@ export default {
 <style>
 .card {
   position: relative;
+  width: 100%;
   height: 100%;
-  max-width: 20%;
 }
 
 .back-frame {
@@ -57,6 +57,5 @@ export default {
     left: 0;
   height: 100%;
 }
-
 </style>
 
