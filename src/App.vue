@@ -1,12 +1,29 @@
 <template>
-  <div id="app">
+  <div id="app" :class="'appTheme' + player.theme">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
-  name: 'app'
+  name: 'app',
+  computed: {
+    ...mapState([
+      'player'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'setPlayerTheme'
+    ])
+  },
+  mounted () {
+    if (localStorage.getItem('playerTheme') !== undefined) {
+      this.setPlayerTheme(localStorage.getItem('playerTheme'))
+    }
+  }
 }
 </script>
 
@@ -42,7 +59,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
+}
+
+.appTheme {
   background: #000 url(/static/background.jpg) center center no-repeat;
+  background-size: cover;
+}
+
+.appTheme2 {
+  background: #000 url(/static/background2.jpg) center center no-repeat;
   background-size: cover;
 }
 </style>

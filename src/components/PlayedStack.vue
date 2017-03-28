@@ -21,8 +21,13 @@ export default {
 
   computed: {
     ...mapGetters([
-      'lastCardPlayed'
-    ])
+      'lastCardPlayed',
+      'playedStackDeck'
+    ]),
+
+    reverse: function () {
+      return this.playedStackDeck.reverse()
+    }
   },
 
   methods: {

@@ -1,14 +1,16 @@
 <template>
-  <div class="card" v-bind:class="['card--'+card.location]">
-    <template v-if="show === true">
-    	<img class="back-frame" :src="'static/cardframe'+card.color+'.png'"/>
-    	<img class="card-icon" :src="'static/card'+card.secondary+card.color+'.png'"/>
-    </template>
-  	<img v-else class="back-frame" src="static/cardframeback.png"/>
+  <div class="card" :class="['card--' + card.location]">
+  <template v-if="show === true">
+  	<img class="back-frame" :src="'static/cardframe' + card.color + player.theme + '.png'"/>
+  	<img class="card-icon" :src="'static/card' + card.secondary + card.color + player.theme + '.png'"/>
+  </template>
+	<img v-else class="back-frame" :src="'static/cardframeback' + player.theme + '.png'"/>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     card: {
@@ -27,7 +29,13 @@ export default {
         return true
       }
     }
+  },
+  computed: {
+    ...mapState([
+      'player'
+    ])
   }
+
 }
 </script>
 

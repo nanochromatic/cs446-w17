@@ -15,6 +15,11 @@ export default {
     localStorage.setItem('playerName', name)
   },
 
+  setPlayerTheme (state, theme) {
+    state.player.theme = theme
+    localStorage.setItem('playerTheme', theme)
+  },
+
   /*
    * The device for which this is true will be responsible for
    * managing all CPU players and the game state
