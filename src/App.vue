@@ -20,8 +20,10 @@ export default {
     ])
   },
   mounted () {
-    if (localStorage.getItem('playerTheme') !== undefined) {
+    if (localStorage.getItem('playerTheme') !== null) {
       this.setPlayerTheme(localStorage.getItem('playerTheme'))
+    } else {
+      this.setPlayerTheme('')
     }
   }
 }

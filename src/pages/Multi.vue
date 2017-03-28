@@ -146,6 +146,10 @@ export default {
     }
 
     var interval = setInterval(mount.bind(this), 100)
+
+    window.addEventListener('beforeunload', function (event) {
+      window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
+    }.bind(this))
   },
 
   beforeDestroy () {
