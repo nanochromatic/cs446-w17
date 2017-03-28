@@ -1,6 +1,7 @@
 <template>
   <div class="board">
     <timer :name="currentPlayer.name" v-on:timeExpired="outOfTime" />
+	<div class="attackStack">Attack Stack: {{ attackStatus }}</div>
     <div class="stacks">
       <played-stack />
       <draw-stack />
@@ -32,7 +33,8 @@ export default {
   computed: {
     ...mapGetters([
       'players',
-      'currentPlayer'
+      'currentPlayer',
+      'attackStatus'
     ])
   },
 
@@ -120,6 +122,13 @@ export default {
   width: 100vh;
   height: 30%;
   top: 0;
+}
+
+.attackStack {
+  position: absolute;
+  top: 6vmin;
+  left: 0;
+  z-index: 2;
 }
 
 </style>
