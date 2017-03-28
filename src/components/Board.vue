@@ -6,7 +6,6 @@
       <draw-stack />
     </div>
     <player v-for="(location, id) in locations" :key="id" :player="players[getPlayerIndex(id)]" :class="location"/>
-    <!-- <player v-for="player in players" :key="player.location" :player="player" :class="locations[player.id]"/> -->
   </div>
 </template>
 
@@ -25,27 +24,16 @@ export default {
     DrawStack,
     PlayedStack
   },
-
+  data () {
+    return {
+      locations: {}
+    }
+  },
   computed: {
     ...mapGetters([
       'players',
       'currentPlayer'
-    ]),
-    locations () {
-      var devicePlayerId = getPlayerId()
-      var locations = {}
-      var classNames = ['bottom', 'left', 'top', 'right']
-      var ids = this.players.map(player => player.id)
-      var index = ids.findIndex(id => id === devicePlayerId)
-      // ensure the device player is first in ids[], so that they get position bottom
-      for (var i = 0; i < index; i++) {
-        var a = ids.shift()
-        ids.push(a)
-      }
-      ids.forEach((id, i) => { locations[id] = classNames[i] })
-
-      return locations
-    }
+    ])
   },
 
   methods: {
@@ -63,6 +51,20 @@ export default {
       this.drawCardAction(this.currentPlayer.location)
       this.endTurnAction()
     }
+  },
+  mounted () {
+    var devicePlayerId = getPlayerId()
+    var locations = {}
+    var classNames = ['bottom', 'left', 'top', 'right']
+    var ids = this.players.map(player => player.id)
+    var index = ids.findIndex(id => id === devicePlayerId)
+    // ensure the device player is first in ids[], so that they get position bottom
+    for (var i = 0; i < index; i++) {
+      var a = ids.shift()
+      ids.push(a)
+    }
+    ids.forEach((id, i) => { locations[id] = classNames[i] })
+    this.locations = locations
   }
 }
 

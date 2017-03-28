@@ -17,11 +17,6 @@ export default {
   components: {
     Card
   },
-
-  data () {
-    return {}
-  },
-
   computed: {
     ...mapGetters([
       'drawStackDeck',
@@ -32,7 +27,6 @@ export default {
       return this.drawStackDeck.reverse()
     }
   },
-
   methods: {
     ...mapActions([
       'drawCardAction',
@@ -45,7 +39,6 @@ export default {
         this.endTurnAction()
       }
     }
-
   }
 }
 </script>
