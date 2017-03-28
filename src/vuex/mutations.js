@@ -71,7 +71,8 @@ export default {
   },
 
   playCard (state, card) {
-    card.location = LOCATION.PLAYED_STACK
+    var cardInDeck = state.game.deck.find(deckCard => deckCard.color === card.color && deckCard.secondary === card.secondary)
+    cardInDeck.location = LOCATION.PLAYED_STACK
     state.game.lastCardPlayed = Object.assign({}, card)
   },
 
