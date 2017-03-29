@@ -38,6 +38,7 @@ export default {
 
 <style scoped>
 .played-stack {
+  position: relative;
   width: 20%;
   height: 100%;
   margin-right: 5%;

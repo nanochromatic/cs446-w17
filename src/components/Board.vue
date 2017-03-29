@@ -91,6 +91,7 @@ export default {
 .bottom {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100vw;
   height: 30%;
   z-index: 1;
@@ -100,16 +101,17 @@ export default {
   transform-origin: 0 0;
   transform: rotate(90deg) translateY(-100%);
   position: fixed;
+  top: 0;
   left: 0;
   width: 100vh;
   height: 30%;
-  top: 0;
 }
 
 .top {
   transform: rotate(180deg);
   position: fixed;
   top: 0;
+  left: 0;
   width: 100vw;
   height: 30%;
 }
@@ -118,10 +120,10 @@ export default {
   transform-origin: 100% 0%;
   transform: rotate(-90deg) translateY(-100%);
   position: fixed;
+  top: 0;
   right: 0;
   width: 100vh;
   height: 30%;
-  top: 0;
 }
 
 .attackStackIndicator {

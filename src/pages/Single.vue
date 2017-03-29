@@ -3,12 +3,12 @@
     <div v-if="gameStatus === 'waiting'">
       <div class="waiting-players">
         <div class="game-player"><small>Player 1</small>You ({{ player.name }})</div>
-        <div class="game-player" v-on:click="changeDifficulty(1)"><small>Player 2</small>CPU 1<span>Difficulty: {{ difficulties[1] }}</span></div>
-        <div class="game-player" v-on:click="changeDifficulty(2)"><small>Player 3</small>CPU 2<span>Difficulty: {{ difficulties[2] }}</span></span></div>
-        <div class="game-player" v-on:click="changeDifficulty(3)"><small>Player 4</small>CPU 3<span>Difficulty: {{ difficulties[3] }}</span></div>
+        <div class="game-player" v-on:click="changeDifficulty(1)"><small>Player 2</small>CPU Alice<span>Difficulty: {{ difficulties[1] }}</span></div>
+        <div class="game-player" v-on:click="changeDifficulty(2)"><small>Player 3</small>CPU Bob<span>Difficulty: {{ difficulties[2] }}</span></span></div>
+        <div class="game-player" v-on:click="changeDifficulty(3)"><small>Player 4</small>CPU Carol<span>Difficulty: {{ difficulties[3] }}</span></div>
       </div>
-      <button v-on:click="begin" class="button">Start Game</button>
       <router-link to="/" class="button">Back Home</router-link>
+      <button v-on:click="begin" class="button">Start Game</button>
     </div>
     <board v-else-if="gameStatus === 'inProgress'" />
 	<div v-else>
@@ -101,13 +101,14 @@ export default {
 .waiting-players {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .game-player {
   box-sizing: border-box;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding: 1em;
   border: 1px solid #fff;
-  width: 50%;
+  width: 40vw;
 }
 .game-player small {
   display: block;

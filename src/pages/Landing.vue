@@ -1,13 +1,7 @@
 <template>
   <div class="screen landing">
     <img class="logo" :src="'static/logo' + player.theme + '.png'">
-    <h1>Welcome to Quova, {{ playerName }}</h1>
-
-    <div class="player-name">
-      <label for="name" class="player-name__label">Enter your name:</label>
-      <input type="text" id="name" v-model="playerName" placeholder="Your Name" class="player-name__input">
-    </div>
-
+    <h1>Welcome to Quova, <input type="text" id="name" v-model="playerName" placeholder="Your Name" class="player-name__input"></h1>
     <p class="options">
       <router-link to="/sp">Single Player</router-link> or <router-link to="/mp">Multiplayer</router-link>
     </p>
@@ -53,7 +47,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .logo {
-  max-height: 60%;
+  max-height: 50%;
 }
 
 h1, h2 {
@@ -74,15 +68,14 @@ li {
 a {
   color: #fff;
   font-size: 2em;
+  text-decoration: none;
 }
 
-.player-name {
-  font-size: 2em;
-}
-.player-name__label {}
 .player-name__input {
+  width: 25vw;
   border: none;
   border-bottom: 2px solid #fff;
+  border-radius: 0;
   padding-top: .25em;
   font-size: 1em;
   color: #fff;

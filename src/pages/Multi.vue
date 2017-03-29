@@ -4,8 +4,8 @@
       <div class="waiting-players">
         <div v-for="(player, i) in players" class="game-player"><small>Player {{ i+1 }}</small>{{ player }}</div>
       </div>
-      <button v-on:click="begin" class="button">Start Game</button>
       <router-link to="/" class="button">Back Home</router-link>
+      <button v-on:click="begin" class="button">Start Game</button>
     </div>
     <board v-else-if="gameStatus === 'inProgress'" />
   <div v-else>
@@ -28,6 +28,8 @@ export default {
 
   data () {
     return {
+      cpuNames: ['CPU Alice', 'CPU Bob', 'CPU Carol', 'CPU Dave'],
+      mountInterval: null,
       devicePlayerId: ''
     }
   },
@@ -46,10 +48,10 @@ export default {
       if (!this.waitingPlayers) { return [] }
       var cpuCount = 0
       var players = [
-        this.waitingPlayers[0] ? this.waitingPlayers[0].name : `CPU${++cpuCount}`,
-        this.waitingPlayers[1] ? this.waitingPlayers[1].name : `CPU${++cpuCount}`,
-        this.waitingPlayers[2] ? this.waitingPlayers[2].name : `CPU${++cpuCount}`,
-        this.waitingPlayers[3] ? this.waitingPlayers[3].name : `CPU${++cpuCount}`
+        this.waitingPlayers[0] ? this.waitingPlayers[0].name : this.cpuNames[cpuCount++],
+        this.waitingPlayers[1] ? this.waitingPlayers[1].name : this.cpuNames[cpuCount++],
+        this.waitingPlayers[2] ? this.waitingPlayers[2].name : this.cpuNames[cpuCount++],
+        this.waitingPlayers[3] ? this.waitingPlayers[3].name : this.cpuNames[cpuCount++]
       ]
 
       if (cpuCount === 0 && this.waitingPlayers[0].playerId === this.devicePlayerId) {
@@ -98,7 +100,7 @@ export default {
         } else {
           // CPU
           cpuCount++
-          player.name = `CPU${cpuCount}`
+          player.name = this.cpuNames[cpuCount]
           player.id = `CPU${cpuCount}`
           player.type = PLAYER_TYPE.CPU
           player.difficulty = PLAYER_DIFFICULTY.NORMAL
@@ -118,13 +120,11 @@ export default {
 
     returnHome () {
       this.resetGame({sync: false})
-    }
-  },
+    },
 
-  mounted () {
-    function mount () {
+    mountBehaviour () {
       if (window.vm !== undefined) {
-        clearInterval(interval)
+        clearInterval(this.mountInterval)
         window.vm.$bindAsArray('waitingPlayers', fdb.ref('waitingPlayers'))
 
         this.devicePlayerId = getPlayerId()
@@ -147,18 +147,41 @@ export default {
           }
         }, this)
       }
+    },
+
+    unmountBehaviour () {
+      if (window.vm.$firebaseRefs.waitingPlayers !== undefined) {
+        window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
+        window.vm.$unbind('waitingPlayers')
+      }
     }
+  },
 
-    var interval = setInterval(mount.bind(this), 100)
+  mounted () {
+    this.mountInterval = setInterval(this.mountBehaviour, 100)
 
-    window.addEventListener('beforeunload', function (event) {
-      window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
+    // Browser window show/hide
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') {
+        this.mountBehaviour()
+      } else if (document.visibilityState === 'hidden') {
+        this.unmountBehaviour()
+      }
+    }.bind(this))
+
+    // Cordova event
+    document.addEventListener('pause', function () {
+      this.unmountBehaviour()
+    }.bind(this))
+
+    // Cordova event
+    document.addEventListener('resume', function () {
+      this.mountBehaviour()
     }.bind(this))
   },
 
   beforeDestroy () {
-    window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
-    window.vm.$unbind('waitingPlayers')
+    this.unmountBehaviour()
   }
 }
 </script>
@@ -173,13 +196,14 @@ export default {
 .waiting-players {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .game-player {
   box-sizing: border-box;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding: 1em;
   border: 1px solid #fff;
-  width: 50%;
+  width: 40vw;
 }
 .game-player small {
   display: block;
