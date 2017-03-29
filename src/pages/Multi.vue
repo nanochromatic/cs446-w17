@@ -154,6 +154,14 @@ export default {
         window.vm.$firebaseRefs.waitingPlayers.child(this.playerKey).remove()
         window.vm.$unbind('waitingPlayers')
       }
+    },
+
+    visibilitychange () {
+      if (document.visibilityState === 'visible') {
+        this.mountBehaviour()
+      } else if (document.visibilityState === 'hidden') {
+        this.unmountBehaviour()
+      }
     }
   },
 
@@ -161,26 +169,25 @@ export default {
     this.mountInterval = setInterval(this.mountBehaviour, 100)
 
     // Browser window show/hide
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible') {
-        this.mountBehaviour()
-      } else if (document.visibilityState === 'hidden') {
-        this.unmountBehaviour()
-      }
-    }.bind(this))
+    document.addEventListener('visibilitychange', this.visibilitychange)
 
-    // Cordova event
-    document.addEventListener('pause', function () {
-      this.unmountBehaviour()
-    }.bind(this))
+    if (window.cordova !== undefined) {
+      // Remove if already added
+      document.removeEventListener('pause', this.unmountBehaviour)
+      document.removeEventListener('resume', this.mountBehaviour)
 
-    // Cordova event
-    document.addEventListener('resume', function () {
-      this.mountBehaviour()
-    }.bind(this))
+      // Cordova events
+      document.addEventListener('pause', this.unmountBehaviour)
+      document.addEventListener('resume', this.mountBehaviour)
+    }
   },
 
   beforeDestroy () {
+    document.removeEventListener('visibilitychange', this.visibilitychange)
+    if (window.cordova !== undefined) {
+      document.removeEventListener('pause', this.unmountBehaviour)
+      document.removeEventListener('resume', this.mountBehaviour)
+    }
     this.unmountBehaviour()
   }
 }
