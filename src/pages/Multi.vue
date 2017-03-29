@@ -10,7 +10,7 @@
     <board v-else-if="gameStatus === 'inProgress'" />
   <div v-else>
     <div class="message">{{ gameStatus }}</div>
-    <a v-on:click="begin" class="button">New Game</a><br /><router-link v-on:click.native="returnHome" to="/" class="button">Back Home</router-link>
+    <router-link v-on:click.native="returnHome" to="/" class="button">Back Home</router-link>
   </div>
 </template>
 
